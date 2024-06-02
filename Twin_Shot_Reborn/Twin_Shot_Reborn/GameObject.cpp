@@ -7,8 +7,6 @@ GameObject::GameObject()
 {
 	pos.x = pos.y = 0.f;
 	size = { 10, 10 };
-	framePerSecond = 1.f;
-	nowFrameIdxF = 0.f;
 }
 
 GameObject::~GameObject()
