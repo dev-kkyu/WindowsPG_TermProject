@@ -26,7 +26,7 @@ public:
 	void setSize(SIZE size);
 	SIZE getSize() const;
 
-	RECT getCollisionRect() const;
+	RECT getObjectRect() const;
 
 	bool isCollide(const GameObject& other) const;
 	bool isSelected(const POINT& point) const;

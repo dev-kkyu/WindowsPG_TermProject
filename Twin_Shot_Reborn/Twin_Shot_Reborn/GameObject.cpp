@@ -59,22 +59,22 @@ SIZE GameObject::getSize() const
 	return size;
 }
 
-RECT GameObject::getCollisionRect() const
+RECT GameObject::getObjectRect() const
 {
 	POINT pos = getPosInt();
-	return RECT{ pos.x - size.cx / 2, pos.y - size.cy / 2, pos.x + size.cx / 2, pos.y + size.cy / 2 };
+	return RECT{ pos.x - size.cx / 2, pos.y - size.cy, pos.x + size.cx / 2, pos.y };	// ÇÇ¹þÀ» Áß¾Ó ÇÏ´ÜÀ¸·Î µÐ´Ù.
 }
 
 bool GameObject::isCollide(const GameObject& other) const
 {
 	RECT rc;
-	const RECT myRect = getCollisionRect();
-	const RECT otherRect = other.getCollisionRect();
+	const RECT myRect = getObjectRect();
+	const RECT otherRect = other.getObjectRect();
 	return static_cast<bool>(IntersectRect(&rc, &myRect, &otherRect));
 }
 
 bool GameObject::isSelected(const POINT& point) const
 {
-	const RECT myRect = getCollisionRect();
+	const RECT myRect = getObjectRect();
 	return static_cast<bool>(PtInRect(&myRect, point));
 }
