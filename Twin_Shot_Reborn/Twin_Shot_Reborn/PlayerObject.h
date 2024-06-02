@@ -24,6 +24,10 @@ private:
 
 	int dirX;
 
+	float velocity;		// x 방향 속도
+	float maxSpeed;		// 최대 속도
+	float acceleration;	// 가속도
+
 public:
 	PlayerObject();
 	virtual ~PlayerObject();

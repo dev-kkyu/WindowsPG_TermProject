@@ -1,6 +1,16 @@
 #include "PlayerObject.h"
 
 #include <cmath>
+#include <limits>
+
+static inline constexpr float my_clamp(float val, float min_val, float max_val)
+{
+	if (val < min_val)
+		return min_val;
+	if (val > max_val)
+		return max_val;
+	return val;
+}
 
 PlayerObject::PlayerObject()
 {
@@ -18,6 +28,10 @@ PlayerObject::PlayerObject()
 	keyState = 0;
 
 	dirX = 1;	// 오른쪽을 보고 있다.
+
+	velocity = 0.f;			// 속도는 오른쪽 혹은 왼쪽
+	maxSpeed = 600.f;		// 최대 속도 제한
+	acceleration = 1800.f;	// 초당 증가하는 속도
 }
 
 PlayerObject::~PlayerObject()
@@ -26,8 +40,32 @@ PlayerObject::~PlayerObject()
 
 void PlayerObject::update(float elapsedTime)
 {
+	// 이미지 애니메이션
 	nowFrameIdxF += framePerSecond * elapsedTime;
 	nowFrameIdxF = std::fmod(nowFrameIdxF, float(images["Idle"].size()));
+
+	// 좌우 모두 누르고 있거나 안누르고 있을 때는 속도를 감소시킨다.
+	if ((keyState & MY_KEY_LEFT and keyState & MY_KEY_RIGHT) or
+		(not (keyState & MY_KEY_LEFT) and not (keyState & MY_KEY_RIGHT))) {
+		if (std::abs(velocity) >= std::numeric_limits<float>::epsilon()) {
+			if (std::abs(velocity) <= 10.f) {
+				velocity = 0.f;
+			}
+			else {
+				velocity -= std::copysign(acceleration * elapsedTime, velocity);
+			}
+		}
+	}
+	else if (keyState & MY_KEY_LEFT) {
+		velocity -= acceleration * elapsedTime;
+	}
+	else if (keyState & MY_KEY_RIGHT) {
+		velocity += acceleration * elapsedTime;
+	}
+	// velocity가 maxSpeed 이내의 값을 가지도록 조정
+	velocity = my_clamp(velocity, -maxSpeed, maxSpeed);
+
+	pos.x += velocity * elapsedTime;
 }
 
 void PlayerObject::draw(HDC hdc)
