@@ -2,9 +2,12 @@
 
 #include "Scene.h"
 
+#include "PlayerObject.h"
+
 class GameScene : public Scene
 {
 private:
+	PlayerObject player;
 
 public:
 	GameScene();

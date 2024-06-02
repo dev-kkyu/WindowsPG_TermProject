@@ -14,10 +14,12 @@ void GameScene::initialize()
 
 void GameScene::update(float elapsedTime)
 {
+	player.update(elapsedTime);
 }
 
 void GameScene::draw(HDC hdc)
 {
+	player.draw(hdc);
 }
 
 void GameScene::destroy()

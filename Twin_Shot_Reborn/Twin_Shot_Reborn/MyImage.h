@@ -13,3 +13,4 @@ public:
 	HRESULT Load(std::wstring filename);
 	void MyDraw(HDC hdc, const RECT& dstRect, bool reverseX = false, bool reverseY = false);
 };
+
