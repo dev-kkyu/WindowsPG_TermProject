@@ -22,6 +22,9 @@
     <Filter Include="GameObject">
       <UniqueIdentifier>{1ac1563b-a89a-4b05-b3c4-e516af41d11e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MyImage">
+      <UniqueIdentifier>{1dbdab64-e8b2-4404-a48f-f095532f1be3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Twin_Shot_Reborn.cpp">
@@ -39,6 +42,9 @@
     <ClCompile Include="GameObject.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
+    <ClCompile Include="MyImage.cpp">
+      <Filter>MyImage</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scene.h">
@@ -52,6 +58,9 @@
     </ClInclude>
     <ClInclude Include="GameObject.h">
       <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="MyImage.h">
+      <Filter>MyImage</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

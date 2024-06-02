@@ -130,6 +130,7 @@
     <ClCompile Include="GameFramework.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="MyImage.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Twin_Shot_Reborn.cpp" />
   </ItemGroup>
@@ -137,6 +138,7 @@
     <ClInclude Include="GameFramework.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameScene.h" />
+    <ClInclude Include="MyImage.h" />
     <ClInclude Include="Scene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
