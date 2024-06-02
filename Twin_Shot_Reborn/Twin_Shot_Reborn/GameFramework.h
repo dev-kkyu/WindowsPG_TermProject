@@ -3,9 +3,6 @@
 #include <Windows.h>
 #include <memory>
 
-#define W_WIDTH		1200
-#define W_HEIGHT	900
-
 class Scene;
 class GameFramework
 {

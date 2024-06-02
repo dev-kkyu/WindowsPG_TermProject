@@ -71,5 +71,8 @@
     <ClInclude Include="PlayerObject.h">
       <Filter>GameObject\PlayerObject</Filter>
     </ClInclude>
+    <ClInclude Include="Define.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
