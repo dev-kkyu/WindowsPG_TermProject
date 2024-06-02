@@ -1,6 +1,7 @@
 #include "MyImage.h"
 
 MyImage::MyImage()
+	: image{ std::make_unique<CImage>() }
 {
 }
 
@@ -8,18 +9,31 @@ MyImage::~MyImage()
 {
 }
 
-HRESULT MyImage::Load(std::wstring filename)
+MyImage::MyImage(MyImage&& other) noexcept
+	: image{ std::move(other.image) }
 {
-	return CImage::Load(filename.c_str());
 }
 
-void MyImage::MyDraw(HDC hdc, const RECT& dstRect, bool reverseX, bool reverseY)
+MyImage& MyImage::operator=(MyImage&& other) noexcept
 {
-	const int imgWidth = CImage::GetWidth();
-	const int imgHeight = CImage::GetHeight();
+	if (this != &other) {
+		image = std::move(other.image);
+	}
+	return *this;
+}
+
+HRESULT MyImage::Load(std::wstring filename)
+{
+	return image->Load(filename.c_str());
+}
+
+void MyImage::MyDraw(HDC hdc, const RECT& dstRect, bool reverseX, bool reverseY) const
+{
+	const int imgWidth = image->GetWidth();
+	const int imgHeight = image->GetHeight();
 
 	// Alpha 채널을 가진 경우
-	if (32 == CImage::GetBPP()) {
+	if (32 == image->GetBPP()) {
 		// 좌우/상하 반전 효과를 위한 중간 메모리 DC 생성
 		HDC mDC = ::CreateCompatibleDC(hdc);
 		HBITMAP hBitmap = ::CreateCompatibleBitmap(hdc, imgWidth, imgHeight);
@@ -27,16 +41,16 @@ void MyImage::MyDraw(HDC hdc, const RECT& dstRect, bool reverseX, bool reverseY)
 
 		// 좌우, 상하 반전을 위해 메모리 DC에 복사한다.
 		if (reverseX and reverseY) {
-			CImage::StretchBlt(mDC, RECT{ 0, 0, imgWidth, imgHeight }, RECT{ imgWidth, imgHeight, 0, 0 }, SRCCOPY);
+			image->StretchBlt(mDC, RECT{ 0, 0, imgWidth, imgHeight }, RECT{ imgWidth, imgHeight, 0, 0 }, SRCCOPY);
 		}
 		else if (reverseX) {
-			CImage::StretchBlt(mDC, RECT{ 0, 0, imgWidth, imgHeight }, RECT{ imgWidth, 0, 0, imgHeight }, SRCCOPY);
+			image->StretchBlt(mDC, RECT{ 0, 0, imgWidth, imgHeight }, RECT{ imgWidth, 0, 0, imgHeight }, SRCCOPY);
 		}
 		else if (reverseY) {
-			CImage::StretchBlt(mDC, RECT{ 0, 0, imgWidth, imgHeight }, RECT{ 0, imgHeight, imgWidth, 0 }, SRCCOPY);
+			image->StretchBlt(mDC, RECT{ 0, 0, imgWidth, imgHeight }, RECT{ 0, imgHeight, imgWidth, 0 }, SRCCOPY);
 		}
 		else {
-			CImage::BitBlt(mDC, 0, 0, SRCCOPY);
+			image->BitBlt(mDC, 0, 0, SRCCOPY);
 		}
 
 		// 복사한 이미지를 화면에 그린다
@@ -54,16 +68,16 @@ void MyImage::MyDraw(HDC hdc, const RECT& dstRect, bool reverseX, bool reverseY)
 	else {
 		// 알파 채널이 없는 경우 바로 그린다
 		if (reverseX and reverseY) {
-			CImage::StretchBlt(hdc, dstRect, RECT{ imgWidth, imgHeight, 0, 0 }, SRCCOPY);
+			image->StretchBlt(hdc, dstRect, RECT{ imgWidth, imgHeight, 0, 0 }, SRCCOPY);
 		}
 		else if (reverseX) {
-			CImage::StretchBlt(hdc, dstRect, RECT{ imgWidth, 0, 0, imgHeight }, SRCCOPY);
+			image->StretchBlt(hdc, dstRect, RECT{ imgWidth, 0, 0, imgHeight }, SRCCOPY);
 		}
 		else if (reverseY) {
-			CImage::StretchBlt(hdc, dstRect, RECT{ 0, imgHeight, imgWidth, 0 }, SRCCOPY);
+			image->StretchBlt(hdc, dstRect, RECT{ 0, imgHeight, imgWidth, 0 }, SRCCOPY);
 		}
 		else {
-			CImage::StretchBlt(hdc, dstRect, SRCCOPY);
+			image->StretchBlt(hdc, dstRect, SRCCOPY);
 		}
 	}
 }
