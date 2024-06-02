@@ -6,7 +6,7 @@
 GameObject::GameObject()
 {
 	pos.x = pos.y = 0.f;
-	size = 10;
+	size = { 10, 10 };
 }
 
 GameObject::~GameObject()
@@ -20,8 +20,8 @@ void GameObject::move(const POINT& dir, float value)
 
 	// 방향 벡터를 정규화 (길이를 1로 만듦)
 	if (length >= std::numeric_limits<double>::epsilon()) {
-		float normX = dir.x / length;
-		float normY = dir.y / length;
+		float normX = static_cast<float>(dir.x / length);
+		float normY = static_cast<float>(dir.y / length);
 
 		// 이동할 거리를 곱하여 새로운 위치 계산
 		pos.x += normX * value;
@@ -49,12 +49,12 @@ POINT GameObject::getPosInt() const
 	return { static_cast<LONG>(pos.x), static_cast<LONG>(pos.y) };
 }
 
-void GameObject::setSize(int size)
+void GameObject::setSize(SIZE size)
 {
 	this->size = size;
 }
 
-int GameObject::getSize() const
+SIZE GameObject::getSize() const
 {
 	return size;
 }
@@ -62,5 +62,19 @@ int GameObject::getSize() const
 RECT GameObject::getCollisionRect() const
 {
 	POINT pos = getPosInt();
-	return RECT{ pos.x - size / 2, pos.y - size / 2, pos.x + size / 2, pos.y + size / 2 };
+	return RECT{ pos.x - size.cx / 2, pos.y - size.cy / 2, pos.x + size.cx / 2, pos.y + size.cy / 2 };
+}
+
+bool GameObject::isCollide(const GameObject& other) const
+{
+	RECT rc;
+	const RECT myRect = getCollisionRect();
+	const RECT otherRect = other.getCollisionRect();
+	return static_cast<bool>(IntersectRect(&rc, &myRect, &otherRect));
+}
+
+bool GameObject::isSelected(const POINT& point) const
+{
+	const RECT myRect = getCollisionRect();
+	return static_cast<bool>(PtInRect(&myRect, point));
 }

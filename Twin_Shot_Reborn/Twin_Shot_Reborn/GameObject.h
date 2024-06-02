@@ -6,7 +6,7 @@ class GameObject
 {
 protected:
 	POINTFLOAT pos;	// float로 관리.. 부드러운 타이머 애니메이션을 위하여
-	int size;
+	SIZE size;
 
 public:
 	GameObject();
@@ -23,9 +23,12 @@ public:
 	POINTFLOAT getPos() const;
 	POINT getPosInt() const;
 
-	void setSize(int size);
-	int getSize() const;
+	void setSize(SIZE size);
+	SIZE getSize() const;
 
 	RECT getCollisionRect() const;
+
+	bool isCollide(const GameObject& other) const;
+	bool isSelected(const POINT& point) const;
 };
 
