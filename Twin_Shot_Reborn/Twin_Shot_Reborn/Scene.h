@@ -2,9 +2,12 @@
 
 #include <Windows.h>
 
+#include "MyImage.h"
+
 class Scene
 {
 protected:
+	MyImage background;
 
 public:
 	Scene();
