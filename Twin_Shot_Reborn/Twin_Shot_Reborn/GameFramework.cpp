@@ -13,7 +13,8 @@ void GameFramework::initialize(HWND hMainWnd)
 	hBitmapFrameBuffer = CreateCompatibleBitmap(hDC, clientArea.right, clientArea.bottom);
 	SelectObject(hDCFrameBuffer, hBitmapFrameBuffer);
 	ReleaseDC(hWnd, hDC);
-	SetBkMode(hDCFrameBuffer, TRANSPARENT);
+	SetBkMode(hDCFrameBuffer, TRANSPARENT);				// 백그라운드 투명
+	SetStretchBltMode(hDCFrameBuffer, HALFTONE);		// 비트맵 축소, 확대시 보간
 
 	pScene = std::make_shared<GameScene>();
 }
