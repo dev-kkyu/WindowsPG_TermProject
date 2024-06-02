@@ -27,7 +27,7 @@ PlayerObject::~PlayerObject()
 void PlayerObject::update(float elapsedTime)
 {
 	nowFrameIdxF += framePerSecond * elapsedTime;
-	nowFrameIdxF = fmod(nowFrameIdxF, float(images["Idle"].size()));
+	nowFrameIdxF = std::fmod(nowFrameIdxF, float(images["Idle"].size()));
 }
 
 void PlayerObject::draw(HDC hdc)

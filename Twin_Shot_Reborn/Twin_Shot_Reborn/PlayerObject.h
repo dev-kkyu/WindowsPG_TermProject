@@ -8,6 +8,11 @@
 
 #include "GameObject.h"
 
+#include <vector>
+#include <unordered_map>
+
+#include "MyImage.h"
+
 class PlayerObject : public GameObject
 {
 private:

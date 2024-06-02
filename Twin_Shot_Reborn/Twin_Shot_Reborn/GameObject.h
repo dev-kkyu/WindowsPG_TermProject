@@ -1,10 +1,6 @@
 #pragma once
 
 #include <Windows.h>
-#include <vector>
-#include <unordered_map>
-
-#include "MyImage.h"
 
 class GameObject
 {
