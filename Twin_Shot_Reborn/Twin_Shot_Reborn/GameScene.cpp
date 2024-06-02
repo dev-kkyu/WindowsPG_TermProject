@@ -32,5 +32,41 @@ void GameScene::destroy()
 
 void GameScene::processWindowMessage(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-	Scene::processWindowMessage(hWnd, message, wParam, lParam);
+	switch (message)
+	{
+	case WM_CHAR:
+	case WM_KEYDOWN:
+		switch (wParam)
+		{
+		case VK_UP:
+		case VK_DOWN:
+		case VK_LEFT:
+		case VK_RIGHT:
+		case VK_SPACE:
+			player.sendKeyMsg(message, wParam);
+			break;
+		}
+		break;
+	case WM_KEYUP:
+		switch (wParam)
+		{
+		case VK_UP:
+		case VK_DOWN:
+		case VK_LEFT:
+		case VK_RIGHT:
+		case VK_SPACE:
+			player.sendKeyMsg(message, wParam);
+			break;
+		}
+		break;
+	case WM_LBUTTONDOWN:
+	case WM_LBUTTONUP:
+	case WM_RBUTTONDOWN:
+	case WM_RBUTTONUP:
+	case WM_MOUSEMOVE:
+		break;
+	default:
+		MessageBoxA(hWnd, "Wrong Window Message On GameScene", nullptr, MB_OK);
+		break;
+	}
 }
