@@ -21,9 +21,15 @@ PlayerObject::PlayerObject()
 	for (int i = 0; i < 4; ++i) {
 		images["Idle"][i].Load(L"./Resources/Images/Character/Idle/" + std::to_wstring(i + 1) + L".png");
 	}
+	images["Walk"].resize(6);
+	for (int i = 0; i < 6; ++i) {
+		images["Walk"][i].Load(L"./Resources/Images/Character/Walk/" + std::to_wstring(i + 1) + L".png");
+	}
 
 	framePerSecond = 8.5f;
 	nowFrameIdxF = 0.f;
+
+	animState = "Idle";
 
 	keyState = 0;
 
@@ -40,9 +46,15 @@ PlayerObject::~PlayerObject()
 
 void PlayerObject::update(float elapsedTime)
 {
+	if (keyState & MY_KEY_LEFT or keyState & MY_KEY_RIGHT) {
+		animState = "Walk";
+	}
+	else {
+		animState = "Idle";
+	}
 	// 이미지 애니메이션
 	nowFrameIdxF += framePerSecond * elapsedTime;
-	nowFrameIdxF = std::fmod(nowFrameIdxF, float(images["Idle"].size()));
+	nowFrameIdxF = std::fmod(nowFrameIdxF, float(images[animState].size()));
 
 	// 좌우 모두 누르고 있거나 안누르고 있을 때는 속도를 감소시킨다.
 	if ((keyState & MY_KEY_LEFT and keyState & MY_KEY_RIGHT) or
@@ -64,16 +76,16 @@ void PlayerObject::update(float elapsedTime)
 	}
 	// velocity가 maxSpeed 이내의 값을 가지도록 조정
 	velocity = my_clamp(velocity, -maxSpeed, maxSpeed);
-
+	// velocity에 따른 캐릭터 위치 조정
 	pos.x += velocity * elapsedTime;
 }
 
 void PlayerObject::draw(HDC hdc)
 {
 	if (1 == dirX)
-		images["Idle"][int(nowFrameIdxF)].MyDraw(hdc, getObjectRect(), true);
+		images[animState][int(nowFrameIdxF)].MyDraw(hdc, getObjectRect(), true);
 	else
-		images["Idle"][int(nowFrameIdxF)].MyDraw(hdc, getObjectRect());
+		images[animState][int(nowFrameIdxF)].MyDraw(hdc, getObjectRect());
 }
 
 void PlayerObject::sendKeyMsg(UINT message, WPARAM wParam)
