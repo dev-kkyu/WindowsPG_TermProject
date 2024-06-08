@@ -38,6 +38,11 @@ PlayerObject::PlayerObject()
 	velocity.x = 0.f;			// 오른쪽 혹은 왼쪽의 속도
 	maxSpeed.x = 600.f;			// 최대 x 속도 제한
 	acceleration.x = 1800.f;	// 초당 증가하는 x 속도
+
+	isFly = false;				// 공중에 떠 있는지 여부
+	velocity.y = 0.f;			// 낙하 속도
+	maxSpeed.y = 750.f;			// 최대 낙하 속도 제한
+	acceleration.y = 1800.f;	// 초당 감소하는 y 속도 (아래 방향으로만 작용한다)
 }
 
 PlayerObject::~PlayerObject()
@@ -78,6 +83,15 @@ void PlayerObject::update(float elapsedTime)
 	velocity.x = my_clamp(velocity.x, -maxSpeed.x, maxSpeed.x);
 	// velocity에 따른 캐릭터 위치 조정
 	pos.x += velocity.x * elapsedTime;
+
+	// 점프 중이면
+	if (isFly) {
+		pos.y -= velocity.y * elapsedTime;		// velocity가 양수면 위로 올라가야 한다 (window 좌표계)
+		// velocity가 maxSpeed 이내의 값을 가지도록 조정
+		velocity.y -= acceleration.y * elapsedTime;
+		// velocity에 따른 캐릭터 위치 조정
+		velocity.y = my_clamp(velocity.y, -maxSpeed.y, maxSpeed.y);
+	}
 }
 
 void PlayerObject::draw(HDC hdc)
@@ -97,6 +111,11 @@ void PlayerObject::sendKeyMsg(UINT message, WPARAM wParam)
 		{
 		case VK_UP:
 			keyState |= MY_KEY_UP;
+			// 점프 시켜준다
+			if (not isFly) {
+				isFly = true;
+				velocity.y = maxSpeed.y;
+			}
 			break;
 		case VK_DOWN:
 			keyState |= MY_KEY_DOWN;
@@ -135,4 +154,14 @@ void PlayerObject::sendKeyMsg(UINT message, WPARAM wParam)
 		}
 		break;
 	}
+}
+
+void PlayerObject::setFly(bool bFly)
+{
+	isFly = bFly;
+}
+
+bool PlayerObject::getFly() const
+{
+	return isFly;
 }

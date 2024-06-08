@@ -30,6 +30,8 @@ private:
 	POINTFLOAT maxSpeed;		// x, y 방향 최대 속도
 	POINTFLOAT acceleration;	// x, y(중력) 방향 가속도
 
+	bool isFly;					// 공중에 떠 있는지 여부
+
 public:
 	PlayerObject();
 	virtual ~PlayerObject();
@@ -38,5 +40,9 @@ public:
 	virtual void draw(HDC hdc) override;
 
 	void sendKeyMsg(UINT message, WPARAM wParam);
+
+	void setFly(bool bFly);
+	bool getFly() const;
+
 };
 

@@ -18,6 +18,16 @@ void GameScene::initialize()
 void GameScene::update(float elapsedTime)
 {
 	player.update(elapsedTime);
+
+	// 바닥 충돌처리 로직 (추후 장애물에 관하여로 수정)
+	if (player.getFly()) {		// 현재 공중에 떠 있는 상태이면
+		POINTFLOAT playerPos = player.getPos();
+		if (playerPos.y > 450.f) {
+			player.setFly(false);
+			player.setPos(POINTFLOAT{ playerPos.x, 450.f });
+		}
+	}
+
 }
 
 void GameScene::draw(HDC hdc)
