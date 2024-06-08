@@ -17,7 +17,7 @@ class PlayerObject : public GameObject
 {
 private:
 	std::unordered_map<std::string, std::vector<MyImage>> images;
-	float framePerSecond;	// 초당 몇장 돌릴건지
+	float actionPerSecond;	// 초당 액션의 반복 횟수 (액션 : 현재 애니메이션의 이미지 개수)
 	float nowFrameIdxF;		// 현재 프레임 인덱스 (int로 변환 후 사용)
 
 	std::string animState;

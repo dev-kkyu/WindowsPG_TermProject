@@ -34,7 +34,7 @@ PlayerObject::PlayerObject()
 		images["Fall"][i].Load(L"./Resources/Images/Character/Fall/" + std::to_wstring(i + 1) + L".png");
 	}
 
-	framePerSecond = 8.5f;
+	actionPerSecond = 2.125f;
 	nowFrameIdxF = 0.f;
 
 	animState = "Idle";
@@ -73,7 +73,7 @@ void PlayerObject::update(float elapsedTime)
 		animState = "Idle";
 	}
 	// 이미지 애니메이션
-	nowFrameIdxF += framePerSecond * elapsedTime;
+	nowFrameIdxF += (images[animState].size() * actionPerSecond) * elapsedTime;
 	nowFrameIdxF = std::fmod(nowFrameIdxF, float(images[animState].size()));
 
 	// 좌우 모두 누르고 있거나 안누르고 있을 때는 속도를 감소시킨다.
