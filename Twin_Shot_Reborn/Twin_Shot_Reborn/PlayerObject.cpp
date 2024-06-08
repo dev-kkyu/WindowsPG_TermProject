@@ -25,6 +25,14 @@ PlayerObject::PlayerObject()
 	for (int i = 0; i < 6; ++i) {
 		images["Walk"][i].Load(L"./Resources/Images/Character/Walk/" + std::to_wstring(i + 1) + L".png");
 	}
+	images["Jump"].resize(2);
+	for (int i = 0; i < 2; ++i) {
+		images["Jump"][i].Load(L"./Resources/Images/Character/Jump/" + std::to_wstring(i + 1) + L".png");
+	}
+	images["Fall"].resize(2);
+	for (int i = 0; i < 2; ++i) {
+		images["Fall"][i].Load(L"./Resources/Images/Character/Fall/" + std::to_wstring(i + 1) + L".png");
+	}
 
 	framePerSecond = 8.5f;
 	nowFrameIdxF = 0.f;
@@ -51,7 +59,14 @@ PlayerObject::~PlayerObject()
 
 void PlayerObject::update(float elapsedTime)
 {
-	if (keyState & MY_KEY_LEFT or keyState & MY_KEY_RIGHT) {
+	// 애니메이션 정하기
+	if (isFly) {
+		if (velocity.y > 0.f)
+			animState = "Jump";
+		else
+			animState = "Fall";
+	}
+	else if (keyState & MY_KEY_LEFT or keyState & MY_KEY_RIGHT) {
 		animState = "Walk";
 	}
 	else {
