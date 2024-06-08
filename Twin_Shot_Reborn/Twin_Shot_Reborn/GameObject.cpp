@@ -61,8 +61,7 @@ SIZE GameObject::getSize() const
 
 RECT GameObject::getObjectRect() const
 {
-	POINT pos = getPosInt();
-	return RECT{ pos.x - size.cx / 2, pos.y - size.cy, pos.x + size.cx / 2, pos.y };	// ÇÇ¹þÀ» Áß¾Ó ÇÏ´ÜÀ¸·Î µÐ´Ù.
+	return RECT{ getLeft(), getTop(), getRight(), getBottom() };	// ÇÇ¹þÀ» Áß¾Ó ÇÏ´ÜÀ¸·Î µÐ´Ù.
 }
 
 bool GameObject::isCollide(const GameObject& other) const
@@ -77,4 +76,24 @@ bool GameObject::isSelected(const POINT& point) const
 {
 	const RECT myRect = getObjectRect();
 	return static_cast<bool>(PtInRect(&myRect, point));
+}
+
+LONG GameObject::getLeft() const
+{
+	return static_cast<LONG>(pos.x - size.cx / 2.f);
+}
+
+LONG GameObject::getTop() const
+{
+	return static_cast<LONG>(pos.y - size.cy);
+}
+
+LONG GameObject::getRight() const
+{
+	return static_cast<LONG>(pos.x + size.cx / 2.f);
+}
+
+LONG GameObject::getBottom() const
+{
+	return static_cast<LONG>(pos.y);
 }

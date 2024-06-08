@@ -6,6 +6,7 @@ GameScene::GameScene()
 {
 	background.Load(L"./Resources/Images/Background/Stage1.png");
 
+	// 타일 배치
 	for (int i = 0; i < 24; ++i) {
 		tiles.emplace_back(POINT{ 25 + i * 50, 50 });
 		tiles.emplace_back(POINT{ 25 + i * 50, 900 });

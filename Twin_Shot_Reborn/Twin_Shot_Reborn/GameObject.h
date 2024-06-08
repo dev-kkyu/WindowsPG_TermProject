@@ -30,5 +30,10 @@ public:
 
 	bool isCollide(const GameObject& other) const;
 	bool isSelected(const POINT& point) const;
+
+	LONG getLeft() const;
+	LONG getTop() const;
+	LONG getRight() const;
+	LONG getBottom() const;
 };
 
