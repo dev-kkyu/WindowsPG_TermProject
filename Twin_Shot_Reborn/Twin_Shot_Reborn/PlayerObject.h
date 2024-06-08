@@ -26,9 +26,9 @@ private:
 
 	int dirX;
 
-	float velocity;		// x 방향 속도
-	float maxSpeed;		// 최대 속도
-	float acceleration;	// 가속도
+	POINTFLOAT velocity;		// x, y 방향 속도
+	POINTFLOAT maxSpeed;		// x, y 방향 최대 속도
+	POINTFLOAT acceleration;	// x, y(중력) 방향 가속도
 
 public:
 	PlayerObject();

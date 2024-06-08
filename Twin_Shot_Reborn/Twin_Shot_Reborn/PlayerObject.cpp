@@ -35,9 +35,9 @@ PlayerObject::PlayerObject()
 
 	dirX = 1;	// 오른쪽을 보고 있다.
 
-	velocity = 0.f;			// 속도는 오른쪽 혹은 왼쪽
-	maxSpeed = 600.f;		// 최대 속도 제한
-	acceleration = 1800.f;	// 초당 증가하는 속도
+	velocity.x = 0.f;			// 오른쪽 혹은 왼쪽의 속도
+	maxSpeed.x = 600.f;			// 최대 x 속도 제한
+	acceleration.x = 1800.f;	// 초당 증가하는 x 속도
 }
 
 PlayerObject::~PlayerObject()
@@ -59,25 +59,25 @@ void PlayerObject::update(float elapsedTime)
 	// 좌우 모두 누르고 있거나 안누르고 있을 때는 속도를 감소시킨다.
 	if ((keyState & MY_KEY_LEFT and keyState & MY_KEY_RIGHT) or
 		(not (keyState & MY_KEY_LEFT) and not (keyState & MY_KEY_RIGHT))) {
-		if (std::abs(velocity) >= std::numeric_limits<float>::epsilon()) {
-			if (std::abs(velocity) <= 10.f) {
-				velocity = 0.f;
+		if (std::abs(velocity.x) >= std::numeric_limits<float>::epsilon()) {
+			if (std::abs(velocity.x) <= 10.f) {
+				velocity.x = 0.f;
 			}
 			else {
-				velocity -= std::copysign(acceleration * elapsedTime, velocity);
+				velocity.x -= std::copysign(acceleration.x * elapsedTime, velocity.x);
 			}
 		}
 	}
 	else if (keyState & MY_KEY_LEFT) {
-		velocity -= acceleration * elapsedTime;
+		velocity.x -= acceleration.x * elapsedTime;
 	}
 	else if (keyState & MY_KEY_RIGHT) {
-		velocity += acceleration * elapsedTime;
+		velocity.x += acceleration.x * elapsedTime;
 	}
 	// velocity가 maxSpeed 이내의 값을 가지도록 조정
-	velocity = my_clamp(velocity, -maxSpeed, maxSpeed);
+	velocity.x = my_clamp(velocity.x, -maxSpeed.x, maxSpeed.x);
 	// velocity에 따른 캐릭터 위치 조정
-	pos.x += velocity * elapsedTime;
+	pos.x += velocity.x * elapsedTime;
 }
 
 void PlayerObject::draw(HDC hdc)
