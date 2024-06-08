@@ -27,14 +27,33 @@ void GameScene::initialize()
 
 void GameScene::update(float elapsedTime)
 {
+	const POINTFLOAT befPos = player.getPos();	// 업데이트 전 플레이어 위치
+
 	player.update(elapsedTime);
 
-	// 바닥 충돌처리 로직 (추후 장애물에 관하여로 수정)
-	if (player.getFly()) {		// 현재 공중에 떠 있는 상태이면
-		POINTFLOAT playerPos = player.getPos();
-		if (playerPos.y > 450.f) {
-			player.setFly(false);
-			player.setPos(POINTFLOAT{ playerPos.x, 450.f });
+	// 좌우 충돌
+	POINTFLOAT newPos = player.getPos();
+	for (const auto& t : tiles) {
+		if (t.isCollide(player)) {	// 플레이어와 충돌시
+			if (t.getLeft() < player.getRight() and t.getRight() > player.getLeft()) {	// 좌우에 대하여 충돌이면
+				newPos.x = befPos.x;
+				player.setVelocityX(0.f);
+				player.setPos(newPos);
+				break;
+			}
+		}
+	}
+
+	// 상하 충돌 (좌우 해결된 이후 다시 검사
+	for (const auto& t : tiles) {
+		if (t.isCollide(player)) {	// 플레이어와 충돌시
+			if (t.getTop() < player.getBottom() and t.getBottom() > player.getTop()) {	// 상하에 대하여 충돌이면
+				newPos.y = befPos.y;
+				if (player.getFly())
+					player.setFly(false);
+				player.setPos(newPos);
+				break;
+			}
 		}
 	}
 

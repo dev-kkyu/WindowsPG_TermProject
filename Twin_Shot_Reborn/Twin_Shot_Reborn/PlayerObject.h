@@ -44,5 +44,8 @@ public:
 	void setFly(bool bFly);
 	bool getFly() const;
 
+	void setVelocityX(float valX);
+	void setVelocityY(float valY);
+
 };
 

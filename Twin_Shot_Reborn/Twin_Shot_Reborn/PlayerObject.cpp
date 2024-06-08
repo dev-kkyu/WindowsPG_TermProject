@@ -180,3 +180,13 @@ bool PlayerObject::getFly() const
 {
 	return isFly;
 }
+
+void PlayerObject::setVelocityX(float valX)
+{
+	velocity.x = valX;
+}
+
+void PlayerObject::setVelocityY(float valY)
+{
+	velocity.y = valY;
+}
