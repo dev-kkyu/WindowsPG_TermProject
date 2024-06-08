@@ -1,9 +1,18 @@
 #include "TileObject.h"
 
+bool TileObject::isImageLoaded;
+std::array<MyImage, 8> TileObject::tileImages;
+
 TileObject::TileObject(POINT iPos)
 {
-	int randIdx = rand() % 8 + 1;		// 1 ~ 8;
-	tileImage.Load(L"./Resources/Images/Tile/" + std::to_wstring(randIdx) + L".png");
+	if (not isImageLoaded) {
+		for (int i = 0; i < 8; ++i) {
+			tileImages[i].Load(L"./Resources/Images/Tile/" + std::to_wstring(i + 1) + L".png");
+		}
+		isImageLoaded = true;
+	}
+
+	imageIndex = rand() % 8;
 
 	setPos(iPos);
 	size = { 50, 50 };
@@ -13,25 +22,11 @@ TileObject::~TileObject()
 {
 }
 
-TileObject::TileObject(TileObject&& other) noexcept
-	: GameObject{ std::move(other) }, tileImage{ std::move(other.tileImage) }
-{
-}
-
-TileObject& TileObject::operator=(TileObject&& other) noexcept
-{
-	if (this != &other) {
-		GameObject::operator=(std::move(other));
-		tileImage = std::move(other.tileImage);
-	}
-	return *this;
-}
-
 void TileObject::update(float elapsedTime)
 {
 }
 
 void TileObject::draw(HDC hdc)
 {
-	tileImage.MyDraw(hdc, getObjectRect());
+	tileImages[imageIndex].MyDraw(hdc, getObjectRect());
 }

@@ -3,19 +3,20 @@
 #include "GameObject.h"
 #include "MyImage.h"
 
+#include <array>
+
 class TileObject : public GameObject
 {
 private:
-	MyImage tileImage;
+	int imageIndex;
+
+private:		// static 변수 -> 이미지를 한 번만 로드할 수 있도록 설정
+	static bool isImageLoaded;
+	static std::array<MyImage, 8> tileImages;
 
 public:
 	TileObject(POINT iPos);
 	virtual ~TileObject();
-
-	TileObject(const TileObject& other) = delete;
-	TileObject& operator=(const TileObject& other) = delete;
-	TileObject(TileObject&& other) noexcept;
-	TileObject& operator=(TileObject&& other) noexcept;
 
 	virtual void update(float elapsedTime);
 	virtual void draw(HDC hdc);
