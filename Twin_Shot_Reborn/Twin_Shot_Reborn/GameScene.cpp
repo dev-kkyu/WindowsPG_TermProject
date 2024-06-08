@@ -5,6 +5,10 @@
 GameScene::GameScene()
 {
 	background.Load(L"./Resources/Images/Background/Stage1.png");
+
+	for (int i = 0; i < 24; ++i) {
+		tiles.emplace_back(POINT{ 25 + i * 50, 900 });
+	}
 }
 
 GameScene::~GameScene()
@@ -33,6 +37,10 @@ void GameScene::update(float elapsedTime)
 void GameScene::draw(HDC hdc)
 {
 	background.MyDraw(hdc, RECT{ 0, 0, W_WIDTH, W_HEIGHT });
+
+	for (auto& t : tiles)
+		t.draw(hdc);
+
 	player.draw(hdc);
 }
 

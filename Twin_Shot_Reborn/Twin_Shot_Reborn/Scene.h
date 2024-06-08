@@ -1,13 +1,16 @@
 #pragma once
 
 #include <Windows.h>
+#include <vector>
 
 #include "MyImage.h"
+#include "TileObject.h"
 
 class Scene
 {
 protected:
 	MyImage background;
+	std::vector<TileObject> tiles;
 
 public:
 	Scene();

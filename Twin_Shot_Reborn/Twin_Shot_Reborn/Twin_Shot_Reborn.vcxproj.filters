@@ -28,6 +28,9 @@
     <Filter Include="GameObject\PlayerObject">
       <UniqueIdentifier>{a3a987cf-80bd-4fa3-b0aa-683b36216e81}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\TileObject">
+      <UniqueIdentifier>{22746e22-d5b1-4eeb-93ae-b80b72596d01}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Twin_Shot_Reborn.cpp">
@@ -51,6 +54,9 @@
     <ClCompile Include="PlayerObject.cpp">
       <Filter>GameObject\PlayerObject</Filter>
     </ClCompile>
+    <ClCompile Include="TileObject.cpp">
+      <Filter>GameObject\TileObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scene.h">
@@ -73,6 +79,9 @@
     </ClInclude>
     <ClInclude Include="Define.h">
       <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="TileObject.h">
+      <Filter>GameObject\TileObject</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
