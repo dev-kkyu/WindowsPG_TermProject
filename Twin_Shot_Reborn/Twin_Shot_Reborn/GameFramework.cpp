@@ -1,5 +1,6 @@
 #include "GameFramework.h"
 
+#include <string>
 #include <chrono>
 
 #include "GameScene.h"
@@ -23,9 +24,21 @@ void GameFramework::drawNextFrame()
 {
 	using namespace std::chrono;
 	static steady_clock::time_point last_time = steady_clock::now();
+	static steady_clock::duration accm_time;				// 누적 시간
+	static int fps;
 	steady_clock::time_point now_time = steady_clock::now();
-	float elapsedTime = duration_cast<nanoseconds>(now_time - last_time).count() / 1'000'000'000.f;
+	steady_clock::duration duration_time = now_time - last_time;
 	last_time = now_time;
+	accm_time += duration_time;
+	++fps;
+	if (accm_time >= 1s) {
+		accm_time -= 1s;
+		std::string text = "Twin Shot Reborn (" + std::to_string(fps) + " FPS)";
+		SetWindowTextA(hWnd, text.c_str());
+		fps = 0;
+	}
+
+	float elapsedTime = duration_cast<nanoseconds>(duration_time).count() / 1'000'000'000.f;
 
 	updateFrameBuffer(elapsedTime);			// 오브젝트 업데이트
 
