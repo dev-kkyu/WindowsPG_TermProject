@@ -21,8 +21,8 @@ PlayerObject::PlayerObject()
 	for (int i = 0; i < 4; ++i) {
 		images["Idle"][i].Load(L"./Resources/Images/Character/Idle/" + std::to_wstring(i + 1) + L".png");
 	}
-	images["Walk"].resize(6);
-	for (int i = 0; i < 6; ++i) {
+	images["Walk"].resize(7);
+	for (int i = 0; i < 7; ++i) {
 		images["Walk"][i].Load(L"./Resources/Images/Character/Walk/" + std::to_wstring(i + 1) + L".png");
 	}
 	images["Jump"].resize(2);
