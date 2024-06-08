@@ -7,7 +7,12 @@ GameScene::GameScene()
 	background.Load(L"./Resources/Images/Background/Stage1.png");
 
 	for (int i = 0; i < 24; ++i) {
+		tiles.emplace_back(POINT{ 25 + i * 50, 50 });
 		tiles.emplace_back(POINT{ 25 + i * 50, 900 });
+	}
+	for (int i = 0; i < 22; ++i) {
+		tiles.emplace_back(POINT{ 25, 50 + (i + 1) * 50 });
+		tiles.emplace_back(POINT{ 1175, 50 + (i + 1) * 50 });
 	}
 }
 
