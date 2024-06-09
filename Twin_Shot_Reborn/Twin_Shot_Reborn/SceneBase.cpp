@@ -82,6 +82,20 @@ void SceneBase::update(float elapsedTime)
 	for (const auto& itr : deleteArrows) {
 		player.arrows.erase(itr);
 	}
+
+	// 화살과 타일 충돌 처리 -> 모든 타일과 모든 화살의 충돌 처리
+	for (const auto& t : tiles) {
+		deleteArrows.clear();	// 먼저 자료구조를 리셋하고
+		for (auto itr = player.arrows.begin(); itr != player.arrows.end(); ++itr) {
+			if (t.isCollide(*itr)) {
+				deleteArrows.emplace_back(itr);	// 충돌된 화살 따로 관리
+			}
+		}
+		for (const auto& itr : deleteArrows) {
+			arrows.emplace_back(*itr);			// 씬에 추가해 주고
+			player.arrows.erase(itr);			// 플레이어에게서 지워준다
+		}
+	}
 }
 
 void SceneBase::processWindowMessage(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)

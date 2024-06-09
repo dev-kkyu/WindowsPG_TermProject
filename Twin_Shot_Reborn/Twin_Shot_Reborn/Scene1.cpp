@@ -53,10 +53,13 @@ void Scene1::draw(HDC hdc) const
 
 	background.MyDraw(hdc, RECT{ 0, 0, W_WIDTH, W_HEIGHT });
 
-	for (auto& t : tiles)
-		t.draw(hdc, windowLeft);
+	for (const auto& tile : tiles)
+		tile.draw(hdc, windowLeft);
 
 	player.draw(hdc, windowLeft);
+
+	for (const auto& arrow : arrows)
+		arrow.draw(hdc, windowLeft);
 }
 
 void Scene1::destroy()
