@@ -1,10 +1,12 @@
 #pragma once
 
 #include "SceneBase.h"
+#include "BossObject.h"
 
 class Scene3 : public SceneBase
 {
 private:
+	BossObject boss;
 
 public:
 	Scene3();

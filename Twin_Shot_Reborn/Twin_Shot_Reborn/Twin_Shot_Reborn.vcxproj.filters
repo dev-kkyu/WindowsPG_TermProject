@@ -43,6 +43,9 @@
     <Filter Include="GameObject\MonsterObject">
       <UniqueIdentifier>{b49df01a-fd40-4d9e-9f25-4a3d5d9250ba}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\BossObject">
+      <UniqueIdentifier>{963a5eb4-46cc-429d-993d-afb8c557d767}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Twin_Shot_Reborn.cpp">
@@ -81,6 +84,9 @@
     <ClCompile Include="MonsterObject.cpp">
       <Filter>GameObject\MonsterObject</Filter>
     </ClCompile>
+    <ClCompile Include="BossObject.cpp">
+      <Filter>GameObject\BossObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SceneBase.h">
@@ -118,6 +124,9 @@
     </ClInclude>
     <ClInclude Include="MonsterObject.h">
       <Filter>GameObject\MonsterObject</Filter>
+    </ClInclude>
+    <ClInclude Include="BossObject.h">
+      <Filter>GameObject\BossObject</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
