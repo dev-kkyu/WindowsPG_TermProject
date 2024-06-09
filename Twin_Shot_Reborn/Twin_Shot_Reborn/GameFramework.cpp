@@ -5,6 +5,7 @@
 
 #include "Scene1.h"
 #include "Scene2.h"
+#include "Scene3.h"
 
 void GameFramework::initialize(HWND hMainWnd)
 {
@@ -71,6 +72,7 @@ void GameFramework::processWindowMessage(HWND hWnd, UINT message, WPARAM wParam,
 			pScene = std::make_shared<Scene2>();
 			break;
 		case '3':
+			pScene = std::make_shared<Scene3>();
 			break;
 		}
 		break;

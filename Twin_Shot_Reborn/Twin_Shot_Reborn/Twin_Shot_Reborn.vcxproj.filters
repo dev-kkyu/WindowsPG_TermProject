@@ -37,6 +37,9 @@
     <Filter Include="SceneBase\Scene2">
       <UniqueIdentifier>{9ad17400-160a-4698-ba5c-8c2b1b86f9bb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SceneBase\Scene3">
+      <UniqueIdentifier>{2a4debe2-90b7-4136-9cac-fef1932620ad}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Twin_Shot_Reborn.cpp">
@@ -69,6 +72,9 @@
     <ClCompile Include="Scene2.cpp">
       <Filter>SceneBase\Scene2</Filter>
     </ClCompile>
+    <ClCompile Include="Scene3.cpp">
+      <Filter>SceneBase\Scene3</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SceneBase.h">
@@ -100,6 +106,9 @@
     </ClInclude>
     <ClInclude Include="Scene2.h">
       <Filter>SceneBase\Scene2</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene3.h">
+      <Filter>SceneBase\Scene3</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
