@@ -18,8 +18,8 @@ public:
 	TileObject(POINT iPos);
 	virtual ~TileObject();
 
-	virtual void update(float elapsedTime);
-	virtual void draw(HDC hdc);
+	virtual void update(float elapsedTime) override;
+	virtual void draw(HDC hdc) const override;
 
 };
 

@@ -37,7 +37,7 @@ public:
 	virtual ~PlayerObject();
 
 	virtual void update(float elapsedTime) override;
-	virtual void draw(HDC hdc) override;
+	virtual void draw(HDC hdc) const override;
 
 	void sendKeyMsg(UINT message, WPARAM wParam);
 

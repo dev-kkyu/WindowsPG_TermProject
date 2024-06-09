@@ -13,7 +13,7 @@ public:
 	virtual ~GameObject();
 
 	virtual void update(float elapsedTime) = 0;
-	virtual void draw(HDC hdc) = 0;
+	virtual void draw(HDC hdc) const = 0;
 
 	void move(const POINT& dir, float value);
 

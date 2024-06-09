@@ -91,7 +91,7 @@ void GameScene::update(float elapsedTime)
 
 }
 
-void GameScene::draw(HDC hdc)
+void GameScene::draw(HDC hdc) const
 {
 	background.MyDraw(hdc, RECT{ 0, 0, W_WIDTH, W_HEIGHT });
 

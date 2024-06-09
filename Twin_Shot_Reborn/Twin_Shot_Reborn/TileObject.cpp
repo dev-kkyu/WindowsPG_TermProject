@@ -26,7 +26,7 @@ void TileObject::update(float elapsedTime)
 {
 }
 
-void TileObject::draw(HDC hdc)
+void TileObject::draw(HDC hdc) const
 {
 	tileImages[imageIndex].MyDraw(hdc, getObjectRect());
 }

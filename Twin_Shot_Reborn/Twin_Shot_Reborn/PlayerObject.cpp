@@ -109,12 +109,12 @@ void PlayerObject::update(float elapsedTime)
 	}
 }
 
-void PlayerObject::draw(HDC hdc)
+void PlayerObject::draw(HDC hdc) const
 {
 	if (1 == dirX)
-		images[animState][int(nowFrameIdxF)].MyDraw(hdc, getObjectRect(), true);
+		images.at(animState)[int(nowFrameIdxF)].MyDraw(hdc, getObjectRect(), true);
 	else
-		images[animState][int(nowFrameIdxF)].MyDraw(hdc, getObjectRect());
+		images.at(animState)[int(nowFrameIdxF)].MyDraw(hdc, getObjectRect());
 }
 
 void PlayerObject::sendKeyMsg(UINT message, WPARAM wParam)
