@@ -5,7 +5,9 @@
 
 #include <array>
 #include <vector>
+#include <chrono>
 
+class ArrowObject;
 class MonsterObject : public GameObject
 {
 private:
@@ -15,6 +17,11 @@ private:
 	float nowFrameIdxF;		// 현재 프레임 인덱스 (int로 변환 후 사용)
 
 	int dirX;
+
+	bool isDead;
+	int deadDirX;
+	float deadVelocity;
+	std::chrono::steady_clock::time_point deadTime;
 
 private:		// static 변수 -> 이미지를 한 번만 로드할 수 있도록 설정
 	static bool isImageLoaded;
@@ -26,6 +33,10 @@ public:
 
 	virtual void update(float elapsedTime) override;
 	virtual void draw(HDC hdc, int windowLeft = 0) const override;
+
+	void onHit(const ArrowObject& other);
+	bool getIsDead() const;
+	std::chrono::steady_clock::time_point getDeadTime() const;
 
 };
 

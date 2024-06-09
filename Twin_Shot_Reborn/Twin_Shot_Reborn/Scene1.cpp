@@ -2,6 +2,8 @@
 
 #include "Define.h"
 
+#include <chrono>
+
 template <class T>
 static inline constexpr T my_clamp(T val, T min_val, T max_val)
 {
@@ -147,17 +149,26 @@ void Scene1::update(float elapsedTime)
 
 	// 플레이어 화살과 몬스터 충돌 처리
 	std::vector<std::list<ArrowObject>::iterator> deleteArrows;
-	std::vector<std::list<MonsterObject>::iterator> deleteMonsters;
-	for (auto m = monsters.begin(); m != monsters.end(); ++m) {
+	for (auto& m : monsters) {
 		for (auto a = player.arrows.begin(); a != player.arrows.end(); ++a) {
-			if (m->isCollide(*a)) {
+			if (m.isCollide(*a)) {
 				deleteArrows.emplace_back(a);
-				deleteMonsters.emplace_back(m);
+				m.onHit(*a);
 			}
 		}
 	}
 	for (const auto& itr : deleteArrows) {
 		player.arrows.erase(itr);
+	}
+	// 죽은 몬스터 제거
+	std::vector<std::list<MonsterObject>::iterator> deleteMonsters;
+	for (auto m = monsters.begin(); m != monsters.end(); ++m) {
+		if (m->getIsDead()) {
+			auto nowTime = std::chrono::steady_clock::now();
+			if (m->getDeadTime() + std::chrono::milliseconds(1500) <= nowTime) {
+				deleteMonsters.emplace_back(m);
+			}
+		}
 	}
 	for (const auto& itr : deleteMonsters) {
 		monsters.erase(itr);

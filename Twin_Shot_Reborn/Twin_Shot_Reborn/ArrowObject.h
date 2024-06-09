@@ -5,8 +5,10 @@
 
 #include <chrono>
 
+class MonsterObject;
 class ArrowObject : public GameObject
 {
+	friend MonsterObject;
 private:
 	int dirX;
 	std::chrono::steady_clock::time_point hitTime;

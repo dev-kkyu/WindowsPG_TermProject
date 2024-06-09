@@ -1,5 +1,7 @@
 #include "MonsterObject.h"
 
+#include "ArrowObject.h"
+
 #include <cmath>
 
 bool MonsterObject::isImageLoaded;
@@ -23,6 +25,10 @@ MonsterObject::MonsterObject(POINT iPos, int idx, SIZE size)
 	nowFrameIdxF = 0.f;
 
 	dirX = 1;
+
+	isDead = false;
+	deadDirX = 1;
+	deadVelocity = 600.f;
 }
 
 MonsterObject::~MonsterObject()
@@ -34,6 +40,12 @@ void MonsterObject::update(float elapsedTime)
 	// 이미지 애니메이션
 	nowFrameIdxF += (monsterImages[imageIndex].size() * actionPerSecond) * elapsedTime;
 	nowFrameIdxF = std::fmod(nowFrameIdxF, float(monsterImages[imageIndex].size()));
+
+	if (isDead) {
+		pos.x += deadDirX * 300.f * elapsedTime;
+		pos.y -= deadVelocity * elapsedTime;
+		deadVelocity -= 1000.f * elapsedTime;
+	}
 }
 
 void MonsterObject::draw(HDC hdc, int windowLeft) const
@@ -44,4 +56,21 @@ void MonsterObject::draw(HDC hdc, int windowLeft) const
 		monsterImages[imageIndex][int(nowFrameIdxF)].MyDraw(hdc, getObjectRect(), windowLeft);
 
 	drawDebug(hdc, windowLeft);
+}
+
+void MonsterObject::onHit(const ArrowObject& other)
+{
+	isDead = true;
+	deadDirX = other.dirX;
+	deadTime = std::chrono::steady_clock::now();
+}
+
+bool MonsterObject::getIsDead() const
+{
+	return isDead;
+}
+
+std::chrono::steady_clock::time_point MonsterObject::getDeadTime() const
+{
+	return deadTime;
 }
