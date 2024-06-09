@@ -15,6 +15,8 @@ static inline constexpr T my_clamp(T val, T min_val, T max_val)
 SceneBase::SceneBase()
 {
 	cloud.Load(L"./Resources/Images/Background/Cloud.png");
+
+	cloudPosXf = W_WIDTH / 2.f;		// 초기값 중앙
 }
 
 SceneBase::~SceneBase()
@@ -150,9 +152,10 @@ void SceneBase::update(float elapsedTime)
 		}
 	}
 
-	cloudPosX -= 50 * elapsedTime;
-	if (cloudPosX < 0) {
-		cloudPosX += W_WIDTH;
+	// 배경 구름 이동
+	cloudPosXf -= 100.f * elapsedTime;
+	if (cloudPosXf < 0.f) {
+		cloudPosXf += W_WIDTH;
 	}
 
 }
@@ -165,8 +168,19 @@ void SceneBase::draw(HDC hdc) const
 
 	background.MyDraw(hdc, RECT{ 0, 0, W_WIDTH, W_HEIGHT });
 
-	cloud.MyDraw(hdc, RECT{ -cloudPosX, 0, W_WIDTH - cloudPosX, W_HEIGHT });
-	cloud.MyDraw(hdc, RECT{ cloudPosX, 0, W_WIDTH + cloudPosX, W_HEIGHT });
+	// cloudPosXf 는 1200 ~ 0
+	{	// 정석적인 방법 (dstRect와 srcRect 이용)
+		float value = 1.f - cloudPosXf / float(W_WIDTH);
+		int imgWidth = cloud.getWidth();
+		int imgHeight = cloud.getHeight();
+		cloud.MyDraw(hdc, RECT{ 0, 0, int(cloudPosXf), W_HEIGHT }, RECT{ int(value * imgWidth), 0, imgWidth, imgHeight });
+		cloud.MyDraw(hdc, RECT{ int(cloudPosXf), 0, W_WIDTH, W_HEIGHT }, RECT{ 0, 0, int(value * imgWidth), imgHeight });
+	}
+	//{	// 좋진 않지만 잘 되는 방법 (화면 바깥으로 많이 그린다)
+	//	int pivot = W_WIDTH - int(cloudPosXf);
+	//	cloud.MyDraw(hdc, RECT{ -pivot, 0, W_WIDTH - pivot, W_HEIGHT });
+	//	cloud.MyDraw(hdc, RECT{ int(cloudPosXf), 0, W_WIDTH + int(cloudPosXf), W_HEIGHT });
+	//}
 
 	for (const auto& tile : tiles)
 		tile.draw(hdc, windowLeft);

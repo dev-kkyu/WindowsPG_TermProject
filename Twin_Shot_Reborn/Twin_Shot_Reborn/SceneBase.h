@@ -13,7 +13,7 @@ protected:
 	MyImage background;
 	MyImage cloud;
 
-	int cloudPosX = 0;
+	float cloudPosXf;
 
 	std::vector<TileObject> tiles;
 	std::vector<TileObject> nonBlockTiles;
