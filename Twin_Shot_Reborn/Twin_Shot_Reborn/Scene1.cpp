@@ -1,5 +1,17 @@
 #include "Scene1.h"
 
+#include "Define.h"
+
+template <class T>
+static inline constexpr T my_clamp(T val, T min_val, T max_val)
+{
+	if (val < min_val)
+		return min_val;
+	if (val > max_val)
+		return max_val;
+	return val;
+}
+
 Scene1::Scene1()
 {
 	background.Load(L"./Resources/Images/Background/Stage1.png");
@@ -113,7 +125,7 @@ Scene1::Scene1()
 	// 플레이어 배치
 	player.setPos(POINT{ 1100,700 });
 
-
+	monsters.emplace_back(POINT{ 200, 700 }, 0, SIZE{ 120, 100 });
 
 }
 
@@ -128,11 +140,21 @@ void Scene1::initialize()
 void Scene1::update(float elapsedTime)
 {
 	SceneBase::update(elapsedTime);
+
+	for (auto& m : monsters)
+		m.update(elapsedTime);
 }
 
 void Scene1::draw(HDC hdc) const
 {
 	SceneBase::draw(hdc);
+
+	// 스크롤링 적용
+	int windowLeft = player.getPosInt().x - W_WIDTH / 2;
+	windowLeft = my_clamp(windowLeft, 0, M_WIDTH - W_WIDTH);
+
+	for (auto& m : monsters)
+		m.draw(hdc, windowLeft);
 }
 
 void Scene1::destroy()
