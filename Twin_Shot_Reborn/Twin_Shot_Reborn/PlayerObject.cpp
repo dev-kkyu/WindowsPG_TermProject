@@ -60,6 +60,10 @@ PlayerObject::~PlayerObject()
 
 void PlayerObject::update(float elapsedTime)
 {
+	// 화살 오브젝트 업데이트
+	for (auto& arrow : arrows)
+		arrow.update(elapsedTime);
+
 	// 애니메이션 정하기
 	if (isFly) {
 		if (velocity.y > 0.f)
@@ -112,6 +116,10 @@ void PlayerObject::update(float elapsedTime)
 
 void PlayerObject::draw(HDC hdc, int windowLeft) const
 {
+	// 화살 오브젝트 그리기
+	for (auto& arrow : arrows)
+		arrow.draw(hdc, windowLeft);
+
 	if (1 == dirX)
 		images.at(animState)[int(nowFrameIdxF)].MyDraw(hdc, getObjectRect(), windowLeft, true);
 	else
@@ -146,6 +154,7 @@ void PlayerObject::sendKeyMsg(UINT message, WPARAM wParam)
 			break;
 		case VK_SPACE:
 			keyState |= MY_KEY_SPACE;
+			fireArrow();
 			break;
 		}
 		break;
@@ -190,4 +199,11 @@ void PlayerObject::setVelocityX(float valX)
 void PlayerObject::setVelocityY(float valY)
 {
 	velocity.y = valY;
+}
+
+void PlayerObject::fireArrow()
+{
+	POINT spawnPos = getPosInt();
+	spawnPos.y -= 30;
+	arrows.emplace_back(spawnPos, dirX);
 }

@@ -7,9 +7,11 @@
 #define MY_KEY_SPACE	0x10
 
 #include "GameObject.h"
+#include "ArrowObject.h"
 
 #include <vector>
 #include <unordered_map>
+#include <list>
 
 #include "MyImage.h"
 
@@ -33,6 +35,9 @@ private:
 	bool isFly;					// 공중에 떠 있는지 여부
 
 public:
+	std::list<ArrowObject> arrows;
+
+public:
 	PlayerObject();
 	virtual ~PlayerObject();
 
@@ -46,6 +51,8 @@ public:
 
 	void setVelocityX(float valX);
 	void setVelocityY(float valY);
+
+	void fireArrow();
 
 };
 

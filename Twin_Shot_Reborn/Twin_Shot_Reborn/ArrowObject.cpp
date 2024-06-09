@@ -4,6 +4,7 @@ ArrowObject::ArrowObject(POINT spawnPos, int dirX)
 	: dirX{ dirX }
 {
 	setPos(spawnPos);
+	size = { 120, 25 };
 
 	image.Load(L"./Resources/Images/Character/Arrow.png");
 
