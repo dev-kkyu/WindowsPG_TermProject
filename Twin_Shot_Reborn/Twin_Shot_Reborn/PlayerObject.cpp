@@ -109,7 +109,7 @@ void PlayerObject::update(float elapsedTime)
 	}
 }
 
-void PlayerObject::draw(HDC hdc) const
+void PlayerObject::draw(HDC hdc, int windowLeft) const
 {
 	if (1 == dirX)
 		images.at(animState)[int(nowFrameIdxF)].MyDraw(hdc, getObjectRect(), true);
