@@ -12,7 +12,7 @@ class SceneBase
 protected:
 	MyImage background;
 	std::vector<TileObject> tiles;
-	std::vector<TileObject> noneBlockTiles;
+	std::vector<TileObject> nonBlockTiles;
 
 	PlayerObject player;
 	std::list<ArrowObject> arrows;	// 플레이어가 쏜 화살 중 벽에 박힌 화살 (player.arrows 를 단순 복사)
