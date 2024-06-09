@@ -1,5 +1,7 @@
 #include "SceneBase.h"
 
+#include "Define.h"
+
 SceneBase::SceneBase()
 {
 }
@@ -50,6 +52,7 @@ void SceneBase::update(float elapsedTime)
 	if (flagVX)
 		player.setVelocityX(0.f);
 
+	// 낙하 판정
 	if (not player.getFly()) {		// 점프 중이 아닐때
 		TileObject tempObj{ POINT{int(newPos.x), int(newPos.y + 10)} };		// 임시 객체 만들기
 		tempObj.setSize({ 100, 100 });		// 플레이어 사이즈로 조정
@@ -65,6 +68,19 @@ void SceneBase::update(float elapsedTime)
 			player.setFly(true);
 			player.setVelocityY(0.f);
 		}
+	}
+
+	// 화살 리소스 회수
+	std::vector<std::list<ArrowObject>::iterator> deleteArrows;
+	for (auto itr = player.arrows.begin(); itr != player.arrows.end(); ++itr) {
+		POINT arrowPos = itr->getPosInt();
+		SIZE arrowSize = itr->getSize();
+		if (arrowPos.x <= -arrowSize.cx / 2 or arrowPos.x >= M_WIDTH + arrowSize.cx / 2) {
+			deleteArrows.emplace_back(itr);
+		}
+	}
+	for (const auto& itr : deleteArrows) {
+		player.arrows.erase(itr);
 	}
 }
 
