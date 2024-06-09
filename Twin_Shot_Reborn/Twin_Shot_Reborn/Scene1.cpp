@@ -173,6 +173,15 @@ void Scene1::update(float elapsedTime)
 	for (const auto& itr : deleteMonsters) {
 		monsters.erase(itr);
 	}
+	// 플레이어 피격
+	if (not player.getHit()) {
+		for (const auto& m : monsters) {
+			if (m.isCollide(player)) {
+				player.onHit();
+				break;
+			}
+		}
+	}
 }
 
 void Scene1::draw(HDC hdc) const

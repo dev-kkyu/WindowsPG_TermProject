@@ -12,6 +12,7 @@
 #include <vector>
 #include <unordered_map>
 #include <list>
+#include <chrono>
 
 #include "MyImage.h"
 
@@ -37,6 +38,7 @@ private:
 	bool isShootReady;			// 발사 준비중인지 여부
 
 	int hp;						// 체력
+	bool isHit;
 
 public:
 	std::list<ArrowObject> arrows;
@@ -57,6 +59,10 @@ public:
 	void setVelocityY(float valY);
 
 	void fireArrow();
+
+	void onHit();
+	void setHit(bool hit);
+	bool getHit() const;
 
 };
 

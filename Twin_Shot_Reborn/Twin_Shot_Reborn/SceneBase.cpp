@@ -51,6 +51,7 @@ void SceneBase::update(float elapsedTime)
 						newPos.y = static_cast<float>(t.getTop());
 						player.setPos(newPos);
 						player.setFly(false);
+						player.setHit(false);
 						flagVX = false;
 						break;
 					}
@@ -67,6 +68,7 @@ void SceneBase::update(float elapsedTime)
 						newPos.y = static_cast<float>(arrow.getTop() + arrow.getBottom()) / 2.f;
 						player.setPos(newPos);
 						player.setFly(false);
+						player.setHit(false);
 						break;
 					}
 				}

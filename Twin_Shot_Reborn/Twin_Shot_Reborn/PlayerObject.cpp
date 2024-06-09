@@ -38,6 +38,8 @@ PlayerObject::PlayerObject()
 	for (int i = 0; i < 7; ++i) {
 		images["Shoot"][i].Load(L"./Resources/Images/Character/Shoot/" + std::to_wstring(i + 1) + L".png");
 	}
+	images["Hit"].resize(1);
+	images["Hit"][0].Load(L"./Resources/Images/Character/Hit.png");
 
 	actionPerSecond = 2.125f;
 	nowFrameIdxF = 0.f;
@@ -71,6 +73,18 @@ void PlayerObject::update(float elapsedTime)
 	// 화살 오브젝트 업데이트
 	for (auto& arrow : arrows)
 		arrow.update(elapsedTime);
+
+	if (isHit) {
+		pos.y -= velocity.y * elapsedTime;		// velocity가 양수면 위로 올라가야 한다 (window 좌표계)
+		// velocity가 maxSpeed 이내의 값을 가지도록 조정
+		velocity.y -= acceleration.y * elapsedTime;
+		// velocity에 따른 캐릭터 위치 조정
+		velocity.y = my_clamp(velocity.y, -maxSpeed.y, maxSpeed.y);
+
+		pos.x += 600.f * elapsedTime;
+
+		return;
+	}
 
 	// 애니메이션 정하기
 	if ("Shoot" == animState) {
@@ -236,4 +250,25 @@ void PlayerObject::fireArrow()
 
 		isShootReady = true;
 	}
+}
+
+void PlayerObject::onHit()
+{
+	isHit = true;
+	animState = "Hit";
+	nowFrameIdxF = 0.f;
+	velocity.y = maxSpeed.y;
+	velocity.x = 0.f;
+
+	--hp;
+}
+
+void PlayerObject::setHit(bool hit)
+{
+	isHit = hit;
+}
+
+bool PlayerObject::getHit() const
+{
+	return isHit;
 }
