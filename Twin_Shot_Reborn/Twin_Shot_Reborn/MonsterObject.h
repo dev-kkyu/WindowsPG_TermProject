@@ -18,17 +18,20 @@ private:
 
 	int dirX;
 
-	bool isDead;
+	int rangeXMin;			// 몬스터 AI 왕복 범위
+	int rangeXMax;
+
+	bool isDead;			// 화살에 피격시 사망
 	int deadDirX;
 	float deadVelocity;
 	std::chrono::steady_clock::time_point deadTime;
 
 private:		// static 변수 -> 이미지를 한 번만 로드할 수 있도록 설정
 	static bool isImageLoaded;
-	static std::array<std::vector<MyImage>, 2> monsterImages;
+	static std::array<std::vector<MyImage>, 3> monsterImages;
 
 public:
-	MonsterObject(POINT iPos, int idx, SIZE size);
+	MonsterObject(POINT iPos, int idx, SIZE size, int min, int max);
 	virtual ~MonsterObject();
 
 	virtual void update(float elapsedTime) override;

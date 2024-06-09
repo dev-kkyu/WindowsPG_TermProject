@@ -5,14 +5,24 @@
 #include <cmath>
 
 bool MonsterObject::isImageLoaded;
-std::array<std::vector<MyImage>, 2> MonsterObject::monsterImages;
+std::array<std::vector<MyImage>, 3> MonsterObject::monsterImages;
 
-MonsterObject::MonsterObject(POINT iPos, int idx, SIZE size)
+MonsterObject::MonsterObject(POINT iPos, int idx, SIZE size, int min, int max)
 {
 	if (not isImageLoaded) {
 		monsterImages[0].resize(10);
 		for (int i = 0; i < 10; ++i) {
 			monsterImages[0][i].Load(L"./Resources/Images/Monster/Stage1/" + std::to_wstring(i + 1) + L".png");
+		}
+
+		monsterImages[1].resize(4);
+		for (int i = 0; i < 4; ++i) {
+			monsterImages[1][i].Load(L"./Resources/Images/Monster/Stage2/" + std::to_wstring(i + 1) + L".png");
+		}
+
+		monsterImages[2].resize(7);
+		for (int i = 0; i < 7; ++i) {
+			monsterImages[2][i].Load(L"./Resources/Images/Monster/Stage2/" + std::to_wstring(i + 6) + L".png");
 		}
 		isImageLoaded = true;
 	}
@@ -25,6 +35,9 @@ MonsterObject::MonsterObject(POINT iPos, int idx, SIZE size)
 	nowFrameIdxF = 0.f;
 
 	dirX = 1;
+
+	rangeXMin = min;
+	rangeXMax = max;
 
 	isDead = false;
 	deadDirX = 1;
@@ -45,6 +58,22 @@ void MonsterObject::update(float elapsedTime)
 		pos.x += deadDirX * 300.f * elapsedTime;
 		pos.y -= deadVelocity * elapsedTime;
 		deadVelocity -= 1000.f * elapsedTime;
+	}
+	else {	// ÀÌµ¿
+		if (imageIndex == 0 and nowFrameIdxF > 3 || imageIndex == 1 || imageIndex == 2) {
+			if (dirX == 1) {
+				if (getPosInt().x < rangeXMax)
+					move(POINT{ 1, 0 }, 100.f * elapsedTime);
+				else
+					dirX = -1;
+			}
+			else {
+				if (getPosInt().x > rangeXMin)
+					move(POINT{ -1, 0 }, 100.f * elapsedTime);
+				else
+					dirX = 1;
+			}
+		}
 	}
 }
 

@@ -77,7 +77,6 @@ Scene1::Scene1()
 	tiles.emplace_back(POINT{ 25, 50 + 16 * 50 }, 13); // 왼쪽 벽
 	tiles.emplace_back(POINT{ 25, 50 + 17 * 50 }, 14); // 왼쪽 벽
 
-
 	tiles.emplace_back(POINT{ 1375, 50 + 1 * 50 }, 8);  // 오른쪽 벽 
 	tiles.emplace_back(POINT{ 1375, 50 + 2 * 50 }, 13); // 오른쪽 벽 
 	tiles.emplace_back(POINT{ 1375, 50 + 3 * 50 }, 9);  // 오른쪽 벽 
@@ -125,10 +124,11 @@ Scene1::Scene1()
 	tiles.emplace_back(POINT{ 25 + 19 * 50, 900 }, 16);
 
 	// 플레이어 배치
-	player.setPos(POINT{ 1100,700 });
+	player.setPos(POINT{ 700,500 });
 
-	monsters.emplace_back(POINT{ 200, 700 }, 0, SIZE{ 120, 100 });
-
+	monsters.emplace_back(POINT{ 200, 700 }, 0, SIZE{ 120, 100 }, 100, 400); // 왼쪽몬스터
+	monsters.emplace_back(POINT{ 1150, 700 }, 0, SIZE{ 120, 100 }, 1050, 1300); // 오른쪽 몬스터
+	monsters.emplace_back(POINT{ 700, 250 }, 0, SIZE{ 100, 100 }, 500, 980); // 위쪽 몬스터
 }
 
 Scene1::~Scene1()
