@@ -159,7 +159,29 @@ void SceneBase::processWindowMessage(HWND hWnd, UINT message, WPARAM wParam, LPA
 	{
 	case WM_CHAR:
 	case WM_KEYDOWN:
+		switch (wParam)
+		{
+		case VK_UP:
+		case VK_DOWN:
+		case VK_LEFT:
+		case VK_RIGHT:
+		case VK_SPACE:
+			player.sendKeyMsg(message, wParam);
+			break;
+		}
+		break;
 	case WM_KEYUP:
+		switch (wParam)
+		{
+		case VK_UP:
+		case VK_DOWN:
+		case VK_LEFT:
+		case VK_RIGHT:
+		case VK_SPACE:
+			player.sendKeyMsg(message, wParam);
+			break;
+		}
+		break;
 	case WM_LBUTTONDOWN:
 	case WM_LBUTTONUP:
 	case WM_RBUTTONDOWN:

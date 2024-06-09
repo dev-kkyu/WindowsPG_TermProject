@@ -133,6 +133,7 @@
     <ClCompile Include="Scene1.cpp" />
     <ClCompile Include="MyImage.cpp" />
     <ClCompile Include="PlayerObject.cpp" />
+    <ClCompile Include="Scene2.cpp" />
     <ClCompile Include="SceneBase.cpp" />
     <ClCompile Include="TileObject.cpp" />
     <ClCompile Include="Twin_Shot_Reborn.cpp" />
@@ -145,6 +146,7 @@
     <ClInclude Include="Define.h" />
     <ClInclude Include="MyImage.h" />
     <ClInclude Include="PlayerObject.h" />
+    <ClInclude Include="Scene2.h" />
     <ClInclude Include="SceneBase.h" />
     <ClInclude Include="TileObject.h" />
   </ItemGroup>

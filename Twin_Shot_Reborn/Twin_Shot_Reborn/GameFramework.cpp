@@ -4,6 +4,7 @@
 #include <chrono>
 
 #include "Scene1.h"
+#include "Scene2.h"
 
 void GameFramework::initialize(HWND hMainWnd)
 {
@@ -61,6 +62,17 @@ void GameFramework::processWindowMessage(HWND hWnd, UINT message, WPARAM wParam,
 	switch (message)
 	{
 	case WM_CHAR:
+		switch (wParam)
+		{
+		case '1':
+			pScene = std::make_shared<Scene1>();
+			break;
+		case '2':
+			pScene = std::make_shared<Scene2>();
+			break;
+		case '3':
+			break;
+		}
 		break;
 	case WM_KEYDOWN:
 		switch (wParam)

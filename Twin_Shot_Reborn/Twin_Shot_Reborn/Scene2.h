@@ -2,13 +2,13 @@
 
 #include "SceneBase.h"
 
-class Scene1 : public SceneBase
+class Scene2 : public SceneBase
 {
 private:
 
 public:
-	Scene1();
-	virtual ~Scene1();
+	Scene2();
+	virtual ~Scene2();
 
 	virtual void initialize() override;
 	virtual void update(float elapsedTime) override;
