@@ -12,7 +12,7 @@ private:
 
 private:		// static 변수 -> 이미지를 한 번만 로드할 수 있도록 설정
 	static bool isImageLoaded;
-	static std::array<MyImage, 32> tileImages;
+	static std::array<MyImage, 36> tileImages;
 
 public:
 	TileObject(POINT iPos);
