@@ -1,12 +1,12 @@
 #include "TileObject.h"
 
 bool TileObject::isImageLoaded;
-std::array<MyImage, 20> TileObject::tileImages;
+std::array<MyImage, 32> TileObject::tileImages;
 
 TileObject::TileObject(POINT iPos)
 {
 	if (not isImageLoaded) {
-		for (int i = 0; i < 20; ++i) {
+		for (int i = 0; i < 32; ++i) {
 			tileImages[i].Load(L"./Resources/Images/Tile/" + std::to_wstring(i + 1) + L".png");
 		}
 		isImageLoaded = true;
