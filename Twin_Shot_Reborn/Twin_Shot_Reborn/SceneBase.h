@@ -5,12 +5,15 @@
 
 #include "MyImage.h"
 #include "TileObject.h"
+#include "PlayerObject.h"
 
 class SceneBase
 {
 protected:
 	MyImage background;
 	std::vector<TileObject> tiles;
+
+	PlayerObject player;
 
 public:
 	SceneBase();

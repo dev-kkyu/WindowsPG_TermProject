@@ -2,12 +2,9 @@
 
 #include "SceneBase.h"
 
-#include "PlayerObject.h"
-
 class Scene1 : public SceneBase
 {
 private:
-	PlayerObject player;
 
 public:
 	Scene1();
