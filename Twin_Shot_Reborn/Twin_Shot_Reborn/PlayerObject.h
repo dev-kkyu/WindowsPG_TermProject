@@ -36,6 +36,8 @@ private:
 
 	bool isShootReady;			// 발사 준비중인지 여부
 
+	int hp;						// 체력
+
 public:
 	std::list<ArrowObject> arrows;
 

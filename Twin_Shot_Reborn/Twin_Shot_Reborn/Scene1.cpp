@@ -143,6 +143,25 @@ void Scene1::update(float elapsedTime)
 
 	for (auto& m : monsters)
 		m.update(elapsedTime);
+
+
+	// 플레이어 화살과 몬스터 충돌 처리
+	std::vector<std::list<ArrowObject>::iterator> deleteArrows;
+	std::vector<std::list<MonsterObject>::iterator> deleteMonsters;
+	for (auto m = monsters.begin(); m != monsters.end(); ++m) {
+		for (auto a = player.arrows.begin(); a != player.arrows.end(); ++a) {
+			if (m->isCollide(*a)) {
+				deleteArrows.emplace_back(a);
+				deleteMonsters.emplace_back(m);
+			}
+		}
+	}
+	for (const auto& itr : deleteArrows) {
+		player.arrows.erase(itr);
+	}
+	for (const auto& itr : deleteMonsters) {
+		monsters.erase(itr);
+	}
 }
 
 void Scene1::draw(HDC hdc) const

@@ -58,6 +58,8 @@ PlayerObject::PlayerObject()
 
 	isFly = false;				// 공중에 떠 있는지 여부
 	isShootReady = false;
+
+	hp = 3;
 }
 
 PlayerObject::~PlayerObject()
@@ -73,10 +75,9 @@ void PlayerObject::update(float elapsedTime)
 	// 애니메이션 정하기
 	if ("Shoot" == animState) {
 		nowFrameIdxF += (images[animState].size() * actionPerSecond * 1.5f) * elapsedTime;
-		if (nowFrameIdxF >= 4.f) {				// 5번째 그림이 재생될 때
+		if (nowFrameIdxF >= 3.f) {				// 5번째 그림이 재생될 때
 			if (isShootReady) {					// 아직 실제로 발사하지 않은 상태이면
 				POINT spawnPos = getPosInt();
-				spawnPos.x -= 10 * dirX;
 				spawnPos.y -= 23;
 				arrows.emplace_back(spawnPos, dirX);	// 발사
 				isShootReady = false;
