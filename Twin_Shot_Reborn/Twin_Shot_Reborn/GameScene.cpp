@@ -17,7 +17,7 @@ GameScene::GameScene()
 	background.Load(L"./Resources/Images/Background/Stage1.png");
 
 	// 타일 배치
-	for (int i = 0; i < 24; ++i) {
+	for (int i = 0; i < 28; ++i) {
 		tiles.emplace_back(POINT{ 25 + i * 50, 50 });
 		tiles.emplace_back(POINT{ 25 + i * 50, 900 });
 		if (i < 12)
@@ -25,7 +25,7 @@ GameScene::GameScene()
 	}
 	for (int i = 0; i < 22; ++i) {
 		tiles.emplace_back(POINT{ 25, 50 + (i + 1) * 50 });
-		tiles.emplace_back(POINT{ 1175, 50 + (i + 1) * 50 });
+		tiles.emplace_back(POINT{ 1375, 50 + (i + 1) * 50 });
 	}
 
 	// 플레이어 배치
