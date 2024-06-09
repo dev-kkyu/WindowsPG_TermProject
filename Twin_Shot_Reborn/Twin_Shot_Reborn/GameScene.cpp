@@ -31,14 +31,15 @@ void GameScene::update(float elapsedTime)
 
 	player.update(elapsedTime);
 
+	bool flagVX = false;		// X방향 가속도를 초기화 할 것인지
 	// 좌우 충돌
 	POINTFLOAT newPos = player.getPos();
 	for (const auto& t : tiles) {
 		if (t.isCollide(player)) {	// 플레이어와 충돌시
 			if (t.getLeft() < player.getRight() and t.getRight() > player.getLeft()) {	// 좌우에 대하여 충돌이면
 				newPos.x = befPos.x;
-				player.setVelocityX(0.f);
 				player.setPos(newPos);
+				flagVX = true;
 				break;
 			}
 		}
@@ -49,13 +50,16 @@ void GameScene::update(float elapsedTime)
 		if (t.isCollide(player)) {	// 플레이어와 충돌시
 			if (t.getTop() < player.getBottom() and t.getBottom() > player.getTop()) {	// 상하에 대하여 충돌이면
 				newPos.y = befPos.y;
-				if (player.getFly())
-					player.setFly(false);
 				player.setPos(newPos);
+				player.setFly(false);
+				flagVX = false;
 				break;
 			}
 		}
 	}
+
+	if (flagVX)
+		player.setVelocityX(0.f);
 
 }
 
