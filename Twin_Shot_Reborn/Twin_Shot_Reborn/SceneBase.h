@@ -6,15 +6,15 @@
 #include "MyImage.h"
 #include "TileObject.h"
 
-class Scene
+class SceneBase
 {
 protected:
 	MyImage background;
 	std::vector<TileObject> tiles;
 
 public:
-	Scene();
-	virtual ~Scene();
+	SceneBase();
+	virtual ~SceneBase();
 
 	virtual void initialize() = 0;
 	virtual void update(float elapsedTime) = 0;

@@ -3,7 +3,7 @@
 #include <string>
 #include <chrono>
 
-#include "GameScene.h"
+#include "Scene1.h"
 
 void GameFramework::initialize(HWND hMainWnd)
 {
@@ -17,7 +17,7 @@ void GameFramework::initialize(HWND hMainWnd)
 	SetBkMode(hDCFrameBuffer, TRANSPARENT);				// 백그라운드 투명
 	SetStretchBltMode(hDCFrameBuffer, HALFTONE);		// 비트맵 축소, 확대시 보간
 
-	pScene = std::make_shared<GameScene>();
+	pScene = std::make_shared<Scene1>();
 }
 
 void GameFramework::drawNextFrame()

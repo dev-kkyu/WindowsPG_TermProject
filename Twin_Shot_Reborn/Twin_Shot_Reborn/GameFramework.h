@@ -3,7 +3,7 @@
 #include <Windows.h>
 #include <memory>
 
-class Scene;
+class SceneBase;
 class GameFramework
 {
 private:
@@ -12,7 +12,7 @@ private:
 	HDC hDCFrameBuffer;
 	HBITMAP hBitmapFrameBuffer;
 
-	std::shared_ptr<Scene> pScene;
+	std::shared_ptr<SceneBase> pScene;
 
 public:
 	void initialize(HWND hMainWnd);

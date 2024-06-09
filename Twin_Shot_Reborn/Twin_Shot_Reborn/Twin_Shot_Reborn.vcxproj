@@ -129,21 +129,21 @@
   <ItemGroup>
     <ClCompile Include="GameFramework.cpp" />
     <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="Scene1.cpp" />
     <ClCompile Include="MyImage.cpp" />
     <ClCompile Include="PlayerObject.cpp" />
-    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneBase.cpp" />
     <ClCompile Include="TileObject.cpp" />
     <ClCompile Include="Twin_Shot_Reborn.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameFramework.h" />
     <ClInclude Include="GameObject.h" />
-    <ClInclude Include="GameScene.h" />
+    <ClInclude Include="Scene1.h" />
     <ClInclude Include="Define.h" />
     <ClInclude Include="MyImage.h" />
     <ClInclude Include="PlayerObject.h" />
-    <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneBase.h" />
     <ClInclude Include="TileObject.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

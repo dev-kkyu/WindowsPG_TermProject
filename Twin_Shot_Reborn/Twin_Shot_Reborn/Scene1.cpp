@@ -1,4 +1,4 @@
-#include "GameScene.h"
+#include "Scene1.h"
 
 #include "Define.h"
 
@@ -12,7 +12,7 @@ static inline constexpr T my_clamp(T val, T min_val, T max_val)
 	return val;
 }
 
-GameScene::GameScene()
+Scene1::Scene1()
 {
 	background.Load(L"./Resources/Images/Background/Stage1.png");
 
@@ -32,15 +32,15 @@ GameScene::GameScene()
 	player.setPos(POINT{ 600, 850 });
 }
 
-GameScene::~GameScene()
+Scene1::~Scene1()
 {
 }
 
-void GameScene::initialize()
+void Scene1::initialize()
 {
 }
 
-void GameScene::update(float elapsedTime)
+void Scene1::update(float elapsedTime)
 {
 	const POINTFLOAT befPos = player.getPos();	// 업데이트 전 플레이어 위치
 
@@ -101,7 +101,7 @@ void GameScene::update(float elapsedTime)
 
 }
 
-void GameScene::draw(HDC hdc) const
+void Scene1::draw(HDC hdc) const
 {
 	// 스크롤링 적용
 	int windowLeft = player.getPosInt().x - W_WIDTH / 2;
@@ -115,11 +115,11 @@ void GameScene::draw(HDC hdc) const
 	player.draw(hdc, windowLeft);
 }
 
-void GameScene::destroy()
+void Scene1::destroy()
 {
 }
 
-void GameScene::processWindowMessage(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+void Scene1::processWindowMessage(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
 	{
@@ -155,7 +155,7 @@ void GameScene::processWindowMessage(HWND hWnd, UINT message, WPARAM wParam, LPA
 	case WM_MOUSEMOVE:
 		break;
 	default:
-		MessageBoxA(hWnd, "Wrong Window Message On GameScene", nullptr, MB_OK);
+		MessageBoxA(hWnd, "Wrong Window Message On Scene1", nullptr, MB_OK);
 		break;
 	}
 }

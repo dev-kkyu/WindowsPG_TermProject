@@ -1,17 +1,17 @@
 #pragma once
 
-#include "Scene.h"
+#include "SceneBase.h"
 
 #include "PlayerObject.h"
 
-class GameScene : public Scene
+class Scene1 : public SceneBase
 {
 private:
 	PlayerObject player;
 
 public:
-	GameScene();
-	virtual ~GameScene();
+	Scene1();
+	virtual ~Scene1();
 
 	virtual void initialize() override;
 	virtual void update(float elapsedTime) override;
