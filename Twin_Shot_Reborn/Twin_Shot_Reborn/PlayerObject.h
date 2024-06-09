@@ -39,6 +39,7 @@ private:
 
 	int hp;						// Ã¼·Â
 	bool isHit;
+	std::chrono::steady_clock::time_point hitTime;
 
 public:
 	std::list<ArrowObject> arrows;

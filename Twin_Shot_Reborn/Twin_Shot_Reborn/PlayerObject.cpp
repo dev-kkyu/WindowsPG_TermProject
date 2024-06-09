@@ -62,6 +62,8 @@ PlayerObject::PlayerObject()
 	isShootReady = false;
 
 	hp = 3;
+
+	hitTime = std::chrono::steady_clock::now();
 }
 
 PlayerObject::~PlayerObject()
@@ -254,13 +256,18 @@ void PlayerObject::fireArrow()
 
 void PlayerObject::onHit()
 {
-	isHit = true;
-	animState = "Hit";
-	nowFrameIdxF = 0.f;
-	velocity.y = maxSpeed.y;
-	velocity.x = 0.f;
+	if (not isHit) {
+		if (hitTime + std::chrono::milliseconds(1500) <= std::chrono::steady_clock::now()) {
+			isHit = true;
+			hitTime = std::chrono::steady_clock::now();
+			animState = "Hit";
+			nowFrameIdxF = 0.f;
+			velocity.y = maxSpeed.y;
+			velocity.x = 0.f;
 
-	--hp;
+			--hp;
+		}
+	}
 }
 
 void PlayerObject::setHit(bool hit)

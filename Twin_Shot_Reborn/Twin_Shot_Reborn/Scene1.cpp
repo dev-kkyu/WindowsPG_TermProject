@@ -146,7 +146,6 @@ void Scene1::update(float elapsedTime)
 	for (auto& m : monsters)
 		m.update(elapsedTime);
 
-
 	// 플레이어 화살과 몬스터 충돌 처리
 	std::vector<std::list<ArrowObject>::iterator> deleteArrows;
 	for (auto& m : monsters) {
@@ -176,9 +175,11 @@ void Scene1::update(float elapsedTime)
 	// 플레이어 피격
 	if (not player.getHit()) {
 		for (const auto& m : monsters) {
-			if (m.isCollide(player)) {
-				player.onHit();
-				break;
+			if (not m.getIsDead()) {
+				if (m.isCollide(player)) {
+					player.onHit();
+					break;
+				}
 			}
 		}
 	}
