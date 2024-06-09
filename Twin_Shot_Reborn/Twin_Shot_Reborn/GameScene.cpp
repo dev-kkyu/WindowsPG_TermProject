@@ -2,6 +2,16 @@
 
 #include "Define.h"
 
+template <class T>
+static inline constexpr T my_clamp(T val, T min_val, T max_val)
+{
+	if (val < min_val)
+		return min_val;
+	if (val > max_val)
+		return max_val;
+	return val;
+}
+
 GameScene::GameScene()
 {
 	background.Load(L"./Resources/Images/Background/Stage1.png");
@@ -93,12 +103,16 @@ void GameScene::update(float elapsedTime)
 
 void GameScene::draw(HDC hdc) const
 {
+	// 스크롤링 적용
+	int windowLeft = player.getPosInt().x - W_WIDTH / 2;
+	windowLeft = my_clamp(windowLeft, 0, M_WIDTH - W_WIDTH);
+
 	background.MyDraw(hdc, RECT{ 0, 0, W_WIDTH, W_HEIGHT });
 
 	for (auto& t : tiles)
-		t.draw(hdc);
+		t.draw(hdc, windowLeft);
 
-	player.draw(hdc);
+	player.draw(hdc, windowLeft);
 }
 
 void GameScene::destroy()

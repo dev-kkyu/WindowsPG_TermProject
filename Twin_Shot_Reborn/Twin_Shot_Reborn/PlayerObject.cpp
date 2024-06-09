@@ -3,7 +3,8 @@
 #include <cmath>
 #include <limits>
 
-static inline constexpr float my_clamp(float val, float min_val, float max_val)
+template <class T>
+static inline constexpr T my_clamp(T val, T min_val, T max_val)
 {
 	if (val < min_val)
 		return min_val;
@@ -112,9 +113,9 @@ void PlayerObject::update(float elapsedTime)
 void PlayerObject::draw(HDC hdc, int windowLeft) const
 {
 	if (1 == dirX)
-		images.at(animState)[int(nowFrameIdxF)].MyDraw(hdc, getObjectRect(), true);
+		images.at(animState)[int(nowFrameIdxF)].MyDraw(hdc, getObjectRect(), windowLeft, true);
 	else
-		images.at(animState)[int(nowFrameIdxF)].MyDraw(hdc, getObjectRect());
+		images.at(animState)[int(nowFrameIdxF)].MyDraw(hdc, getObjectRect(), windowLeft);
 }
 
 void PlayerObject::sendKeyMsg(UINT message, WPARAM wParam)

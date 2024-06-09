@@ -81,3 +81,8 @@ void MyImage::MyDraw(HDC hdc, const RECT& dstRect, bool reverseX, bool reverseY)
 		}
 	}
 }
+
+void MyImage::MyDraw(HDC hdc, const RECT& dstRect, int windowLeft, bool reverseX, bool reverseY) const
+{
+	MyDraw(hdc, RECT{ dstRect.left - windowLeft , dstRect.top, dstRect.right - windowLeft, dstRect.bottom }, reverseX, reverseY);
+}

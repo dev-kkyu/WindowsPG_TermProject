@@ -20,5 +20,6 @@ public:
 
 	HRESULT Load(std::wstring filename);
 	void MyDraw(HDC hdc, const RECT& dstRect, bool reverseX = false, bool reverseY = false) const;
+	void MyDraw(HDC hdc, const RECT& dstRect, int windowLeft, bool reverseX = false, bool reverseY = false) const;	// 스크롤링 전용
 };
 

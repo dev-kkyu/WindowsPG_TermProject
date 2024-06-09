@@ -28,5 +28,5 @@ void TileObject::update(float elapsedTime)
 
 void TileObject::draw(HDC hdc, int windowLeft) const
 {
-	tileImages[imageIndex].MyDraw(hdc, getObjectRect());
+	tileImages[imageIndex].MyDraw(hdc, getObjectRect(), windowLeft);
 }
