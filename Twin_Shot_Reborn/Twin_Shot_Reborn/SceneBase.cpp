@@ -105,8 +105,10 @@ void SceneBase::update(float elapsedTime)
 		}
 	}
 
-	// 화살 리소스 회수
+	// 화살 리소스 관리
 	std::vector<std::list<ArrowObject>::iterator> deleteArrows;
+	// 플레이어 화살 리소스 회수
+	deleteArrows.clear();
 	for (auto itr = player.arrows.begin(); itr != player.arrows.end(); ++itr) {
 		POINT arrowPos = itr->getPosInt();
 		SIZE arrowSize = itr->getSize();
@@ -116,6 +118,18 @@ void SceneBase::update(float elapsedTime)
 	}
 	for (const auto& itr : deleteArrows) {
 		player.arrows.erase(itr);
+	}
+	// 씬 화살 리소스 회수
+	deleteArrows.clear();
+	auto nowTime = std::chrono::steady_clock::now();
+	for (auto itr = arrows.begin(); itr != arrows.end(); ++itr) {
+		auto hitTime = itr->getHitTime();
+		if (hitTime + std::chrono::seconds{ 6 } <= nowTime) {
+			deleteArrows.emplace_back(itr);
+		}
+	}
+	for (const auto& itr : deleteArrows) {
+		arrows.erase(itr);
 	}
 
 	// 화살과 타일 충돌 처리 -> 모든 타일과 모든 화살의 충돌 처리
@@ -127,6 +141,7 @@ void SceneBase::update(float elapsedTime)
 			}
 		}
 		for (const auto& itr : deleteArrows) {
+			itr->onHit();						// 충돌 시간 설정해 주고
 			arrows.emplace_back(*itr);			// 씬에 추가해 주고
 			player.arrows.erase(itr);			// 플레이어에게서 지워준다
 		}

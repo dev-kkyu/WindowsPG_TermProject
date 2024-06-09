@@ -36,3 +36,13 @@ void ArrowObject::draw(HDC hdc, int windowLeft) const
 
 	drawDebug(hdc, windowLeft);
 }
+
+void ArrowObject::onHit()
+{
+	hitTime = std::chrono::steady_clock::now();
+}
+
+std::chrono::steady_clock::time_point ArrowObject::getHitTime() const
+{
+	return hitTime;
+}
