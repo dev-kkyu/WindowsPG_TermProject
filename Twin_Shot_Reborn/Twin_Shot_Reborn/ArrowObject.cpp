@@ -1,12 +1,18 @@
 #include "ArrowObject.h"
 
+MyImage ArrowObject::image;
+bool ArrowObject::isImageLoaded;
+
 ArrowObject::ArrowObject(POINT spawnPos, int dirX)
 	: dirX{ dirX }
 {
 	setPos(spawnPos);
 	size = { 120, 25 };
 
-	image.Load(L"./Resources/Images/Character/Arrow.png");
+	if (not isImageLoaded) {
+		image.Load(L"./Resources/Images/Character/Arrow.png");
+		isImageLoaded = true;
+	}
 
 }
 

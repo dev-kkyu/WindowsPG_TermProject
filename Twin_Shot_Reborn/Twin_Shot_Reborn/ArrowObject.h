@@ -6,7 +6,10 @@
 class ArrowObject : public GameObject
 {
 private:
-	MyImage image;
+
+private:
+	static MyImage image;
+	static bool isImageLoaded;
 
 	int dirX;
 
