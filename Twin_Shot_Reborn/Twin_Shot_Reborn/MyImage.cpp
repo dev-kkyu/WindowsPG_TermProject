@@ -146,3 +146,13 @@ void MyImage::MyDraw(HDC hdc, const RECT& dstRect, const RECT& srcRect, int wind
 {
 	MyDraw(hdc, RECT{ dstRect.left - windowLeft , dstRect.top, dstRect.right - windowLeft, dstRect.bottom }, srcRect, reverseX, reverseY);
 }
+
+int MyImage::getWidth() const
+{
+	return image->GetWidth();
+}
+
+int MyImage::getHeight() const
+{
+	return image->GetHeight();
+}
