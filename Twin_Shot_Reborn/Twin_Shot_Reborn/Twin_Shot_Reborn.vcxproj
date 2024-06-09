@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ArrowObject.cpp" />
     <ClCompile Include="GameFramework.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Scene1.cpp" />
@@ -137,6 +138,7 @@
     <ClCompile Include="Twin_Shot_Reborn.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ArrowObject.h" />
     <ClInclude Include="GameFramework.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Scene1.h" />
