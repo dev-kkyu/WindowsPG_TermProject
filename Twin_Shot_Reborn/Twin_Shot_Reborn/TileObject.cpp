@@ -1,21 +1,27 @@
 #include "TileObject.h"
 
 bool TileObject::isImageLoaded;
-std::array<MyImage, 8> TileObject::tileImages;
+std::array<MyImage, 17> TileObject::tileImages;
 
 TileObject::TileObject(POINT iPos)
 {
 	if (not isImageLoaded) {
-		for (int i = 0; i < 8; ++i) {
+		for (int i = 0; i < 17; ++i) {
 			tileImages[i].Load(L"./Resources/Images/Tile/" + std::to_wstring(i + 1) + L".png");
 		}
 		isImageLoaded = true;
 	}
 
-	imageIndex = rand() % 8;
+	imageIndex = rand() % 8; 
 
 	setPos(iPos);
 	size = { 50, 50 };
+}
+
+TileObject::TileObject(POINT iPos, int idx)
+	: TileObject{ iPos }
+{
+	imageIndex = idx;
 }
 
 TileObject::~TileObject()

@@ -16,15 +16,18 @@ Scene1::Scene1()
 {
 	background.Load(L"./Resources/Images/Background/Stage1.png");
 
-	// 타일 배치
-	for (int i = 0; i < 28; ++i) {
+	// 타일 배치 (가로 28, 세로 22)
+	for (int i = 0; i < 28; ++i) { // 가로 
+
 		tiles.emplace_back(POINT{ 25 + i * 50, 50 });
 		tiles.emplace_back(POINT{ 25 + i * 50, 900 });
-		if (i < 12)
+		if (i > 0 and i < 12)
 			tiles.emplace_back(POINT{ 25 + i * 50, 750 });
 	}
-	for (int i = 0; i < 22; ++i) {
-		tiles.emplace_back(POINT{ 25, 50 + (i + 1) * 50 });
+
+	for (int i = 0; i < 22; ++i) { // 세로
+
+		tiles.emplace_back(POINT{ 25, 50 + (i + 1) * 50 }, 10);
 		tiles.emplace_back(POINT{ 1375, 50 + (i + 1) * 50 });
 	}
 
