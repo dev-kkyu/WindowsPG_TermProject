@@ -35,7 +35,7 @@ void SceneBase::update(float elapsedTime)
 		if (t.isCollide(player)) {	// 플레이어와 충돌시
 			if (t.getTop() < player.getBottom() and t.getBottom() > player.getTop()) {	// 상하에 대하여 충돌이면
 				if (newPos.y > befPos.y) {				// 낙하 중에만 적용한다. (상승중에는 충돌X)
-					if (newPos.y < t.getTop() + 10) {	// 충분히 타일 위에 올라왔을 때만 적용
+					if (newPos.y < t.getTop() + 25) {	// 충분히 타일 위에 올라왔을 때만 적용
 						newPos.y = static_cast<float>(t.getTop());
 						player.setPos(newPos);
 						player.setFly(false);
