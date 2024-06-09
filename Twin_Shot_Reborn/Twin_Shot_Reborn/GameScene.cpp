@@ -72,6 +72,23 @@ void GameScene::update(float elapsedTime)
 	if (flagVX)
 		player.setVelocityX(0.f);
 
+	if (not player.getFly()) {		// 점프 중이 아닐때
+		TileObject tempObj{ POINT{int(newPos.x), int(newPos.y + 10)} };		// 임시 객체 만들기
+		tempObj.setSize({ 100, 100 });		// 플레이어 사이즈로 조정
+
+		bool isOnTile = false;
+		for (const auto& t : tiles) {
+			if (t.isCollide(tempObj)) {		// 타일과 임시 객체 충돌시
+				isOnTile = true;			// 플레이어는 타일 위에 있다.
+				break;
+			}
+		}
+		if (not isOnTile) {		// 현재 타일 위에 있지 않을때
+			player.setFly(true);
+			player.setVelocityY(0.f);
+		}
+	}
+
 }
 
 void GameScene::draw(HDC hdc)
