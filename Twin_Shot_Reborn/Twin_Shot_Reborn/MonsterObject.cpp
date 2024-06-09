@@ -3,7 +3,7 @@
 #include <cmath>
 
 bool MonsterObject::isImageLoaded;
-std::array<std::vector<MyImage>, 2> MonsterObject::monsterImages;
+std::array<std::vector<MyImage>, 3> MonsterObject::monsterImages;
 
 MonsterObject::MonsterObject(POINT iPos, int idx, SIZE size, int min, int max)
 {
@@ -11,6 +11,16 @@ MonsterObject::MonsterObject(POINT iPos, int idx, SIZE size, int min, int max)
 		monsterImages[0].resize(10);
 		for (int i = 0; i < 10; ++i) {
 			monsterImages[0][i].Load(L"./Resources/Images/Monster/Stage1/" + std::to_wstring(i + 1) + L".png");
+		}
+
+		monsterImages[1].resize(4);
+		for (int i = 0; i < 4; ++i) {
+			monsterImages[1][i].Load(L"./Resources/Images/Monster/Stage2/" + std::to_wstring(i + 1) + L".png");
+		}
+
+		monsterImages[2].resize(7);
+		for (int i = 0; i < 7; ++i) {
+			monsterImages[2][i].Load(L"./Resources/Images/Monster/Stage2/" + std::to_wstring(i + 6) + L".png");
 		}
 		isImageLoaded = true;
 	}
@@ -40,7 +50,7 @@ void MonsterObject::update(float elapsedTime)
 
 	// ÀÌµ¿ 
 
-	if (nowFrameIdxF > 3) {
+	if (imageIndex == 0 and nowFrameIdxF > 3 || imageIndex == 1 || imageIndex == 2) {
 
 		if (dirX == 1) {
 			if (getPosInt().x < rangeXMax)

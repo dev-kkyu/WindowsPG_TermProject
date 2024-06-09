@@ -1,5 +1,17 @@
 #include "Scene2.h"
 
+#include "Define.h"
+
+template <class T>
+static inline constexpr T my_clamp(T val, T min_val, T max_val)
+{
+	if (val < min_val)
+		return min_val;
+	if (val > max_val)
+		return max_val;
+	return val;
+}
+
 Scene2::Scene2()
 {
 	background.Load(L"./Resources/Images/Background/Stage2.png");
@@ -74,6 +86,25 @@ Scene2::Scene2()
 
 	// 플레이어 배치
 	player.setPos(POINT{ 1125,150 });
+
+	// 몬스터 배치 
+
+	// 가운데 
+	monsters.emplace_back(POINT{ 550, 150 }, 2, SIZE{ 75, 70 }, 500, 900); // 좌우 이동 몬스터 - 1번째 칸
+	monsters.emplace_back(POINT{ 550, 290 }, 1, SIZE{ 90, 90 }, 400, 1000); // 날라다니는 몬스터 - 2번째 칸
+	monsters.emplace_back(POINT{ 1000, 540 }, 1, SIZE{ 90, 90 }, 400, 1000); // 날라다니는 몬스터 - 3번째 칸
+
+	// 왼쪽
+	monsters.emplace_back(POINT{ 100, 150 }, 2, SIZE{ 75, 70 }, 100, 250); // 좌우 이동 몬스터 - 1번째 칸
+	monsters.emplace_back(POINT{ 240, 350 }, 2, SIZE{ 75, 70 }, 100, 250); // 좌우 이동 몬스터 - 2번째 칸
+	monsters.emplace_back(POINT{ 120, 550 }, 2, SIZE{ 75, 70 }, 100, 250); // 좌우 이동 몬스터 - 3번째 칸
+	monsters.emplace_back(POINT{ 190, 750 }, 2, SIZE{ 75, 70 }, 100, 250); // 좌우 이동 몬스터 - 4번째 칸
+
+	// 오른쪽
+	monsters.emplace_back(POINT{ 1300, 150 }, 2, SIZE{ 75, 70 }, 1120, 1320); // 좌우 이동 몬스터 - 1번째 칸
+	monsters.emplace_back(POINT{ 1210, 350 }, 2, SIZE{ 75, 70 }, 1120, 1320); // 좌우 이동 몬스터 - 2번째 칸
+	monsters.emplace_back(POINT{ 1130, 550 }, 2, SIZE{ 75, 70 }, 1120, 1320); // 좌우 이동 몬스터 - 3번째 칸
+	monsters.emplace_back(POINT{ 1311, 750 }, 2, SIZE{ 75, 70 }, 1120, 1320); // 좌우 이동 몬스터 - 4번째 칸
 }
 
 Scene2::~Scene2()
@@ -87,11 +118,23 @@ void Scene2::initialize()
 void Scene2::update(float elapsedTime)
 {
 	SceneBase::update(elapsedTime);
+
+	for (auto& m : monsters)
+		m.update(elapsedTime);
 }
 
 void Scene2::draw(HDC hdc) const
 {
 	SceneBase::draw(hdc);
+
+
+	// 스크롤링 적용
+	int windowLeft = player.getPosInt().x - W_WIDTH / 2;
+	windowLeft = my_clamp(windowLeft, 0, M_WIDTH - W_WIDTH);
+
+	for (auto& m : monsters)
+		m.draw(hdc, windowLeft);
+
 }
 
 void Scene2::destroy()
