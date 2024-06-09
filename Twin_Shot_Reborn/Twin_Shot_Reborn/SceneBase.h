@@ -11,6 +11,10 @@ class SceneBase
 {
 protected:
 	MyImage background;
+	MyImage cloud;
+
+	int cloudPosX = 0;
+
 	std::vector<TileObject> tiles;
 	std::vector<TileObject> nonBlockTiles;
 
