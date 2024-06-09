@@ -101,7 +101,7 @@ Scene2::Scene2()
 	monsters.emplace_back(POINT{ 190, 750 }, 2, SIZE{ 75, 70 }, 100, 250); // 좌우 이동 몬스터 - 4번째 칸
 
 	// 오른쪽
-	monsters.emplace_back(POINT{ 1300, 150 }, 2, SIZE{ 75, 70 }, 1120, 1320); // 좌우 이동 몬스터 - 1번째 칸
+	//monsters.emplace_back(POINT{ 1300, 150 }, 2, SIZE{ 75, 70 }, 1120, 1320); // 좌우 이동 몬스터 - 1번째 칸
 	monsters.emplace_back(POINT{ 1210, 350 }, 2, SIZE{ 75, 70 }, 1120, 1320); // 좌우 이동 몬스터 - 2번째 칸
 	monsters.emplace_back(POINT{ 1130, 550 }, 2, SIZE{ 75, 70 }, 1120, 1320); // 좌우 이동 몬스터 - 3번째 칸
 	monsters.emplace_back(POINT{ 1311, 750 }, 2, SIZE{ 75, 70 }, 1120, 1320); // 좌우 이동 몬스터 - 4번째 칸
@@ -121,6 +121,44 @@ void Scene2::update(float elapsedTime)
 
 	for (auto& m : monsters)
 		m.update(elapsedTime);
+
+	// 플레이어 화살과 몬스터 충돌 처리
+	std::vector<std::list<ArrowObject>::iterator> deleteArrows;
+	for (auto& m : monsters) {
+		for (auto a = player.arrows.begin(); a != player.arrows.end(); ++a) {
+			if (m.isCollide(*a)) {
+				deleteArrows.emplace_back(a);
+				m.onHit(*a);
+			}
+		}
+	}
+	for (const auto& itr : deleteArrows) {
+		player.arrows.erase(itr);
+	}
+	// 죽은 몬스터 제거
+	std::vector<std::list<MonsterObject>::iterator> deleteMonsters;
+	for (auto m = monsters.begin(); m != monsters.end(); ++m) {
+		if (m->getIsDead()) {
+			auto nowTime = std::chrono::steady_clock::now();
+			if (m->getDeadTime() + std::chrono::milliseconds(1500) <= nowTime) {
+				deleteMonsters.emplace_back(m);
+			}
+		}
+	}
+	for (const auto& itr : deleteMonsters) {
+		monsters.erase(itr);
+	}
+	// 플레이어 피격
+	if (not player.getHit()) {
+		for (const auto& m : monsters) {
+			if (not m.getIsDead()) {
+				if (m.isCollide(player)) {
+					player.onHit();
+					break;
+				}
+			}
+		}
+	}
 }
 
 void Scene2::draw(HDC hdc) const
