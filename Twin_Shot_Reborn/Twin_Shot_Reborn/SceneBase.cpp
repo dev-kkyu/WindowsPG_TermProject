@@ -58,6 +58,21 @@ void SceneBase::update(float elapsedTime)
 			}
 		}
 	}
+	// 상하 충돌 (씬에 존재하는 화살에 대하여)
+	for (const auto& arrow : arrows) {
+		if (arrow.isCollide(player)) {	// 플레이어와 충돌시
+			if (arrow.getTop() < player.getBottom() and arrow.getBottom() > player.getTop()) {	// 상하에 대하여 충돌이면
+				if (newPos.y > befPos.y) {					// 낙하 중에만 적용한다. (상승중에는 충돌X)
+					if (newPos.y < arrow.getTop() + 10) {	// 충분히 타일 위에 올라왔을 때만 적용
+						newPos.y = static_cast<float>(arrow.getTop() + arrow.getBottom()) / 2.f;
+						player.setPos(newPos);
+						player.setFly(false);
+						break;
+					}
+				}
+			}
+		}
+	}
 
 	if (flagVX)
 		player.setVelocityX(0.f);
@@ -70,8 +85,18 @@ void SceneBase::update(float elapsedTime)
 		bool isOnTile = false;
 		for (const auto& t : tiles) {
 			if (t.isCollide(tempObj)) {		// 타일과 임시 객체 충돌시
-				isOnTile = true;			// 플레이어는 타일 위에 있다.
-				break;
+				if (newPos.y <= t.getTop()) {
+					isOnTile = true;			// 플레이어는 타일 위에 있다.
+					break;
+				}
+			}
+		}
+		for (const auto& arrow : arrows) {
+			if (arrow.isCollide(tempObj)) {	// 화살과 임시 객체 충돌시
+				if (newPos.y <= (arrow.getTop() + arrow.getBottom()) / 2.f) {
+					isOnTile = true;			// 플레이어는 타일(화살) 위에 있다.
+					break;
+				}
 			}
 		}
 		if (not isOnTile) {		// 현재 타일 위에 있지 않을때
