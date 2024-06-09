@@ -14,6 +14,7 @@ static inline constexpr T my_clamp(T val, T min_val, T max_val)
 
 SceneBase::SceneBase()
 {
+	cloud.Load(L"./Resources/Images/Background/Cloud.png");
 }
 
 SceneBase::~SceneBase()
@@ -31,7 +32,7 @@ void SceneBase::update(float elapsedTime)
 	POINTFLOAT newPos = player.getPos();
 	for (const auto& t : tiles) {
 		if (t.isCollide(player)) {	// 플레이어와 충돌시
-			if (t.getBottom() >= player.getBottom()) {		// 상승시 충돌 범위를 줄여준다
+			if (t.getBottom() >= player.getBottom()) {	// 상승시 충돌 범위를 줄여준다
 				if (t.getLeft() < player.getRight() and t.getRight() > player.getLeft()) {	// 좌우에 대하여 충돌이면
 					newPos.x = befPos.x;
 					player.setPos(newPos);
@@ -148,6 +149,12 @@ void SceneBase::update(float elapsedTime)
 			player.arrows.erase(itr);			// 플레이어에게서 지워준다
 		}
 	}
+
+	cloudPosX -= 50 * elapsedTime;
+	if (cloudPosX < 0) {
+		cloudPosX += W_WIDTH;
+	}
+
 }
 
 void SceneBase::draw(HDC hdc) const
@@ -157,6 +164,9 @@ void SceneBase::draw(HDC hdc) const
 	windowLeft = my_clamp(windowLeft, 0, M_WIDTH - W_WIDTH);
 
 	background.MyDraw(hdc, RECT{ 0, 0, W_WIDTH, W_HEIGHT });
+
+	cloud.MyDraw(hdc, RECT{ -cloudPosX, 0, W_WIDTH - cloudPosX, W_HEIGHT });
+	cloud.MyDraw(hdc, RECT{ cloudPosX, 0, W_WIDTH + cloudPosX, W_HEIGHT });
 
 	for (const auto& tile : tiles)
 		tile.draw(hdc, windowLeft);
@@ -168,6 +178,7 @@ void SceneBase::draw(HDC hdc) const
 
 	for (const auto& arrow : arrows)
 		arrow.draw(hdc, windowLeft);
+
 }
 
 void SceneBase::processWindowMessage(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
