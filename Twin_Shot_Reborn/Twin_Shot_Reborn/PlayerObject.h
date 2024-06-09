@@ -34,6 +34,8 @@ private:
 
 	bool isFly;					// 공중에 떠 있는지 여부
 
+	bool isShootReady;			// 발사 준비중인지 여부
+
 public:
 	std::list<ArrowObject> arrows;
 

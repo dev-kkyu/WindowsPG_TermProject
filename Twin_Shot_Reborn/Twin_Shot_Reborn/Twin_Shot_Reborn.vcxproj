@@ -130,6 +130,7 @@
     <ClCompile Include="ArrowObject.cpp" />
     <ClCompile Include="GameFramework.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="MonsterObject.cpp" />
     <ClCompile Include="Scene1.cpp" />
     <ClCompile Include="MyImage.cpp" />
     <ClCompile Include="PlayerObject.cpp" />
@@ -143,6 +144,7 @@
     <ClInclude Include="ArrowObject.h" />
     <ClInclude Include="GameFramework.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="MonsterObject.h" />
     <ClInclude Include="Scene1.h" />
     <ClInclude Include="Define.h" />
     <ClInclude Include="MyImage.h" />

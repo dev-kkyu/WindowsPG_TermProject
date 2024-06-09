@@ -7,7 +7,7 @@ ArrowObject::ArrowObject(POINT spawnPos, int dirX)
 	: dirX{ dirX }
 {
 	setPos(spawnPos);
-	size = { 120, 25 };
+	size = { 106, 22 };
 
 	if (not isImageLoaded) {
 		image.Load(L"./Resources/Images/Character/Arrow.png");
@@ -23,7 +23,7 @@ ArrowObject::~ArrowObject()
 
 void ArrowObject::update(float elapsedTime)
 {
-	pos.x += 600.f * elapsedTime * dirX;
+	pos.x += 1000.f * elapsedTime * dirX;
 }
 
 void ArrowObject::draw(HDC hdc, int windowLeft) const
@@ -31,7 +31,7 @@ void ArrowObject::draw(HDC hdc, int windowLeft) const
 	bool isDraw = true;
 	if (isHit) {
 		auto nowTime = std::chrono::steady_clock::now();
-		int ms = std::chrono::duration_cast<std::chrono::milliseconds>(nowTime - hitTime).count();
+		auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(nowTime - hitTime).count();
 		if (ms > 5000) {
 			if ((ms / 100) & 1)		// 100ms¸¶´Ù ±ôºý¿©ÁØ´Ù
 				isDraw = false;

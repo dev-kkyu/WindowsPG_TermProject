@@ -1,10 +1,14 @@
 #pragma once
 
 #include "SceneBase.h"
+#include "MonsterObject.h"
+
+#include <list>
 
 class Scene1 : public SceneBase
 {
 private:
+	std::list<MonsterObject> monsters;
 
 public:
 	Scene1();

@@ -34,6 +34,10 @@ PlayerObject::PlayerObject()
 	for (int i = 0; i < 2; ++i) {
 		images["Fall"][i].Load(L"./Resources/Images/Character/Fall/" + std::to_wstring(i + 1) + L".png");
 	}
+	images["Shoot"].resize(7);
+	for (int i = 0; i < 7; ++i) {
+		images["Shoot"][i].Load(L"./Resources/Images/Character/Shoot/" + std::to_wstring(i + 1) + L".png");
+	}
 
 	actionPerSecond = 2.125f;
 	nowFrameIdxF = 0.f;
@@ -48,10 +52,12 @@ PlayerObject::PlayerObject()
 	maxSpeed.x = 600.f;			// 최대 x 속도 제한
 	acceleration.x = 1800.f;	// 초당 증가하는 x 속도
 
-	isFly = false;				// 공중에 떠 있는지 여부
 	velocity.y = 0.f;			// 낙하 속도
 	maxSpeed.y = 750.f;			// 최대 낙하 속도 제한
 	acceleration.y = 1800.f;	// 초당 감소하는 y 속도 (아래 방향으로만 작용한다)
+
+	isFly = false;				// 공중에 떠 있는지 여부
+	isShootReady = false;
 }
 
 PlayerObject::~PlayerObject()
@@ -65,21 +71,39 @@ void PlayerObject::update(float elapsedTime)
 		arrow.update(elapsedTime);
 
 	// 애니메이션 정하기
-	if (isFly) {
-		if (velocity.y > 0.f)
-			animState = "Jump";
-		else
-			animState = "Fall";
-	}
-	else if (keyState & MY_KEY_LEFT or keyState & MY_KEY_RIGHT) {
-		animState = "Walk";
+	if ("Shoot" == animState) {
+		nowFrameIdxF += (images[animState].size() * actionPerSecond * 1.5f) * elapsedTime;
+		if (nowFrameIdxF >= 4.f) {				// 5번째 그림이 재생될 때
+			if (isShootReady) {					// 아직 실제로 발사하지 않은 상태이면
+				POINT spawnPos = getPosInt();
+				spawnPos.x -= 10 * dirX;
+				spawnPos.y -= 23;
+				arrows.emplace_back(spawnPos, dirX);	// 발사
+				isShootReady = false;
+			}
+		}
+		if (nowFrameIdxF >= images[animState].size()) {	// 한바퀴를 다 돌면 애니메이션 종료
+			animState = "Idle";
+			nowFrameIdxF = 0.f;
+		}
 	}
 	else {
-		animState = "Idle";
+		if (isFly) {
+			if (velocity.y > 0.f)
+				animState = "Jump";
+			else
+				animState = "Fall";
+		}
+		else if (keyState & MY_KEY_LEFT or keyState & MY_KEY_RIGHT) {
+			animState = "Walk";
+		}
+		else {
+			animState = "Idle";
+		}
+		// 이미지 애니메이션
+		nowFrameIdxF += (images[animState].size() * actionPerSecond) * elapsedTime;
+		nowFrameIdxF = std::fmod(nowFrameIdxF, float(images[animState].size()));
 	}
-	// 이미지 애니메이션
-	nowFrameIdxF += (images[animState].size() * actionPerSecond) * elapsedTime;
-	nowFrameIdxF = std::fmod(nowFrameIdxF, float(images[animState].size()));
 
 	// 좌우 모두 누르고 있거나 안누르고 있을 때는 속도를 감소시킨다.
 	if ((keyState & MY_KEY_LEFT and keyState & MY_KEY_RIGHT) or
@@ -116,14 +140,14 @@ void PlayerObject::update(float elapsedTime)
 
 void PlayerObject::draw(HDC hdc, int windowLeft) const
 {
-	// 화살 오브젝트 그리기
-	for (auto& arrow : arrows)
-		arrow.draw(hdc, windowLeft);
-
 	if (1 == dirX)
 		images.at(animState)[int(nowFrameIdxF)].MyDraw(hdc, getObjectRect(), windowLeft, true);
 	else
 		images.at(animState)[int(nowFrameIdxF)].MyDraw(hdc, getObjectRect(), windowLeft);
+
+	// 화살 오브젝트 그리기
+	for (auto& arrow : arrows)
+		arrow.draw(hdc, windowLeft);
 
 	drawDebug(hdc, windowLeft);
 }
@@ -205,7 +229,10 @@ void PlayerObject::setVelocityY(float valY)
 
 void PlayerObject::fireArrow()
 {
-	POINT spawnPos = getPosInt();
-	spawnPos.y -= 30;
-	arrows.emplace_back(spawnPos, dirX);
+	if ("Shoot" != animState) {		// 현재 발사중이 아닐때만 발동
+		animState = "Shoot";
+		nowFrameIdxF = 0.f;
+
+		isShootReady = true;
+	}
 }

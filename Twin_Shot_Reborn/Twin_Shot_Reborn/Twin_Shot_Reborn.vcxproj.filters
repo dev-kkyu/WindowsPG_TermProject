@@ -40,6 +40,9 @@
     <Filter Include="SceneBase\Scene3">
       <UniqueIdentifier>{2a4debe2-90b7-4136-9cac-fef1932620ad}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\MonsterObject">
+      <UniqueIdentifier>{b49df01a-fd40-4d9e-9f25-4a3d5d9250ba}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Twin_Shot_Reborn.cpp">
@@ -75,6 +78,9 @@
     <ClCompile Include="Scene3.cpp">
       <Filter>SceneBase\Scene3</Filter>
     </ClCompile>
+    <ClCompile Include="MonsterObject.cpp">
+      <Filter>GameObject\MonsterObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SceneBase.h">
@@ -109,6 +115,9 @@
     </ClInclude>
     <ClInclude Include="Scene3.h">
       <Filter>SceneBase\Scene3</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterObject.h">
+      <Filter>GameObject\MonsterObject</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
