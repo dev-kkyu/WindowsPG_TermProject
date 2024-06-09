@@ -1,5 +1,7 @@
 #include "PlayerObject.h"
 
+#include "Define.h"
+
 #include <cmath>
 #include <limits>
 
@@ -62,6 +64,7 @@ PlayerObject::PlayerObject()
 	isShootReady = false;
 
 	hp = 3;
+	isHit = false;
 
 	hitTime = std::chrono::steady_clock::now();
 }
@@ -152,15 +155,28 @@ void PlayerObject::update(float elapsedTime)
 		velocity.y -= acceleration.y * elapsedTime;
 		// velocity에 따른 캐릭터 위치 조정
 		velocity.y = my_clamp(velocity.y, -maxSpeed.y, maxSpeed.y);
+
+		if (getTop() >= W_HEIGHT)		// 바닥으로 내려가면 다시 위로 보내준다.
+			pos.y -= W_HEIGHT;
 	}
 }
 
 void PlayerObject::draw(HDC hdc, int windowLeft) const
 {
+	RECT rect = getObjectRect();
 	if (1 == dirX)
-		images.at(animState)[int(nowFrameIdxF)].MyDraw(hdc, getObjectRect(), windowLeft, true);
+		images.at(animState)[int(nowFrameIdxF)].MyDraw(hdc, rect, windowLeft, true);
 	else
-		images.at(animState)[int(nowFrameIdxF)].MyDraw(hdc, getObjectRect(), windowLeft);
+		images.at(animState)[int(nowFrameIdxF)].MyDraw(hdc, rect, windowLeft);
+
+	if (pos.y >= W_HEIGHT) {			// 바닥보다 내려가면 화면의 상단에 다시 그려준다
+		rect.top -= W_HEIGHT;
+		rect.bottom -= W_HEIGHT;
+		if (1 == dirX)
+			images.at(animState)[int(nowFrameIdxF)].MyDraw(hdc, rect, windowLeft, true);
+		else
+			images.at(animState)[int(nowFrameIdxF)].MyDraw(hdc, rect, windowLeft);
+	}
 
 	// 화살 오브젝트 그리기
 	for (auto& arrow : arrows)

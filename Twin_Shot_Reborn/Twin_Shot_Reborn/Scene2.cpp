@@ -167,14 +167,12 @@ void Scene2::draw(HDC hdc) const
 {
 	SceneBase::draw(hdc);
 
-
 	// 스크롤링 적용
 	int windowLeft = player.getPosInt().x - W_WIDTH / 2;
 	windowLeft = my_clamp(windowLeft, 0, M_WIDTH - W_WIDTH);
 
 	for (auto& m : monsters)
 		m.draw(hdc, windowLeft);
-
 }
 
 void Scene2::destroy()
