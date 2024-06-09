@@ -124,6 +124,8 @@ void PlayerObject::draw(HDC hdc, int windowLeft) const
 		images.at(animState)[int(nowFrameIdxF)].MyDraw(hdc, getObjectRect(), windowLeft, true);
 	else
 		images.at(animState)[int(nowFrameIdxF)].MyDraw(hdc, getObjectRect(), windowLeft);
+
+	drawDebug(hdc, windowLeft);
 }
 
 void PlayerObject::sendKeyMsg(UINT message, WPARAM wParam)

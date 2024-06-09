@@ -33,4 +33,6 @@ void ArrowObject::draw(HDC hdc, int windowLeft) const
 	else if (dirX < 0) {
 		image.MyDraw(hdc, getObjectRect(), windowLeft);
 	}
+
+	drawDebug(hdc, windowLeft);
 }

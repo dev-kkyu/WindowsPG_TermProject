@@ -13,6 +13,18 @@ GameObject::~GameObject()
 {
 }
 
+void GameObject::drawDebug(HDC hdc, int windowLeft) const
+{
+#ifndef NDEBUG
+	HBRUSH hBrush = CreateSolidBrush(RGB(255, 0, 0));
+	RECT rect = getObjectRect();
+	rect.left -= windowLeft;
+	rect.right -= windowLeft;
+	FrameRect(hdc, &rect, hBrush);
+	DeleteObject(hBrush);
+#endif // !NDEBUG
+}
+
 void GameObject::move(const POINT& dir, float value)
 {
 	// 방향 벡터의 크기(길이)를 계산

@@ -14,6 +14,7 @@ public:
 
 	virtual void update(float elapsedTime) = 0;
 	virtual void draw(HDC hdc, int windowLeft = 0) const = 0;
+	void drawDebug(HDC hdc, int windowLeft = 0) const;
 
 	void move(const POINT& dir, float value);
 
