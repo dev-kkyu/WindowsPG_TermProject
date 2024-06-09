@@ -26,6 +26,8 @@ public:
 	virtual void draw(HDC hdc) const = 0;
 	virtual void destroy() = 0;
 
+	virtual bool onClear() const = 0;
+
 	virtual void processWindowMessage(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) = 0;
 
 };

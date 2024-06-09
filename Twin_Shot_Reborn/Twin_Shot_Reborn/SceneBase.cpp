@@ -115,7 +115,7 @@ void SceneBase::update(float elapsedTime)
 		POINT arrowPos = itr->getPosInt();
 		SIZE arrowSize = itr->getSize();
 		if (arrowPos.x <= -arrowSize.cx / 2 or arrowPos.x >= M_WIDTH + arrowSize.cx / 2) {
-			deleteArrows.emplace_back(itr);
+			deleteArrows.emplace_back(itr);							// 맵 밖으로 나가면 제거
 		}
 	}
 	for (const auto& itr : deleteArrows) {
@@ -126,7 +126,7 @@ void SceneBase::update(float elapsedTime)
 	auto nowTime = std::chrono::steady_clock::now();
 	for (auto itr = arrows.begin(); itr != arrows.end(); ++itr) {
 		auto hitTime = itr->getHitTime();
-		if (hitTime + std::chrono::seconds{ 6 } <= nowTime) {
+		if (hitTime + std::chrono::seconds{ 6 } <= nowTime) {		// 벽에서 6초 뒤 제거
 			deleteArrows.emplace_back(itr);
 		}
 	}

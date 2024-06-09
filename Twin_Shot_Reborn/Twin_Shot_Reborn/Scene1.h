@@ -19,6 +19,8 @@ public:
 	virtual void draw(HDC hdc) const override;
 	virtual void destroy() override;
 
+	virtual bool onClear() const override;
+
 	virtual void processWindowMessage(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) override;
 
 };

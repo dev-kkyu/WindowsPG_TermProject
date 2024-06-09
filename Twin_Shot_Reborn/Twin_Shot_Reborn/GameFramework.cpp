@@ -101,8 +101,21 @@ void GameFramework::processWindowMessage(HWND hWnd, UINT message, WPARAM wParam,
 
 void GameFramework::updateFrameBuffer(float elapsedTime)
 {
-	if (pScene)
+	if (pScene) {
 		pScene->update(elapsedTime);
+
+		if (pScene->onClear()) {
+			auto p1 = dynamic_cast<Scene1*>(pScene.get());
+			auto p2 = dynamic_cast<Scene2*>(pScene.get());
+			auto p3 = dynamic_cast<Scene3*>(pScene.get());
+			if (p1)
+				pScene = std::make_shared<Scene2>();
+			else if (p2)
+				pScene = std::make_shared<Scene3>();
+			else
+				;
+		}
+	}
 }
 
 void GameFramework::drawFrameBuffer()

@@ -44,6 +44,11 @@ void Scene3::destroy()
 {
 }
 
+bool Scene3::onClear() const
+{
+	return false;
+}
+
 void Scene3::processWindowMessage(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)

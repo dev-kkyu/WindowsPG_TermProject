@@ -126,9 +126,11 @@ void Scene2::update(float elapsedTime)
 	std::vector<std::list<ArrowObject>::iterator> deleteArrows;
 	for (auto& m : monsters) {
 		for (auto a = player.arrows.begin(); a != player.arrows.end(); ++a) {
-			if (m.isCollide(*a)) {
-				deleteArrows.emplace_back(a);
-				m.onHit(*a);
+			if (not m.getIsDead()) {
+				if (m.isCollide(*a)) {
+					deleteArrows.emplace_back(a);
+					m.onHit(*a);
+				}
 			}
 		}
 	}
@@ -177,6 +179,11 @@ void Scene2::draw(HDC hdc) const
 
 void Scene2::destroy()
 {
+}
+
+bool Scene2::onClear() const
+{
+	return 0 == monsters.size();
 }
 
 void Scene2::processWindowMessage(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
