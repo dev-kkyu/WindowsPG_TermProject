@@ -19,20 +19,95 @@ Scene1::Scene1()
 	// 타일 배치 (가로 28, 세로 22)
 	for (int i = 0; i < 28; ++i) { // 가로 
 
-		tiles.emplace_back(POINT{ 25 + i * 50, 50 });
-		tiles.emplace_back(POINT{ 25 + i * 50, 900 });
-		if (i > 0 and i < 12)
-			tiles.emplace_back(POINT{ 25 + i * 50, 750 });
+		tiles.emplace_back(POINT{ 25 + i * 50, 50 }); // 천장
+
+		if (i < 5)
+			tiles.emplace_back(POINT{ 25 + i * 50, 400 }); // 왼쪽 첫번째 바닥
+
+		if (i < 10)
+			tiles.emplace_back(POINT{ 25 + i * 50, 750 }, 5); // 왼쪽 아래 바닥
+		
+		if (i > 8 and i < 20){
+			tiles.emplace_back(POINT{ 25 + i * 50, 300 }); // 가운데 첫번째 바닥
+			tiles.emplace_back(POINT{ 25 + i * 50, 550 }); // 가운데 아래 바닥
+		}
+
+		if (i > 18)
+			tiles.emplace_back(POINT{ 25 + i * 50, 750 }, 5); // 오른쪽 아래 바닥
+		if ( i > 22)
+			tiles.emplace_back(POINT{ 25 + i * 50, 400 }); // 오른쪽 첫번째 바닥
 	}
 
-	for (int i = 0; i < 22; ++i) { // 세로
 
-		tiles.emplace_back(POINT{ 25, 50 + (i + 1) * 50 }, 10);
-		tiles.emplace_back(POINT{ 1375, 50 + (i + 1) * 50 });
-	}
+	// 세로 
+		
+		tiles.emplace_back(POINT{ 25, 50 + 1 * 50 }, 8); // 왼쪽 벽
+		tiles.emplace_back(POINT{ 25, 50 + 2 * 50 }, 13); // 왼쪽 벽
+		tiles.emplace_back(POINT{ 25, 50 + 3 * 50 }, 9); // 왼쪽 벽
+		tiles.emplace_back(POINT{ 25, 50 + 4 * 50 }, 13); // 왼쪽 벽
+		tiles.emplace_back(POINT{ 25, 50 + 5 * 50 }, 13); // 왼쪽 벽
+		tiles.emplace_back(POINT{ 25, 50 + 6 * 50 }, 16); // 왼쪽 벽
+
+		tiles.emplace_back(POINT{ 25, 50 + 8 * 50 }, 8); // 왼쪽 벽
+		tiles.emplace_back(POINT{ 25, 50 + 9 * 50 }, 13); // 왼쪽 벽
+		tiles.emplace_back(POINT{ 25, 50 + 10 * 50 }, 9); // 왼쪽 벽
+		tiles.emplace_back(POINT{ 25, 50 + 11 * 50 }, 13); // 왼쪽 벽
+		tiles.emplace_back(POINT{ 25, 50 + 12 * 50 }, 13); // 왼쪽 벽
+		tiles.emplace_back(POINT{ 25, 50 + 13 * 50 }, 16); // 왼쪽 벽
+
+		tiles.emplace_back(POINT{ 25, 50 + 15 * 50 }, 8); // 왼쪽 벽
+		tiles.emplace_back(POINT{ 25, 50 + 16 * 50 }, 13); // 왼쪽 벽
+		tiles.emplace_back(POINT{ 25, 50 + 17 * 50 }, 14); // 왼쪽 벽
+
+		
+		tiles.emplace_back(POINT{ 1375, 50 + 1 * 50 }, 8);  // 오른쪽 벽 
+		tiles.emplace_back(POINT{ 1375, 50 + 2 * 50 }, 13); // 오른쪽 벽 
+		tiles.emplace_back(POINT{ 1375, 50 + 3 * 50 }, 9);  // 오른쪽 벽 
+		tiles.emplace_back(POINT{ 1375, 50 + 4 * 50 }, 13); // 오른쪽 벽 
+		tiles.emplace_back(POINT{ 1375, 50 + 5 * 50 }, 13); // 오른쪽 벽 
+		tiles.emplace_back(POINT{ 1375, 50 + 6 * 50 }, 16); // 오른쪽 벽 
+								  
+		tiles.emplace_back(POINT{ 1375, 50 + 8 * 50 }, 8);  // 오른쪽 벽 
+		tiles.emplace_back(POINT{ 1375, 50 + 9 * 50 }, 13); // 오른쪽 벽 
+		tiles.emplace_back(POINT{ 1375, 50 + 10 * 50 }, 9); // 오른쪽 벽 
+		tiles.emplace_back(POINT{ 1375, 50 + 11 * 50 }, 13); // 오른쪽 벽 
+		tiles.emplace_back(POINT{ 1375, 50 + 12 * 50 }, 13); // 오른쪽 벽 
+		tiles.emplace_back(POINT{ 1375, 50 + 13 * 50 }, 16); // 오른쪽 벽 
+								 
+		tiles.emplace_back(POINT{ 1375, 50 + 15 * 50 }, 8);  // 오른쪽 벽 
+		tiles.emplace_back(POINT{ 1375, 50 + 16 * 50 }, 13); // 오른쪽 벽 
+		tiles.emplace_back(POINT{ 1375, 50 + 17 * 50 }, 14); // 오른쪽 벽 
+		
+		// 가운데 기둥 - 왼쪽
+		tiles.emplace_back(POINT{ 25 + 11 * 50, 350 }, 8);
+		tiles.emplace_back(POINT{ 25 + 11 * 50, 400 }, 14); 
+
+		// 가운데 기둥 - 오른쪽
+		tiles.emplace_back(POINT{ 25 + 17 * 50, 350 }, 8);
+		tiles.emplace_back(POINT{ 25 + 17 * 50, 400 }, 14);
+	
+		// 가운데 아래 기둥 - 왼쪽
+		tiles.emplace_back(POINT{ 25 + 9 * 50, 600 }, 8);
+		tiles.emplace_back(POINT{ 25 + 9 * 50, 650 }, 13);
+		tiles.emplace_back(POINT{ 25 + 9 * 50, 700 }, 16);
+		
+		// 가운데 아래 기둥 - 오른쪽
+		tiles.emplace_back(POINT{ 25 + 19 * 50, 600 }, 8);
+		tiles.emplace_back(POINT{ 25 + 19 * 50, 650 }, 13);
+		tiles.emplace_back(POINT{ 25 + 19 * 50, 700 }, 16);
+
+		// 가운데 더 아래 기둥 - 왼쪽
+		tiles.emplace_back(POINT{ 25 + 9 * 50, 800 }, 8);
+		tiles.emplace_back(POINT{ 25 + 9 * 50, 850 }, 13);
+		tiles.emplace_back(POINT{ 25 + 9 * 50, 900 }, 16);
+
+		// 가운데 더 아래 기둥 - 오른쪽
+		tiles.emplace_back(POINT{ 25 + 19 * 50, 800 }, 8);
+		tiles.emplace_back(POINT{ 25 + 19 * 50, 850 }, 13);
+		tiles.emplace_back(POINT{ 25 + 19 * 50, 900 }, 16);
 
 	// 플레이어 배치
-	player.setPos(POINT{ 600, 850 });
+	player.setPos(POINT{ 1100,700});
 }
 
 Scene1::~Scene1()
