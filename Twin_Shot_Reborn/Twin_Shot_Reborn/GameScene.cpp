@@ -10,11 +10,16 @@ GameScene::GameScene()
 	for (int i = 0; i < 24; ++i) {
 		tiles.emplace_back(POINT{ 25 + i * 50, 50 });
 		tiles.emplace_back(POINT{ 25 + i * 50, 900 });
+		if (i < 12)
+			tiles.emplace_back(POINT{ 25 + i * 50, 750 });
 	}
 	for (int i = 0; i < 22; ++i) {
 		tiles.emplace_back(POINT{ 25, 50 + (i + 1) * 50 });
 		tiles.emplace_back(POINT{ 1175, 50 + (i + 1) * 50 });
 	}
+
+	// 플레이어 배치
+	player.setPos(POINT{ 600, 850 });
 }
 
 GameScene::~GameScene()
@@ -36,24 +41,30 @@ void GameScene::update(float elapsedTime)
 	POINTFLOAT newPos = player.getPos();
 	for (const auto& t : tiles) {
 		if (t.isCollide(player)) {	// 플레이어와 충돌시
-			if (t.getLeft() < player.getRight() and t.getRight() > player.getLeft()) {	// 좌우에 대하여 충돌이면
-				newPos.x = befPos.x;
-				player.setPos(newPos);
-				flagVX = true;
-				break;
+			if (t.getBottom() >= player.getBottom()) {		// 상승시 충돌 범위를 줄여준다
+				if (t.getLeft() < player.getRight() and t.getRight() > player.getLeft()) {	// 좌우에 대하여 충돌이면
+					newPos.x = befPos.x;
+					player.setPos(newPos);
+					flagVX = true;
+					break;
+				}
 			}
 		}
 	}
 
-	// 상하 충돌 (좌우 해결된 이후 다시 검사
+	// 상하 충돌 (좌우 해결된 이후 다시 검사)
 	for (const auto& t : tiles) {
 		if (t.isCollide(player)) {	// 플레이어와 충돌시
 			if (t.getTop() < player.getBottom() and t.getBottom() > player.getTop()) {	// 상하에 대하여 충돌이면
-				newPos.y = befPos.y;
-				player.setPos(newPos);
-				player.setFly(false);
-				flagVX = false;
-				break;
+				if (newPos.y > befPos.y) {				// 낙하 중에만 적용한다. (상승중에는 충돌X)
+					if (newPos.y < t.getTop() + 10) {	// 충분히 타일 위에 올라왔을 때만 적용
+						newPos.y = static_cast<float>(t.getTop());
+						player.setPos(newPos);
+						player.setFly(false);
+						flagVX = false;
+						break;
+					}
+				}
 			}
 		}
 	}
