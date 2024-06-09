@@ -5,7 +5,7 @@
 bool MonsterObject::isImageLoaded;
 std::array<std::vector<MyImage>, 2> MonsterObject::monsterImages;
 
-MonsterObject::MonsterObject(POINT iPos, int idx, SIZE size)
+MonsterObject::MonsterObject(POINT iPos, int idx, SIZE size, int min, int max)
 {
 	if (not isImageLoaded) {
 		monsterImages[0].resize(10);
@@ -23,6 +23,9 @@ MonsterObject::MonsterObject(POINT iPos, int idx, SIZE size)
 	nowFrameIdxF = 0.f;
 
 	dirX = 1;
+
+	rangeXMin = min;
+	rangeXMax = max;
 }
 
 MonsterObject::~MonsterObject()
@@ -32,8 +35,27 @@ MonsterObject::~MonsterObject()
 void MonsterObject::update(float elapsedTime)
 {
 	// 이미지 애니메이션
-	nowFrameIdxF += (monsterImages[imageIndex].size() * actionPerSecond) * elapsedTime;
-	nowFrameIdxF = std::fmod(nowFrameIdxF, float(monsterImages[imageIndex].size()));
+	nowFrameIdxF += (monsterImages[imageIndex].size() * actionPerSecond) * elapsedTime; 
+	nowFrameIdxF = std::fmod(nowFrameIdxF, float(monsterImages[imageIndex].size())); 
+
+	// 이동 
+
+	if (nowFrameIdxF > 3) {
+
+		if (dirX == 1) {
+			if (getPosInt().x < rangeXMax)
+				move(POINT{ 1, 0 }, 100.f * elapsedTime);
+			else
+				dirX = -1;
+		}
+		else {
+			if (getPosInt().x > rangeXMin)
+				move(POINT{ -1, 0 }, 100.f * elapsedTime);
+			else
+				dirX = 1;
+		}
+	}
+
 }
 
 void MonsterObject::draw(HDC hdc, int windowLeft) const

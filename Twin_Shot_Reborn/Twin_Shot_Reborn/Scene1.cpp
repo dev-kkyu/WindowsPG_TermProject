@@ -123,9 +123,13 @@ Scene1::Scene1()
 	tiles.emplace_back(POINT{ 25 + 19 * 50, 900 }, 16);
 
 	// 플레이어 배치
-	player.setPos(POINT{ 1100,700 });
+	player.setPos(POINT{ 700,500 });
 
-	monsters.emplace_back(POINT{ 200, 700 }, 0, SIZE{ 120, 100 });
+	monsters.emplace_back(POINT{ 200, 700 }, 0, SIZE{ 120, 100 }, 100, 400); // 왼쪽몬스터
+	monsters.emplace_back(POINT{ 1150, 700 }, 0, SIZE{ 120, 100 }, 1050, 1300); // 오른쪽 몬스터
+	monsters.emplace_back(POINT{ 700, 250 }, 0, SIZE{ 100, 100 }, 480, 980); // 위쪽 몬스터
+
+
 
 }
 

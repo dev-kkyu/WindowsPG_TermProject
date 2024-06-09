@@ -16,12 +16,15 @@ private:
 
 	int dirX;
 
+	int rangeXMin;
+	int rangeXMax;
+
 private:		// static 변수 -> 이미지를 한 번만 로드할 수 있도록 설정
 	static bool isImageLoaded;
 	static std::array<std::vector<MyImage>, 2> monsterImages;
 
 public:
-	MonsterObject(POINT iPos, int idx, SIZE size);
+	MonsterObject(POINT iPos, int idx, SIZE size, int min, int max);
 	virtual ~MonsterObject();
 
 	virtual void update(float elapsedTime) override;
