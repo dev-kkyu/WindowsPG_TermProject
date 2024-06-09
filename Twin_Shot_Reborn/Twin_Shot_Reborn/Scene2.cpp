@@ -66,7 +66,7 @@ Scene2::Scene2()
 	}
 
 
-	// 세로 
+	// 테두리
 	for (int i = 0; i < 22; ++i) {
 		tiles.emplace_back(POINT{ 25, 50 + i * 50 }, rand() % 3 + 20);
 		tiles.emplace_back(POINT{ 1375, 50 + i * 50 }, rand() % 3 + 20);
