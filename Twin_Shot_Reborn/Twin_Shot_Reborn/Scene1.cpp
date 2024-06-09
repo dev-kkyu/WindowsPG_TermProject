@@ -4,10 +4,28 @@ Scene1::Scene1()
 {
 	background.Load(L"./Resources/Images/Background/Stage1.png");
 
+	// nonBlockTiles 배치
+
+	// 가운데 
+	nonBlockTiles.emplace_back(POINT{ 625, 501 }, 17, SIZE{ 50,30 }); // 잡초
+
+	// 가운데 위 
+	nonBlockTiles.emplace_back(POINT{ 775, 250 }, 17, SIZE{ 50,20 }); // 잡초
+	nonBlockTiles.emplace_back(POINT{ 825, 250 }, 18);  // 작은나무
+
+	// 오른쪽 아래 
+	nonBlockTiles.emplace_back(POINT{ 1075, 701 }, 17, SIZE{ 50,30 }); // 잡초
+	nonBlockTiles.emplace_back(POINT{ 1125, 701 }, 18);  // 작은나무
+
+	// 왼쪽 아래 
+	nonBlockTiles.emplace_back(POINT{ 225, 701 }, 17, SIZE{ 50,30 }); // 잡초
+	nonBlockTiles.emplace_back(POINT{ 275, 701 }, 19, SIZE{ 50,100 });  // 작은나무
+
+
 	// 타일 배치 (가로 28, 세로 22)
 	for (int i = 0; i < 28; ++i) { // 가로 
 
-		tiles.emplace_back(POINT{ 25 + i * 50, 50 }); // 천장
+		nonBlockTiles.emplace_back(POINT{ 25 + i * 50, 50 }); // 천장은 충돌하면 안되므로 nonBlockTiles에 추가
 
 		if (i < 5)
 			tiles.emplace_back(POINT{ 25 + i * 50, 400 }); // 왼쪽 첫번째 바닥
@@ -65,12 +83,12 @@ Scene1::Scene1()
 	tiles.emplace_back(POINT{ 1375, 50 + 17 * 50 }, 14); // 오른쪽 벽 
 
 	// 가운데 기둥 - 왼쪽
-	tiles.emplace_back(POINT{ 25 + 11 * 50, 350 }, 8);
-	tiles.emplace_back(POINT{ 25 + 11 * 50, 400 }, 14);
+	nonBlockTiles.emplace_back(POINT{ 25 + 11 * 50, 350 }, 8);
+	nonBlockTiles.emplace_back(POINT{ 25 + 11 * 50, 400 }, 14);
 
 	// 가운데 기둥 - 오른쪽
-	tiles.emplace_back(POINT{ 25 + 17 * 50, 350 }, 8);
-	tiles.emplace_back(POINT{ 25 + 17 * 50, 400 }, 14);
+	nonBlockTiles.emplace_back(POINT{ 25 + 17 * 50, 350 }, 8);
+	nonBlockTiles.emplace_back(POINT{ 25 + 17 * 50, 400 }, 14);
 
 	// 가운데 아래 기둥 - 왼쪽
 	tiles.emplace_back(POINT{ 25 + 9 * 50, 600 }, 8);
@@ -94,6 +112,9 @@ Scene1::Scene1()
 
 	// 플레이어 배치
 	player.setPos(POINT{ 1100,700 });
+
+
+
 }
 
 Scene1::~Scene1()

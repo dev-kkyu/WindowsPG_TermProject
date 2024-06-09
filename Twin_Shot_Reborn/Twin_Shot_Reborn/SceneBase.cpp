@@ -144,7 +144,7 @@ void SceneBase::draw(HDC hdc) const
 	for (const auto& tile : tiles)
 		tile.draw(hdc, windowLeft);
 
-	for (const auto& tile : noneBlockTiles)
+	for (const auto& tile : nonBlockTiles)
 		tile.draw(hdc, windowLeft);
 
 	player.draw(hdc, windowLeft);
