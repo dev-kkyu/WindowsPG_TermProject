@@ -12,10 +12,11 @@ private:
 
 private:		// static 변수 -> 이미지를 한 번만 로드할 수 있도록 설정
 	static bool isImageLoaded;
-	static std::array<MyImage, 8> tileImages;
+	static std::array<MyImage, 17> tileImages;
 
 public:
 	TileObject(POINT iPos);
+	TileObject(POINT iPos, int idx);
 	virtual ~TileObject();
 
 	virtual void update(float elapsedTime) override;
