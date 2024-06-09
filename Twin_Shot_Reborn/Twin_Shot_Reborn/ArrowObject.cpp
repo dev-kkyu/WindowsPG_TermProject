@@ -14,6 +14,7 @@ ArrowObject::ArrowObject(POINT spawnPos, int dirX)
 		isImageLoaded = true;
 	}
 
+	isHit = false;
 }
 
 ArrowObject::~ArrowObject()
@@ -27,11 +28,23 @@ void ArrowObject::update(float elapsedTime)
 
 void ArrowObject::draw(HDC hdc, int windowLeft) const
 {
-	if (dirX > 0) {
-		image.MyDraw(hdc, getObjectRect(), windowLeft, true);
+	bool isDraw = true;
+	if (isHit) {
+		auto nowTime = std::chrono::steady_clock::now();
+		int ms = std::chrono::duration_cast<std::chrono::milliseconds>(nowTime - hitTime).count();
+		if (ms > 5000) {
+			if ((ms / 100) & 1)		// 100ms¸¶´Ù ±ôºý¿©ÁØ´Ù
+				isDraw = false;
+		}
 	}
-	else if (dirX < 0) {
-		image.MyDraw(hdc, getObjectRect(), windowLeft);
+
+	if (isDraw) {
+		if (dirX > 0) {
+			image.MyDraw(hdc, getObjectRect(), windowLeft, true);
+		}
+		else if (dirX < 0) {
+			image.MyDraw(hdc, getObjectRect(), windowLeft);
+		}
 	}
 
 	drawDebug(hdc, windowLeft);
@@ -40,6 +53,7 @@ void ArrowObject::draw(HDC hdc, int windowLeft) const
 void ArrowObject::onHit()
 {
 	hitTime = std::chrono::steady_clock::now();
+	isHit = true;
 }
 
 std::chrono::steady_clock::time_point ArrowObject::getHitTime() const

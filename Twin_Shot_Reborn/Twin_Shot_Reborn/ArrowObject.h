@@ -10,6 +10,7 @@ class ArrowObject : public GameObject
 private:
 	int dirX;
 	std::chrono::steady_clock::time_point hitTime;
+	bool isHit;
 
 private:
 	static MyImage image;
