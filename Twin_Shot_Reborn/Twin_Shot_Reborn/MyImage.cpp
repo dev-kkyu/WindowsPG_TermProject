@@ -110,7 +110,7 @@ void MyImage::MyDraw(HDC hdc, const RECT& dstRect, const RECT& srcRect, bool rev
 			image->StretchBlt(mDC, RECT{ 0, 0, imgWidth, imgHeight }, RECT{ srcRect.left, srcRect.bottom, srcRect.right, srcRect.top }, SRCCOPY);
 		}
 		else {
-			image->BitBlt(mDC, srcRect.left, srcRect.top, SRCCOPY);
+			image->BitBlt(mDC, 0, 0, imgWidth, imgHeight, srcRect.left, srcRect.top, SRCCOPY);
 		}
 
 		// 복사한 이미지를 화면에 그린다
