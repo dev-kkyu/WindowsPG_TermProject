@@ -32,8 +32,8 @@ void MyImage::MyDraw(HDC hdc, const RECT& dstRect, const RECT& srcRect, bool rev
 	const int imgWidth = srcRect.right - srcRect.left;
 	const int imgHeight = srcRect.bottom - srcRect.top;
 
-	// Alpha 채널을 가진 경우
-	if (32 == image->GetBPP()) {
+	// Alpha 채널을 가졌거나, 투명도가 존재하는 경우
+	if (32 == image->GetBPP() or bSrcAlpha < 0xff) {
 		// 좌우/상하 반전 효과를 위한 중간 메모리 DC 생성
 		HDC mDC = ::CreateCompatibleDC(hdc);
 		HBITMAP hBitmap = ::CreateCompatibleBitmap(hdc, imgWidth, imgHeight);
@@ -58,7 +58,9 @@ void MyImage::MyDraw(HDC hdc, const RECT& dstRect, const RECT& srcRect, bool rev
 		blend.BlendOp = AC_SRC_OVER;			// 유일
 		blend.BlendFlags = 0;					// 유일
 		blend.SourceConstantAlpha = bSrcAlpha;	// 0(투명) ~ 255(불투명)	// 기본적으로 투명 채널 존재시 투명도 반영된다.
-		blend.AlphaFormat = AC_SRC_ALPHA;		// AC_SRC_ALPHA -> 32비트 비트맵일 때
+		blend.AlphaFormat = 0;
+		if (32 == image->GetBPP())
+			blend.AlphaFormat = AC_SRC_ALPHA;	// AC_SRC_ALPHA -> 32비트 비트맵일 때
 		::AlphaBlend(hdc, dstRect.left, dstRect.top, dstRect.right - dstRect.left, dstRect.bottom - dstRect.top, mDC, 0, 0, imgWidth, imgHeight, blend);
 
 		// 만든 오브젝트 삭제
@@ -66,7 +68,7 @@ void MyImage::MyDraw(HDC hdc, const RECT& dstRect, const RECT& srcRect, bool rev
 		::DeleteDC(mDC);
 	}
 	else {
-		// 알파 채널이 없는 경우 바로 그린다
+		// 불투명한 이미지의 경우 바로 그린다
 		if (reverseX and reverseY) {
 			image->StretchBlt(hdc, dstRect, RECT{ srcRect.right, srcRect.bottom, srcRect.left, srcRect.top }, SRCCOPY);
 		}
