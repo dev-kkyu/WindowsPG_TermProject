@@ -295,3 +295,8 @@ bool PlayerObject::getHit() const
 {
 	return isHit;
 }
+
+bool PlayerObject::getIsDead() const
+{
+	return hp <= 0;
+}

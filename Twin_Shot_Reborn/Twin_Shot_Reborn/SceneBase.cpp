@@ -193,6 +193,11 @@ void SceneBase::draw(HDC hdc) const
 
 }
 
+bool SceneBase::getPlayerDead() const
+{
+	return player.getIsDead();
+}
+
 void SceneBase::processWindowMessage(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)

@@ -65,5 +65,7 @@ public:
 	void setHit(bool hit);
 	bool getHit() const;
 
+	bool getIsDead() const;
+
 };
 

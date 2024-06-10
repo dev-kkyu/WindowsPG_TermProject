@@ -104,7 +104,7 @@ void GameFramework::updateFrameBuffer(float elapsedTime)
 	if (pScene) {
 		pScene->update(elapsedTime);
 
-		if (pScene->onClear()) {
+		if (pScene->onClear()) {	// 스테이지 클리어시 다음 스테이지
 			auto p1 = dynamic_cast<Scene1*>(pScene.get());
 			auto p2 = dynamic_cast<Scene2*>(pScene.get());
 			auto p3 = dynamic_cast<Scene3*>(pScene.get());
@@ -113,7 +113,18 @@ void GameFramework::updateFrameBuffer(float elapsedTime)
 			else if (p2)
 				pScene = std::make_shared<Scene3>();
 			else
-				pScene = std::make_shared<Scene1>();;
+				pScene = std::make_shared<Scene1>();
+		}
+		else if (pScene->getPlayerDead()) {		// 플레이어 사망시 다시 시작
+			auto p1 = dynamic_cast<Scene1*>(pScene.get());
+			auto p2 = dynamic_cast<Scene2*>(pScene.get());
+			auto p3 = dynamic_cast<Scene3*>(pScene.get());
+			if (p1)
+				pScene = std::make_shared<Scene1>();
+			else if (p2)
+				pScene = std::make_shared<Scene2>();
+			else
+				pScene = std::make_shared<Scene3>();
 		}
 	}
 }
