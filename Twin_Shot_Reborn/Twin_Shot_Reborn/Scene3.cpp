@@ -33,7 +33,10 @@ Scene3::Scene3()
 	// 플레이어 배치
 	player.setPos(POINT{ 1100,700 });
 
-	boss.setPos(POINT{ 700, 500 });
+	boss.setPos(POINT{ 700, 400 });
+
+	// 보스 타겟 설정
+	boss.setTargetPlayer(player);
 }
 
 Scene3::~Scene3()
