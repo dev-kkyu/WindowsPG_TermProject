@@ -2,6 +2,7 @@
 
 #include "Define.h"
 
+#include <string>
 #include <cmath>
 #include <limits>
 
@@ -181,6 +182,10 @@ void PlayerObject::draw(HDC hdc, int windowLeft) const
 	// 화살 오브젝트 그리기
 	for (auto& arrow : arrows)
 		arrow.draw(hdc, windowLeft);
+
+	// 플레이어 체력 화면에 그려주기 (임시)
+	std::string str = "플레이어 HP : " + std::to_string(hp);
+	TextOutA(hdc, 1000, 80, str.c_str(), int(str.size()));
 
 	drawDebug(hdc, windowLeft);
 }

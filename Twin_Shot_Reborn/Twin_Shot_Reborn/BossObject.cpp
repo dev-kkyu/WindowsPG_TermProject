@@ -2,6 +2,7 @@
 
 #include "PlayerObject.h"
 
+#include <string>
 #include <cmath>
 
 BossObject::BossObject()
@@ -88,6 +89,10 @@ void BossObject::draw(HDC hdc, int windowLeft) const
 		images[int(nowFrameIdxF)].MyDraw(hdc, RECT{ myPos.x - 50, myPos.y - 140, myPos.x + 94 ,myPos.y - 80 }, windowLeft);
 		cloudImage.MyDraw(hdc, RECT{ myPos.x - 210, myPos.y - 200, myPos.x + 210 ,myPos.y + 200 }, windowLeft);
 	}
+
+	// 보스 체력 화면에 그려주기 (임시)
+	std::string str = "보스 HP : " + std::to_string(hp);
+	TextOutA(hdc, 1000, 100, str.c_str(), int(str.size()));
 
 	drawDebug(hdc, windowLeft);
 }
