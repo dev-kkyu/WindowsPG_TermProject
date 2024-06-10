@@ -36,5 +36,7 @@ public:
 
 	void setTargetPlayer(const PlayerObject& target);
 
+	void onHit();
+
 };
 

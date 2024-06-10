@@ -52,6 +52,29 @@ void Scene3::update(float elapsedTime)
 	SceneBase::update(elapsedTime);
 
 	boss.update(elapsedTime);
+
+	// 플레이어 화살과 보스 충돌 처리
+	std::vector<std::list<ArrowObject>::iterator> deleteArrows;
+	for (auto a = player.arrows.begin(); a != player.arrows.end(); ++a) {
+		if (boss.isCollide(*a)) {
+			deleteArrows.emplace_back(a);
+			boss.onHit();
+		}
+	}
+	for (const auto& itr : deleteArrows) {
+		player.arrows.erase(itr);
+	}
+	// 보스 불과 플레이어 충돌 처리
+	std::vector<std::list<FireObject>::iterator> deleteFires;
+	for (auto a = boss.fires.begin(); a != boss.fires.end(); ++a) {
+		if (player.isCollide(*a)) {
+			deleteFires.emplace_back(a);
+			player.onHit();
+		}
+	}
+	for (const auto& itr : deleteFires) {
+		boss.fires.erase(itr);
+	}
 }
 
 void Scene3::draw(HDC hdc) const

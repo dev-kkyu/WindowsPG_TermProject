@@ -68,3 +68,8 @@ void BossObject::setTargetPlayer(const PlayerObject& target)
 {
 	targetPlayer = &target;
 }
+
+void BossObject::onHit()
+{
+	--hp;
+}
