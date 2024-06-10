@@ -24,6 +24,8 @@ private:
 	const PlayerObject* targetPlayer = nullptr;
 	std::chrono::steady_clock::time_point lastFireTime;
 
+	std::chrono::steady_clock::time_point lastHitTime;
+
 public:
 	std::list<FireObject> fires;
 

@@ -14,6 +14,7 @@ BossObject::BossObject()
 	hp = 20;
 
 	lastFireTime = std::chrono::steady_clock::now();
+	lastHitTime = lastFireTime - std::chrono::seconds(1);
 
 	cloudImage.Load(L"./Resources/Images/Monster/Boss/cloud.png");
 	chairImage.Load(L"./Resources/Images/Monster/Boss/chair.png");
@@ -33,6 +34,7 @@ void BossObject::update(float elapsedTime)
 	nowFrameIdxF += (images.size() * actionPerSecond) * elapsedTime;
 	nowFrameIdxF = std::fmod(nowFrameIdxF, float(images.size()));
 
+	// 공격 패턴
 	if (targetPlayer) {
 		auto nowTime = std::chrono::steady_clock::now();
 		if (lastFireTime + std::chrono::milliseconds{ 2000 } <= nowTime) {	// 일정 시간마다
@@ -55,11 +57,21 @@ void BossObject::draw(HDC hdc, int windowLeft) const
 	for (const auto& fire : fires)
 		fire.draw(hdc, windowLeft);
 
-	POINT myPos = getPosInt();
-	myPos.y -= 150;
-	chairImage.MyDraw(hdc, RECT{ myPos.x - 53, myPos.y - 152, myPos.x + 53 ,myPos.y - 40 }, windowLeft);
-	images[int(nowFrameIdxF)].MyDraw(hdc, RECT{ myPos.x - 50, myPos.y - 140, myPos.x + 94 ,myPos.y - 80 }, windowLeft);
-	cloudImage.MyDraw(hdc, RECT{ myPos.x - 210, myPos.y - 200, myPos.x + 210 ,myPos.y + 200 }, windowLeft);
+	// 피격시 모션
+	bool isDraw = true;
+	auto nowTime = std::chrono::steady_clock::now();
+	if (lastHitTime + std::chrono::milliseconds{ 1000 } > nowTime) {	// 공격받고 1초동안
+		auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(nowTime - lastHitTime).count();
+		if ((ms / 100) & 1)		// 100ms마다 깜빡여준다
+			isDraw = false;
+	}
+	if (isDraw) {
+		POINT myPos = getPosInt();
+		myPos.y -= 150;
+		chairImage.MyDraw(hdc, RECT{ myPos.x - 53, myPos.y - 152, myPos.x + 53 ,myPos.y - 40 }, windowLeft);
+		images[int(nowFrameIdxF)].MyDraw(hdc, RECT{ myPos.x - 50, myPos.y - 140, myPos.x + 94 ,myPos.y - 80 }, windowLeft);
+		cloudImage.MyDraw(hdc, RECT{ myPos.x - 210, myPos.y - 200, myPos.x + 210 ,myPos.y + 200 }, windowLeft);
+	}
 
 	drawDebug(hdc, windowLeft);
 }
@@ -72,4 +84,7 @@ void BossObject::setTargetPlayer(const PlayerObject& target)
 void BossObject::onHit()
 {
 	--hp;
+
+	lastHitTime = std::chrono::steady_clock::now();
+
 }
