@@ -16,6 +16,9 @@ BossObject::BossObject()
 	lastFireTime = std::chrono::steady_clock::now();
 	lastHitTime = lastFireTime - std::chrono::seconds(1);
 
+	isDead = false;
+	deadVelocity = 600.f;
+
 	cloudImage.Load(L"./Resources/Images/Monster/Boss/cloud.png");
 	chairImage.Load(L"./Resources/Images/Monster/Boss/chair.png");
 	images.resize(5);
@@ -34,16 +37,29 @@ void BossObject::update(float elapsedTime)
 	nowFrameIdxF += (images.size() * actionPerSecond) * elapsedTime;
 	nowFrameIdxF = std::fmod(nowFrameIdxF, float(images.size()));
 
-	// 공격 패턴
-	if (targetPlayer) {
+	if (not isDead) {
 		auto nowTime = std::chrono::steady_clock::now();
-		if (lastFireTime + std::chrono::milliseconds{ 2000 } <= nowTime) {	// 일정 시간마다
-			lastFireTime = nowTime;
 
-			POINTFLOAT playerPos = targetPlayer->getPos();
-			POINTFLOAT myPos = getPos();
-			fires.emplace_back(getPosInt(), playerPos.x - myPos.x, playerPos.y - myPos.y);	// 플레이어에게 공격
+		// 죽음 판정
+		if (hp <= 0) {
+			isDead = true;
+			deadTime = nowTime;
 		}
+		// 공격 패턴
+		else if (targetPlayer) {
+			if (lastFireTime + std::chrono::milliseconds{ 2000 } <= nowTime) {	// 일정 시간마다
+				lastFireTime = nowTime;
+
+				POINTFLOAT playerPos = targetPlayer->getPos();
+				POINTFLOAT myPos = getPos();
+				fires.emplace_back(getPosInt(), playerPos.x - myPos.x, playerPos.y - myPos.y);	// 플레이어에게 공격
+			}
+		}
+	}
+	else {	// 죽었을 시, 낙하
+		pos.x += 300.f * elapsedTime;
+		pos.y -= deadVelocity * elapsedTime;
+		deadVelocity -= 1000.f * elapsedTime;
 	}
 
 	// 불 공격 업데이트
@@ -83,8 +99,18 @@ void BossObject::setTargetPlayer(const PlayerObject& target)
 
 void BossObject::onHit()
 {
-	--hp;
+	if (not isDead) {
+		--hp;
 
-	lastHitTime = std::chrono::steady_clock::now();
+		lastHitTime = std::chrono::steady_clock::now();
+	}
+}
 
+bool BossObject::getIsOut() const
+{
+	if (isDead) {	// 죽고 나서 3초 뒤
+		if (deadTime + std::chrono::seconds{ 3 } <= std::chrono::steady_clock::now())
+			return true;
+	}
+	return false;
 }

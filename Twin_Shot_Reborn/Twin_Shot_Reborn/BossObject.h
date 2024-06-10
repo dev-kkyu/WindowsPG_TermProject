@@ -26,6 +26,10 @@ private:
 
 	std::chrono::steady_clock::time_point lastHitTime;
 
+	bool isDead;
+	float deadVelocity;
+	std::chrono::steady_clock::time_point deadTime;
+
 public:
 	std::list<FireObject> fires;
 
@@ -39,6 +43,8 @@ public:
 	void setTargetPlayer(const PlayerObject& target);
 
 	void onHit();
+
+	bool getIsOut() const;
 
 };
 

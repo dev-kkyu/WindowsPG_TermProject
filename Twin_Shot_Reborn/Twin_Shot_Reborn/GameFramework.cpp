@@ -113,7 +113,7 @@ void GameFramework::updateFrameBuffer(float elapsedTime)
 			else if (p2)
 				pScene = std::make_shared<Scene3>();
 			else
-				;
+				pScene = std::make_shared<Scene1>();;
 		}
 	}
 }

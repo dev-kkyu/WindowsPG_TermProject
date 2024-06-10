@@ -94,7 +94,7 @@ void Scene3::destroy()
 
 bool Scene3::onClear() const
 {
-	return false;
+	return boss.getIsOut();
 }
 
 void Scene3::processWindowMessage(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
