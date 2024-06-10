@@ -173,8 +173,8 @@ void SceneBase::draw(HDC hdc) const
 		float value = 1.f - cloudPosXf / float(W_WIDTH);
 		int imgWidth = cloud.getWidth();
 		int imgHeight = cloud.getHeight();
-		cloud.MyDraw(hdc, RECT{ 0, 0, int(cloudPosXf), W_HEIGHT }, RECT{ int(value * imgWidth), 0, imgWidth, imgHeight });
-		cloud.MyDraw(hdc, RECT{ int(cloudPosXf), 0, W_WIDTH, W_HEIGHT }, RECT{ 0, 0, int(value * imgWidth), imgHeight });
+		cloud.MyDraw(hdc, RECT{ 0, 0, int(cloudPosXf), W_HEIGHT }, RECT{ int(value * imgWidth), 0, imgWidth, imgHeight }, false, false, 0x7f);
+		cloud.MyDraw(hdc, RECT{ int(cloudPosXf), 0, W_WIDTH, W_HEIGHT }, RECT{ 0, 0, int(value * imgWidth), imgHeight }, false, false, 0x7f);
 	}
 	//{	// 좋진 않지만 잘 되는 방법 (화면 바깥으로 많이 그린다)
 	//	int pivot = W_WIDTH - int(cloudPosXf);
