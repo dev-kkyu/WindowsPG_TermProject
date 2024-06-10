@@ -15,7 +15,7 @@ static inline constexpr T my_clamp(T val, T min_val, T max_val)
 Scene3::Scene3()
 {
 	background.Load(L"./Resources/Images/Background/Stage3.png");
-
+	cloud.Load(L"./Resources/Images/Background/Cloud3.png");
 
 	// Å×µÎ¸®
 	for (int i = 0; i < 22; ++i) {

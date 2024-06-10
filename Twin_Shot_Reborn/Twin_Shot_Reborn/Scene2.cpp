@@ -15,7 +15,7 @@ static inline constexpr T my_clamp(T val, T min_val, T max_val)
 Scene2::Scene2()
 {
 	background.Load(L"./Resources/Images/Background/Stage2.png");
-
+	cloud.Load(L"./Resources/Images/Background/Cloud2.png");
 
 	// nonBlockTiles ¹èÄ¡
 	for (int i = 0; i < 2; i++) {

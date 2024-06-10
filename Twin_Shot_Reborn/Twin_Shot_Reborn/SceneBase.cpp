@@ -14,9 +14,7 @@ static inline constexpr T my_clamp(T val, T min_val, T max_val)
 
 SceneBase::SceneBase()
 {
-	cloud.Load(L"./Resources/Images/Background/Cloud.png");
-
-	cloudPosXf = W_WIDTH / 2.f;		// 초기값 중앙
+	cloudPosXf = W_WIDTH / 2.f;		// 구름 초기값 중앙
 }
 
 SceneBase::~SceneBase()
