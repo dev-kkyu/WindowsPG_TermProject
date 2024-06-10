@@ -19,10 +19,10 @@ public:
 	MyImage& operator=(MyImage&& other) noexcept;
 
 	HRESULT Load(std::wstring filename);
-	void MyDraw(HDC hdc, const RECT& dstRect, bool reverseX = false, bool reverseY = false, BYTE bSrcAlpha = 0xff) const;
-	void MyDraw(HDC hdc, const RECT& dstRect, int windowLeft, bool reverseX = false, bool reverseY = false, BYTE bSrcAlpha = 0xff) const;	// 스크롤링 전용
 	void MyDraw(HDC hdc, const RECT& dstRect, const RECT& srcRect, bool reverseX = false, bool reverseY = false, BYTE bSrcAlpha = 0xff) const;
 	void MyDraw(HDC hdc, const RECT& dstRect, const RECT& srcRect, int windowLeft, bool reverseX = false, bool reverseY = false, BYTE bSrcAlpha = 0xff) const;
+	void MyDraw(HDC hdc, const RECT& dstRect, bool reverseX = false, bool reverseY = false, BYTE bSrcAlpha = 0xff) const;
+	void MyDraw(HDC hdc, const RECT& dstRect, int windowLeft, bool reverseX = false, bool reverseY = false, BYTE bSrcAlpha = 0xff) const;	// 스크롤링 전용
 
 	int getWidth() const;
 	int getHeight() const;
