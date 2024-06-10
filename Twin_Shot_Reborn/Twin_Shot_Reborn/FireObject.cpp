@@ -11,7 +11,7 @@ FireObject::FireObject(POINT spawnPos, float dirX, float dirY)
 {
 	setPos(spawnPos);
 
-	size = { 74, 52 };
+	size = { 111, 78 };
 
 	if (not isImageLoaded) {
 		for (int i = 0; i < 5; ++i)
@@ -19,7 +19,7 @@ FireObject::FireObject(POINT spawnPos, float dirX, float dirY)
 		isImageLoaded = true;
 	}
 
-	actionPerSecond = 2.125f;
+	actionPerSecond = 5.f;
 	nowFrameIdxF = 0.f;
 }
 

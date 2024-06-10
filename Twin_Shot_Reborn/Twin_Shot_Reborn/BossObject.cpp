@@ -35,7 +35,7 @@ void BossObject::update(float elapsedTime)
 
 	if (targetPlayer) {
 		auto nowTime = std::chrono::steady_clock::now();
-		if (lastFireTime + std::chrono::milliseconds{ 1500 } <= nowTime) {	// 일정 시간마다
+		if (lastFireTime + std::chrono::milliseconds{ 2000 } <= nowTime) {	// 일정 시간마다
 			lastFireTime = nowTime;
 
 			POINTFLOAT playerPos = targetPlayer->getPos();
