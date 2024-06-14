@@ -99,6 +99,7 @@ void PlayerObject::update(float elapsedTime)
 			if (isShootReady) {					// 아직 실제로 발사하지 않은 상태이면
 				POINT spawnPos = getPosInt();
 				spawnPos.y -= 23;
+				spawnPos.x += dirX * 10;
 				arrows.emplace_back(spawnPos, dirX);	// 발사
 				isShootReady = false;
 			}
