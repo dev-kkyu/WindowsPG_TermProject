@@ -44,5 +44,9 @@ public:
 
 	virtual void processWindowMessage(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) = 0;
 
+public:
+	static void setPlayerScore(int score);
+	static int getPlayerScore();
+
 };
 

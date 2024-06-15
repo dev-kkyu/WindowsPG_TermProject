@@ -120,6 +120,9 @@ void GameFramework::updateFrameBuffer(float elapsedTime)
 				pScene = std::make_shared<Scene1>();
 		}
 		else if (pScene->getPlayerDead()) {		// 플레이어 사망시 다시 시작
+			// 점수 반토막
+			pScene->setPlayerScore(pScene->getPlayerScore() / 2);
+
 			auto p1 = dynamic_cast<Scene1*>(pScene.get());
 			auto p2 = dynamic_cast<Scene2*>(pScene.get());
 			auto p3 = dynamic_cast<Scene3*>(pScene.get());

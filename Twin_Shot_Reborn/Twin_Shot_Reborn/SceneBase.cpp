@@ -309,3 +309,13 @@ void SceneBase::processWindowMessage(HWND hWnd, UINT message, WPARAM wParam, LPA
 		break;
 	}
 }
+
+void SceneBase::setPlayerScore(int score)
+{
+	playerScore = score;
+}
+
+int SceneBase::getPlayerScore()
+{
+	return playerScore;
+}
