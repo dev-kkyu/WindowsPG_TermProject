@@ -28,10 +28,20 @@ BossObject::BossObject()
 	for (int i = 0; i < 5; ++i) {
 		images[i].Load(L"./Resources/Images/Monster/Boss/" + std::to_wstring(i + 1) + L".png");
 	}
+
+	COLORREF color[2]{ RGB(192, 192, 192), RGB(255, 96, 0) };
+	for (int i = 0; i < 2; ++i) {
+		progressPen[i] = CreatePen(PS_SOLID, 1, color[i]);
+		progressBrush[i] = CreateSolidBrush(color[i]);
+	}
 }
 
 BossObject::~BossObject()
 {
+	for (int i = 0; i < 2; ++i) {
+		DeleteObject(progressPen[i]);
+		DeleteObject(progressBrush[i]);
+	}
 }
 
 void BossObject::update(float elapsedTime)
@@ -108,9 +118,17 @@ void BossObject::draw(HDC hdc, int windowLeft) const
 		cloudImage.MyDraw(hdc, RECT{ myPos.x - 210, myPos.y - 200, myPos.x + 210 ,myPos.y + 200 }, windowLeft);
 	}
 
-	// 보스 체력 화면에 그려주기 (임시)
-	std::string str = "보스 HP : " + std::to_string(hp);
-	TextOutA(hdc, 1000, 100, str.c_str(), int(str.size()));
+	// 보스 체력 화면에 그려주기
+	RECT progressRect{ 200, 55, 1000, 75 };
+	HPEN oldPen = (HPEN)SelectObject(hdc, progressPen[0]);
+	HBRUSH oldBrush = (HBRUSH)SelectObject(hdc, progressBrush[0]);
+	RoundRect(hdc, progressRect.left, progressRect.top, progressRect.right, progressRect.bottom, 10, 10);
+	SelectObject(hdc, progressPen[1]);
+	SelectObject(hdc, progressBrush[1]);
+	progressRect.left = 200 + (20 - hp) * 40;
+	RoundRect(hdc, progressRect.left, progressRect.top, progressRect.right, progressRect.bottom, 10, 10);
+	SelectObject(hdc, oldPen);
+	SelectObject(hdc, oldBrush);
 
 	drawDebug(hdc, windowLeft);
 }

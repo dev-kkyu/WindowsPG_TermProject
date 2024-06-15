@@ -32,6 +32,9 @@ private:
 	float deadVelocity;
 	std::chrono::steady_clock::time_point deadTime;
 
+	HPEN progressPen[2];
+	HBRUSH progressBrush[2];
+
 public:
 	std::list<FireObject> fires;
 
