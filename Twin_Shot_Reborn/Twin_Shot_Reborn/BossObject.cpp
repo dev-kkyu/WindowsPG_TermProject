@@ -12,6 +12,8 @@ BossObject::BossObject()
 	actionPerSecond = 2.125f;
 	nowFrameIdxF = 0.f;
 
+	dir.x = dir.y = 1;
+
 	hp = 20;
 
 	lastFireTime = std::chrono::steady_clock::now();
@@ -39,8 +41,24 @@ void BossObject::update(float elapsedTime)
 	nowFrameIdxF = std::fmod(nowFrameIdxF, float(images.size()));
 
 	if (not isDead) {
-		auto nowTime = std::chrono::steady_clock::now();
+		pos.x += dir.x * elapsedTime * 150.f;
+		pos.y += dir.y * elapsedTime * 75.f;
 
+		if (pos.x < 400.f) {
+			dir.x = 1;
+		}
+		else if (pos.x > 1000.f) {
+			dir.x = -1;
+		}
+
+		if (pos.y < 300.f) {
+			dir.y = 1;
+		}
+		else if (pos.y > 600.f) {
+			dir.y = -1;
+		}
+
+		auto nowTime = std::chrono::steady_clock::now();
 		// Á×À½ ÆÇÁ¤
 		if (hp <= 0) {
 			isDead = true;
