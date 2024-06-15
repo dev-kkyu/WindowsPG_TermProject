@@ -6,6 +6,7 @@
 #include "MyImage.h"
 #include "TileObject.h"
 #include "PlayerObject.h"
+#include "ItemObject.h"
 
 class SceneBase
 {
@@ -20,6 +21,8 @@ protected:
 
 	std::vector<TileObject> tiles;
 	std::vector<TileObject> nonBlockTiles;
+
+	std::list<ItemObject> items;	// 맵에 존재하는 아이템
 
 	PlayerObject player;
 	std::list<ArrowObject> arrows;	// 플레이어가 쏜 화살 중 벽에 박힌 화살 (player.arrows 를 단순 복사)

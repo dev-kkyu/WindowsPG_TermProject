@@ -110,6 +110,10 @@ void SceneBase::update(float elapsedTime)
 		}
 	}
 
+	// 아이템 업데이트 (애니메이션)
+	for (auto& item : items)
+		item.update(elapsedTime);
+
 	// 화살 리소스 관리
 	std::vector<std::list<ArrowObject>::iterator> deleteArrows;
 	// 플레이어 화살 리소스 회수
@@ -187,6 +191,9 @@ void SceneBase::draw(HDC hdc) const
 
 	for (const auto& tile : nonBlockTiles)
 		tile.draw(hdc, windowLeft);
+
+	for (const auto& item : items)
+		item.draw(hdc, windowLeft);
 
 	player.draw(hdc, windowLeft);
 
