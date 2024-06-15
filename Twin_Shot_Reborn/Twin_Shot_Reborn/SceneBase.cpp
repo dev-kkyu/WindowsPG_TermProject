@@ -114,6 +114,7 @@ void SceneBase::update(float elapsedTime)
 	for (auto& item : items)
 		item.update(elapsedTime);
 
+	// 아이템 낙하
 	for (auto& i : items) {
 		const POINTFLOAT bef_pos = i.getPos();
 		POINTFLOAT newPos = bef_pos;
@@ -125,6 +126,31 @@ void SceneBase::update(float elapsedTime)
 			}
 		}
 		i.setPos(newPos);
+	}
+
+	// 아이템 충돌 처리
+	std::vector<std::list<ItemObject>::iterator> deleteItems;
+	for (auto itr = items.begin(); itr != items.end(); ++itr) {
+		if (itr->isCollide(player)) {
+			auto type = itr->getItemType();
+			switch (type)
+			{
+			case ItemObject::HP:
+				player.onHpItem();
+				break;
+			case ItemObject::S_COIN:
+				playerScore += 50;
+				break;
+			case ItemObject::G_COIN:
+				playerScore += 100;
+				break;
+			}
+			deleteItems.emplace_back(itr);
+		}
+	}
+
+	for (const auto& itr : deleteItems) {
+		items.erase(itr);
 	}
 
 	// 화살 리소스 관리

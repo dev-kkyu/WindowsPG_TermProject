@@ -290,6 +290,12 @@ void PlayerObject::fireArrow()
 	}
 }
 
+void PlayerObject::onHpItem()
+{
+	if (hp < 3)
+		++hp;
+}
+
 void PlayerObject::onHit()
 {
 	if (not isHit) {

@@ -63,6 +63,8 @@ public:
 
 	void fireArrow();
 
+	void onHpItem();
+
 	void onHit();
 	void setHit(bool hit);
 	bool getHit() const;
