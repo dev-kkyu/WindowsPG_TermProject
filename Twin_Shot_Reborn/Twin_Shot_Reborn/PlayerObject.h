@@ -23,6 +23,8 @@ private:
 	float actionPerSecond;	// 초당 액션의 반복 횟수 (액션 : 현재 애니메이션의 이미지 개수)
 	float nowFrameIdxF;		// 현재 프레임 인덱스 (int로 변환 후 사용)
 
+	std::vector<MyImage> hp_images; // 체력 이미지 
+	MyImage score_image; // 점수 이미지
 	std::string animState;
 
 	unsigned int keyState;

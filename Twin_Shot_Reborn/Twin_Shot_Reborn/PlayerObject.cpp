@@ -44,6 +44,12 @@ PlayerObject::PlayerObject()
 	images["Hit"].resize(1);
 	images["Hit"][0].Load(L"./Resources/Images/Character/Hit.png");
 
+	hp_images.resize(2);
+	hp_images[0].Load(L"./Resources/Images/Character/FullHeart.png");
+	hp_images[1].Load(L"./Resources/Images/Character/EmptyHeart.png");
+
+	score_image.Load(L"./Resources/Images/Character/Score.png");
+
 	actionPerSecond = 2.125f;
 	nowFrameIdxF = 0.f;
 
@@ -185,8 +191,16 @@ void PlayerObject::draw(HDC hdc, int windowLeft) const
 		arrow.draw(hdc, windowLeft);
 
 	// 플레이어 체력 화면에 그려주기 (임시)
-	std::string str = "플레이어 HP : " + std::to_string(hp);
-	TextOutA(hdc, 1000, 80, str.c_str(), int(str.size()));
+	int padding = 3;
+	for (int i = 0; i < hp; i++) // 왼쪽 ,위, 오른쪽 ,아래,
+		hp_images[0].MyDraw(hdc, RECT{ i * (54 + padding) + 1000, 760,  i * (54 + padding) + 1000 + 54, 760 + 52 }); // 27,26
+
+	// 체력이 없어질 때마다 오른쪽부터 검정하트 그려주기
+	for (int i = hp; i < 3; ++i)
+		hp_images[1].MyDraw(hdc, RECT{ i * (54 + padding) + 1000, 760,  i * (54 + padding) + 1000 + 54, 760 + 52 });
+
+	// 점수 그리기
+	score_image.MyDraw(hdc, RECT{ 975, 813, 990 + 184, 813 + 44 });
 
 	drawDebug(hdc, windowLeft);
 }
