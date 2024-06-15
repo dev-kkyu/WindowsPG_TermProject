@@ -43,6 +43,9 @@ private:
 	bool isHit;
 	std::chrono::steady_clock::time_point hitTime;
 
+	bool isDead;
+	std::chrono::steady_clock::time_point deadTime;
+
 public:
 	std::list<ArrowObject> arrows;
 

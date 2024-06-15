@@ -72,6 +72,8 @@ PlayerObject::PlayerObject()
 	isHit = false;
 
 	hitTime = std::chrono::steady_clock::now();
+
+	isDead = false;
 }
 
 PlayerObject::~PlayerObject()
@@ -93,6 +95,10 @@ void PlayerObject::update(float elapsedTime)
 
 		pos.x += 600.f * elapsedTime;
 
+		return;
+	}
+
+	if (isDead) {
 		return;
 	}
 
@@ -293,16 +299,22 @@ void PlayerObject::onHpItem()
 
 void PlayerObject::onHit()
 {
-	if (not isHit) {
-		if (hitTime + std::chrono::milliseconds(1500) <= std::chrono::steady_clock::now()) {
-			isHit = true;
-			hitTime = std::chrono::steady_clock::now();
-			animState = "Hit";
-			nowFrameIdxF = 0.f;
-			velocity.y = maxSpeed.y;
-			velocity.x = 0.f;
+	if (not isDead) {
+		if (not isHit) {
+			if (hitTime + std::chrono::milliseconds(1500) <= std::chrono::steady_clock::now()) {
+				isHit = true;
+				hitTime = std::chrono::steady_clock::now();
+				animState = "Hit";
+				nowFrameIdxF = 0.f;
+				velocity.y = maxSpeed.y;
+				velocity.x = 0.f;
 
-			--hp;
+				--hp;
+				if (hp <= 0) {
+					isDead = true;
+					deadTime = std::chrono::steady_clock::now();
+				}
+			}
 		}
 	}
 }
@@ -319,5 +331,5 @@ bool PlayerObject::getHit() const
 
 bool PlayerObject::getIsDead() const
 {
-	return hp <= 0;
+	return isDead and (std::chrono::steady_clock::now() >= deadTime + std::chrono::seconds{ 1 });
 }
