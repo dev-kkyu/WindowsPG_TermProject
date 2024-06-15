@@ -136,6 +136,7 @@ void Scene2::update(float elapsedTime)
 					items.emplace_back(m.getPosInt());
 					deleteArrows.emplace_back(a);
 					m.onHit(*a);
+					MySound::getInstance().playShootMonsterSound();
 				}
 			}
 		}
@@ -162,6 +163,7 @@ void Scene2::update(float elapsedTime)
 			if (not m.getIsDead()) {
 				if (m.isCollide(player)) {
 					player.onHit();
+					MySound::getInstance().playAttackedSound();
 					break;
 				}
 			}

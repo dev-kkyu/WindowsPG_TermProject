@@ -65,6 +65,7 @@ void Scene3::update(float elapsedTime)
 			items.emplace_back(boss.getPosInt());
 			deleteArrows.emplace_back(a);
 			boss.onHit();
+			MySound::getInstance().playShootMonsterSound();
 		}
 	}
 	for (const auto& itr : deleteArrows) {
@@ -76,6 +77,7 @@ void Scene3::update(float elapsedTime)
 		if (player.isCollide(*a)) {
 			deleteFires.emplace_back(a);
 			player.onHit();
+			MySound::getInstance().playAttackedSound();
 		}
 	}
 	for (const auto& itr : deleteFires) {

@@ -2,6 +2,8 @@
 
 #include "Define.h"
 
+#include "MySound.h"
+
 int SceneBase::playerScore = 0;
 
 template <class T>
@@ -148,12 +150,15 @@ void SceneBase::update(float elapsedTime)
 			{
 			case ItemObject::HP:
 				player.onHpItem();
+				MySound::getInstance().playItemSound();
 				break;
 			case ItemObject::S_COIN:
 				playerScore += 50;
+				MySound::getInstance().playSilverCoinSound();
 				break;
 			case ItemObject::G_COIN:
 				playerScore += 100;
+				MySound::getInstance().playGoldCoinSound();
 				break;
 			}
 			deleteItems.emplace_back(itr);
@@ -197,6 +202,7 @@ void SceneBase::update(float elapsedTime)
 		for (auto itr = player.arrows.begin(); itr != player.arrows.end(); ++itr) {
 			if (t.isCollide(*itr)) {
 				deleteArrows.emplace_back(itr);	// 충돌된 화살 따로 관리
+				MySound::getInstance().playShootWallSound();
 			}
 		}
 		for (const auto& itr : deleteArrows) {

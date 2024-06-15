@@ -2,6 +2,8 @@
 
 #include "Define.h"
 
+#include "MySound.h"
+
 #include <string>
 #include <cmath>
 #include <limits>
@@ -219,6 +221,7 @@ void PlayerObject::sendKeyMsg(UINT message, WPARAM wParam)
 			if (not isFly) {
 				isFly = true;
 				velocity.y = maxSpeed.y;
+				MySound::getInstance().playJumpSound();
 			}
 			break;
 		case VK_DOWN:
@@ -288,6 +291,8 @@ void PlayerObject::fireArrow()
 		nowFrameIdxF = 0.f;
 
 		isShootReady = true;
+
+		MySound::getInstance().playShootSound();
 	}
 }
 
