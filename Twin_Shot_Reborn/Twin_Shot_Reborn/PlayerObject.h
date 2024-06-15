@@ -23,23 +23,23 @@ private:
 	float actionPerSecond;	// 초당 액션의 반복 횟수 (액션 : 현재 애니메이션의 이미지 개수)
 	float nowFrameIdxF;		// 현재 프레임 인덱스 (int로 변환 후 사용)
 
-	std::vector<MyImage> hp_images; // 체력 이미지 
-	MyImage score_image; // 점수 이미지
 	std::string animState;
 
 	unsigned int keyState;
 
 	int dirX;
 
-	POINTFLOAT velocity;		// x, y 방향 속도
-	POINTFLOAT maxSpeed;		// x, y 방향 최대 속도
-	POINTFLOAT acceleration;	// x, y(중력) 방향 가속도
+	POINTFLOAT velocity;			// x, y 방향 속도
+	POINTFLOAT maxSpeed;			// x, y 방향 최대 속도
+	POINTFLOAT acceleration;		// x, y(중력) 방향 가속도
 
-	bool isFly;					// 공중에 떠 있는지 여부
+	bool isFly;						// 공중에 떠 있는지 여부
 
-	bool isShootReady;			// 발사 준비중인지 여부
+	bool isShootReady;				// 발사 준비중인지 여부
 
-	int hp;						// 체력
+	int hp;							// 체력
+	std::vector<MyImage> hpImages;	// 체력 이미지 
+
 	bool isHit;
 	std::chrono::steady_clock::time_point hitTime;
 

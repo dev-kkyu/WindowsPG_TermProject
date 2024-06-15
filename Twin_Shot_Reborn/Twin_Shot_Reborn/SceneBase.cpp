@@ -17,6 +17,9 @@ static inline constexpr T my_clamp(T val, T min_val, T max_val)
 SceneBase::SceneBase()
 {
 	cloudPosXf = W_WIDTH / 2.f;		// 구름 초기값 중앙
+
+	// 공용으로 사용하는 점수 뒷판 이미지
+	score_image.Load(L"./Resources/Images/Character/Score.png");
 }
 
 SceneBase::~SceneBase()
@@ -238,6 +241,9 @@ void SceneBase::draw(HDC hdc) const
 
 	for (const auto& arrow : arrows)
 		arrow.draw(hdc, windowLeft);
+
+	// 점수 뒷판 그리기
+	score_image.MyDraw(hdc, RECT{ 975, 813, 990 + 184, 813 + 44 });
 
 	// 플레이어 점수 화면에 그려주기 (임시)
 	std::string str = std::to_string(playerScore);
