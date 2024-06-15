@@ -58,6 +58,9 @@
     <Filter Include="SceneBase\Scene4">
       <UniqueIdentifier>{63fd92b9-5c49-488f-a0c0-3c721a6066f6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MySound">
+      <UniqueIdentifier>{ee0eee2a-44ec-45c0-ac20-2205082dac2a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Twin_Shot_Reborn.cpp">
@@ -111,6 +114,9 @@
     <ClCompile Include="Scene4.cpp">
       <Filter>SceneBase\Scene4</Filter>
     </ClCompile>
+    <ClCompile Include="MySound.cpp">
+      <Filter>MySound</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SceneBase.h">
@@ -163,6 +169,9 @@
     </ClInclude>
     <ClInclude Include="Scene4.h">
       <Filter>SceneBase\Scene4</Filter>
+    </ClInclude>
+    <ClInclude Include="MySound.h">
+      <Filter>MySound</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
