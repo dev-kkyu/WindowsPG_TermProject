@@ -16,7 +16,9 @@ protected:
 protected:
 	MyImage background;
 	MyImage cloud;
-	MyImage score_image;			// 점수 이미지
+	MyImage scoreBackground;
+
+	HFONT scoreFont;
 
 	float cloudPosXf;
 

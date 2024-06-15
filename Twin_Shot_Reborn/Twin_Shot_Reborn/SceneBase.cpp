@@ -19,7 +19,14 @@ SceneBase::SceneBase()
 	cloudPosXf = W_WIDTH / 2.f;		// 구름 초기값 중앙
 
 	// 공용으로 사용하는 점수 뒷판 이미지
-	score_image.Load(L"./Resources/Images/Character/Score.png");
+	scoreBackground.Load(L"./Resources/Images/Character/Score.png");
+
+	LOGFONTA logFont{};
+	logFont.lfHeight = 33;
+	logFont.lfWeight = FW_BOLD;
+	//strcpy_s(logFont.lfFaceName, "돋움");
+
+	scoreFont = CreateFontIndirectA(&logFont);
 }
 
 SceneBase::~SceneBase()
@@ -243,11 +250,17 @@ void SceneBase::draw(HDC hdc) const
 		arrow.draw(hdc, windowLeft);
 
 	// 점수 뒷판 그리기
-	score_image.MyDraw(hdc, RECT{ 975, 813, 990 + 184, 813 + 44 });
+	RECT rc{ 970, 837, 1180, 885 };
+	scoreBackground.MyDraw(hdc, rc);
 
 	// 플레이어 점수 화면에 그려주기 (임시)
+	SetTextColor(hdc, RGB(243, 97, 220));
+	HFONT oldFont = (HFONT)SelectObject(hdc, scoreFont);
 	std::string str = std::to_string(playerScore);
-	TextOutA(hdc, 1120, 825, str.c_str(), int(str.size()));
+	rc.right -= 20;
+	DrawTextA(hdc, str.c_str(), int(str.size()), &rc, DT_RIGHT | DT_VCENTER | DT_SINGLELINE);
+	SelectObject(hdc, oldFont);
+	SetTextColor(hdc, 0);
 
 }
 
