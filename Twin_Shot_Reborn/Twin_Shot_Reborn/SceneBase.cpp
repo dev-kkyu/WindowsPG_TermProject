@@ -201,8 +201,8 @@ void SceneBase::draw(HDC hdc) const
 		arrow.draw(hdc, windowLeft);
 
 	// 플레이어 점수 화면에 그려주기 (임시)
-	std::string str = "플레이어 Score : " + std::to_string(playerScore);
-	TextOutA(hdc, 1000, 60, str.c_str(), int(str.size()));
+	std::string str = std::to_string(playerScore);
+	TextOutA(hdc, 1120, 825, str.c_str(), int(str.size()));
 
 }
 

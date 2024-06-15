@@ -6,6 +6,8 @@ class Scene0 : public SceneBase
 {
 private:
 	bool isNext;
+	MyImage title;
+	MyImage Play;
 
 public:
 	Scene0();
