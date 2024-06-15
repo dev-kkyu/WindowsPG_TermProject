@@ -15,7 +15,6 @@ private:
 	FMOD::System* ssystem;
 
 	FMOD::Channel* backgroundChannel;
-	FMOD::Channel* effectChannel;
 
 	std::array<FMOD::Sound*, 11> sounds;
 

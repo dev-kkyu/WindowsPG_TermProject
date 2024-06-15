@@ -27,7 +27,6 @@ MySound::MySound()
 	ssystem->init(32, FMOD_INIT_NORMAL, nullptr);
 
 	backgroundChannel = nullptr;
-	effectChannel = nullptr;
 
 	loadSoundFiles();
 }
@@ -79,56 +78,40 @@ void MySound::playBossBGM()
 
 void MySound::playJumpSound()
 {
-	if (effectChannel)
-		effectChannel->stop();
-	ssystem->playSound(sounds[3], nullptr, false, &effectChannel);
+	ssystem->playSound(sounds[3], nullptr, false, nullptr);
 }
 
 void MySound::playShootSound()
 {
-	if (effectChannel)
-		effectChannel->stop();
-	ssystem->playSound(sounds[4], nullptr, false, &effectChannel);
+	ssystem->playSound(sounds[4], nullptr, false, nullptr);
 }
 
 void MySound::playShootWallSound()
 {
-	if (effectChannel)
-		effectChannel->stop();
-	ssystem->playSound(sounds[5], nullptr, false, &effectChannel);
+	ssystem->playSound(sounds[5], nullptr, false, nullptr);
 }
 
 void MySound::playShootMonsterSound()
 {
-	if (effectChannel)
-		effectChannel->stop();
-	ssystem->playSound(sounds[6], nullptr, false, &effectChannel);
+	ssystem->playSound(sounds[6], nullptr, false, nullptr);
 }
 
 void MySound::playAttackedSound()
 {
-	if (effectChannel)
-		effectChannel->stop();
-	ssystem->playSound(sounds[7], nullptr, false, &effectChannel);
+	ssystem->playSound(sounds[7], nullptr, false, nullptr);
 }
 
 void MySound::playItemSound()
 {
-	if (effectChannel)
-		effectChannel->stop();
-	ssystem->playSound(sounds[8], nullptr, false, &effectChannel);
+	ssystem->playSound(sounds[8], nullptr, false, nullptr);
 }
 
 void MySound::playSilverCoinSound()
 {
-	if (effectChannel)
-		effectChannel->stop();
-	ssystem->playSound(sounds[9], nullptr, false, &effectChannel);
+	ssystem->playSound(sounds[9], nullptr, false, nullptr);
 }
 
 void MySound::playGoldCoinSound()
 {
-	if (effectChannel)
-		effectChannel->stop();
-	ssystem->playSound(sounds[10], nullptr, false, &effectChannel);
+	ssystem->playSound(sounds[10], nullptr, false, nullptr);
 }
