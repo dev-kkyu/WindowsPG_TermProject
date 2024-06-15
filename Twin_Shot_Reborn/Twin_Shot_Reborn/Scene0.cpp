@@ -56,7 +56,7 @@ void Scene0::draw(HDC hdc) const
 	std::string str = "Press Any Key To Start";
 	DrawTextA(hdc, str.c_str(), int(str.size()), &rc, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
 	SelectObject(hdc, oldFont);
-	SetTextColor(hdc, 0);
+	SetTextColor(hdc, 0);		// 원상복구
 }
 
 void Scene0::destroy()

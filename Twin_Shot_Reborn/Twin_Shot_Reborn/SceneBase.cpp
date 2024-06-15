@@ -31,6 +31,7 @@ SceneBase::SceneBase()
 
 SceneBase::~SceneBase()
 {
+	DeleteObject(scoreFont);
 }
 
 void SceneBase::update(float elapsedTime)
@@ -253,15 +254,14 @@ void SceneBase::draw(HDC hdc) const
 	RECT rc{ 970, 837, 1180, 885 };
 	scoreBackground.MyDraw(hdc, rc);
 
-	// 플레이어 점수 화면에 그려주기 (임시)
+	// 플레이어 점수 화면에 그려주기
 	SetTextColor(hdc, RGB(243, 97, 220));
 	HFONT oldFont = (HFONT)SelectObject(hdc, scoreFont);
 	std::string str = std::to_string(playerScore);
 	rc.right -= 20;
 	DrawTextA(hdc, str.c_str(), int(str.size()), &rc, DT_RIGHT | DT_VCENTER | DT_SINGLELINE);
 	SelectObject(hdc, oldFont);
-	SetTextColor(hdc, 0);
-
+	SetTextColor(hdc, 0);		// 원상복구
 }
 
 bool SceneBase::getPlayerDead() const
