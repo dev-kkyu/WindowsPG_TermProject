@@ -3,6 +3,8 @@
 #include <cmath>
 #include <limits>
 
+bool GameObject::isCollisionDebugMode = false;
+
 GameObject::GameObject()
 {
 	pos.x = pos.y = 0.f;
@@ -15,14 +17,14 @@ GameObject::~GameObject()
 
 void GameObject::drawDebug(HDC hdc, int windowLeft) const
 {
-#ifndef NDEBUG
-	HBRUSH hBrush = CreateSolidBrush(RGB(255, 0, 0));
-	RECT rect = getObjectRect();
-	rect.left -= windowLeft;
-	rect.right -= windowLeft;
-	FrameRect(hdc, &rect, hBrush);
-	DeleteObject(hBrush);
-#endif // !NDEBUG
+	if (isCollisionDebugMode) {
+		HBRUSH hBrush = CreateSolidBrush(RGB(255, 0, 0));
+		RECT rect = getObjectRect();
+		rect.left -= windowLeft;
+		rect.right -= windowLeft;
+		FrameRect(hdc, &rect, hBrush);
+		DeleteObject(hBrush);
+	}
 }
 
 void GameObject::move(const POINT& dir, float value)
@@ -108,4 +110,9 @@ LONG GameObject::getRight() const
 LONG GameObject::getBottom() const
 {
 	return static_cast<LONG>(pos.y);
+}
+
+void GameObject::changeDebugMode()
+{
+	isCollisionDebugMode = not isCollisionDebugMode;
 }

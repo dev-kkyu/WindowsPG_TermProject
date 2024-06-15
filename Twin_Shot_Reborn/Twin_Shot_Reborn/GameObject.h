@@ -4,6 +4,9 @@
 
 class GameObject
 {
+private:
+	static bool isCollisionDebugMode;
+
 protected:
 	POINTFLOAT pos;	// float로 관리.. 부드러운 타이머 애니메이션을 위하여
 	SIZE size;
@@ -36,5 +39,8 @@ public:
 	LONG getTop() const;
 	LONG getRight() const;
 	LONG getBottom() const;
+
+public:
+	static void changeDebugMode();
 };
 
