@@ -150,7 +150,7 @@ void BossObject::onHit()
 bool BossObject::getIsOut() const
 {
 	if (isDead) {	// 죽고 나서 3초 뒤
-		if (deadTime + std::chrono::seconds{ 3 } <= std::chrono::steady_clock::now())
+		if (deadTime + std::chrono::seconds{ 5 } <= std::chrono::steady_clock::now())
 			return true;
 	}
 	return false;

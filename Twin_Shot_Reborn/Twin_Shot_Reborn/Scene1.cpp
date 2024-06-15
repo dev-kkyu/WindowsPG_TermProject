@@ -169,7 +169,7 @@ void Scene1::update(float elapsedTime)
 	for (auto m = monsters.begin(); m != monsters.end(); ++m) {
 		if (m->getIsDead()) {
 			auto nowTime = std::chrono::steady_clock::now();
-			if (m->getDeadTime() + std::chrono::milliseconds(1500) <= nowTime) {
+			if (m->getDeadTime() + std::chrono::milliseconds(3000) <= nowTime) {
 				deleteMonsters.emplace_back(m);
 			}
 		}
