@@ -93,6 +93,8 @@ void ItemObject::draw(HDC hdc, int windowLeft) const
 		images[2][int(nowFrameIdxF)].MyDraw(hdc, getObjectRect(), windowLeft);
 		break;
 	}
+
+	drawDebug(hdc, windowLeft);
 }
 
 ItemObject::ItemType ItemObject::getItemType() const
