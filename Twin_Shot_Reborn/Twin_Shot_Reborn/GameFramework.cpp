@@ -7,6 +7,7 @@
 #include "Scene1.h"
 #include "Scene2.h"
 #include "Scene3.h"
+#include "Scene4.h"
 
 void GameFramework::initialize(HWND hMainWnd)
 {
@@ -78,6 +79,9 @@ void GameFramework::processWindowMessage(HWND hWnd, UINT message, WPARAM wParam,
 		case '3':
 			pScene = std::make_shared<Scene3>();
 			break;
+		case '4':
+			pScene = std::make_shared<Scene4>();
+			break;
 		}
 		break;
 	case WM_KEYDOWN:
@@ -109,15 +113,23 @@ void GameFramework::updateFrameBuffer(float elapsedTime)
 		pScene->update(elapsedTime);
 
 		if (pScene->onClear()) {	// 스테이지 클리어시 다음 스테이지
+			auto p0 = dynamic_cast<Scene0*>(pScene.get());
 			auto p1 = dynamic_cast<Scene1*>(pScene.get());
 			auto p2 = dynamic_cast<Scene2*>(pScene.get());
 			auto p3 = dynamic_cast<Scene3*>(pScene.get());
-			if (p1)
+			auto p4 = dynamic_cast<Scene4*>(pScene.get());
+			if (p0)
+				pScene = std::make_shared<Scene1>();
+			else if (p1)
 				pScene = std::make_shared<Scene2>();
 			else if (p2)
 				pScene = std::make_shared<Scene3>();
-			else
-				pScene = std::make_shared<Scene1>();
+			else if (p3)
+				pScene = std::make_shared<Scene4>();
+			else {	// 처음부터 시작
+				pScene->setPlayerScore(0);
+				pScene = std::make_shared<Scene0>();
+			}
 		}
 		else if (pScene->getPlayerDead()) {		// 플레이어 사망시 다시 시작
 			// 점수 반토막
@@ -130,7 +142,7 @@ void GameFramework::updateFrameBuffer(float elapsedTime)
 				pScene = std::make_shared<Scene1>();
 			else if (p2)
 				pScene = std::make_shared<Scene2>();
-			else
+			else if (p3)
 				pScene = std::make_shared<Scene3>();
 		}
 	}

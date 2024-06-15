@@ -14,7 +14,7 @@ Scene0::Scene0()
 	LOGFONTA logFont{};
 	logFont.lfHeight = 40;
 	logFont.lfWeight = FW_BOLD;
-	//strcpy_s(logFont.lfFaceName, "µ¸¿ò");
+	strcpy_s(logFont.lfFaceName, "±Ã¼­");
 
 	titleFont = CreateFontIndirectA(&logFont);
 }
