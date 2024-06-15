@@ -114,6 +114,19 @@ void SceneBase::update(float elapsedTime)
 	for (auto& item : items)
 		item.update(elapsedTime);
 
+	for (auto& i : items) {
+		const POINTFLOAT bef_pos = i.getPos();
+		POINTFLOAT newPos = bef_pos;
+		newPos.y += elapsedTime * 300.f;
+		for (const auto& t : tiles) {
+			if (i.isCollide(t)) {			// 타일과 아이템 충돌
+				newPos.y = bef_pos.y;
+				break;
+			}
+		}
+		i.setPos(newPos);
+	}
+
 	// 화살 리소스 관리
 	std::vector<std::list<ArrowObject>::iterator> deleteArrows;
 	// 플레이어 화살 리소스 회수

@@ -57,6 +57,8 @@ void Scene3::update(float elapsedTime)
 	std::vector<std::list<ArrowObject>::iterator> deleteArrows;
 	for (auto a = player.arrows.begin(); a != player.arrows.end(); ++a) {
 		if (boss.isCollide(*a)) {
+			playerScore += 100;				// 점수 추가
+			items.emplace_back(boss.getPosInt());
 			deleteArrows.emplace_back(a);
 			boss.onHit();
 		}
