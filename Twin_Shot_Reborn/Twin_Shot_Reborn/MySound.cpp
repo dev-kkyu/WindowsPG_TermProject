@@ -33,6 +33,9 @@ MySound::MySound()
 
 MySound::~MySound()
 {
+	for (int i = 0; i < 11; ++i)
+		sounds[i]->release();
+	ssystem->close();
 	ssystem->release();
 }
 
@@ -53,6 +56,11 @@ MySound& MySound::getInstance()
 {
 	static MySound instance;
 	return instance;
+}
+
+void MySound::update()
+{
+	ssystem->update();
 }
 
 void MySound::playLobbyBGM()

@@ -3,6 +3,8 @@
 #include <string>
 #include <chrono>
 
+#include "MySound.h"
+
 #include "Scene0.h"
 #include "Scene1.h"
 #include "Scene2.h"
@@ -149,6 +151,9 @@ void GameFramework::updateFrameBuffer(float elapsedTime)
 				pScene = std::make_shared<Scene3>();
 		}
 	}
+
+	// 사운드 업데이트
+	MySound::getInstance().update();
 }
 
 void GameFramework::drawFrameBuffer()

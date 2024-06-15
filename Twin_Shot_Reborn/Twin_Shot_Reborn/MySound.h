@@ -33,6 +33,8 @@ public:
 	static MySound& getInstance();
 
 public:
+	void update();
+
 	void playLobbyBGM();
 	void playNormalBGM();
 	void playBossBGM();
