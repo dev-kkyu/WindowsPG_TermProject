@@ -2,6 +2,8 @@
 
 #include "Define.h"
 
+#include "MySound.h"
+
 template <class T>
 static inline constexpr T my_clamp(T val, T min_val, T max_val)
 {
@@ -105,6 +107,8 @@ Scene2::Scene2()
 	monsters.emplace_back(POINT{ 1210, 350 }, 2, SIZE{ 75, 70 }, 1120, 1320); // 좌우 이동 몬스터 - 2번째 칸
 	monsters.emplace_back(POINT{ 1130, 550 }, 2, SIZE{ 75, 70 }, 1120, 1320); // 좌우 이동 몬스터 - 3번째 칸
 	monsters.emplace_back(POINT{ 1311, 750 }, 2, SIZE{ 75, 70 }, 1120, 1320); // 좌우 이동 몬스터 - 4번째 칸
+
+	MySound::getInstance().playNormalBGM();
 }
 
 Scene2::~Scene2()

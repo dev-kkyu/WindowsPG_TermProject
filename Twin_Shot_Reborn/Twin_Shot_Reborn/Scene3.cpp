@@ -2,6 +2,8 @@
 
 #include "Define.h"
 
+#include "MySound.h"
+
 template <class T>
 static inline constexpr T my_clamp(T val, T min_val, T max_val)
 {
@@ -37,6 +39,8 @@ Scene3::Scene3()
 
 	// 보스 타겟 설정
 	boss.setTargetPlayer(player);
+
+	MySound::getInstance().playBossBGM();
 }
 
 Scene3::~Scene3()

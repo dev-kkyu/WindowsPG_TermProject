@@ -2,6 +2,8 @@
 
 #include "Define.h"
 
+#include "MySound.h"
+
 Scene4::Scene4()
 {
 	isNext = false;
@@ -19,6 +21,8 @@ Scene4::Scene4()
 	titleFont[0] = CreateFontIndirectA(&logFont);
 	logFont.lfHeight = 40;
 	titleFont[1] = CreateFontIndirectA(&logFont);
+
+	MySound::getInstance().playLobbyBGM();
 }
 
 Scene4::~Scene4()

@@ -2,6 +2,8 @@
 
 #include "Define.h"
 
+#include "MySound.h"
+
 #include <chrono>
 
 template <class T>
@@ -130,6 +132,8 @@ Scene1::Scene1()
 	monsters.emplace_back(POINT{ 200, 700 }, 0, SIZE{ 120, 100 }, 100, 400); // 왼쪽몬스터
 	monsters.emplace_back(POINT{ 1150, 700 }, 0, SIZE{ 120, 100 }, 1050, 1300); // 오른쪽 몬스터
 	monsters.emplace_back(POINT{ 700, 250 }, 0, SIZE{ 100, 100 }, 500, 980); // 위쪽 몬스터
+
+	MySound::getInstance().playNormalBGM();
 }
 
 Scene1::~Scene1()

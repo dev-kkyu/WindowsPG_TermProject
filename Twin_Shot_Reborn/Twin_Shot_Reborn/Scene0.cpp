@@ -2,6 +2,8 @@
 
 #include "Define.h"
 
+#include "MySound.h"
+
 Scene0::Scene0()
 {
 	isNext = false;
@@ -17,6 +19,8 @@ Scene0::Scene0()
 	strcpy_s(logFont.lfFaceName, "±Ã¼­");
 
 	titleFont = CreateFontIndirectA(&logFont);
+
+	MySound::getInstance().playLobbyBGM();
 }
 
 Scene0::~Scene0()
