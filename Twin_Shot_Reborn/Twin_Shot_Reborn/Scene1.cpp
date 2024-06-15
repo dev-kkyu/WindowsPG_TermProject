@@ -154,6 +154,7 @@ void Scene1::update(float elapsedTime)
 			if (not m.getIsDead()) {
 				if (m.isCollide(*a)) {
 					playerScore += 100;				// 점수 추가
+					items.emplace_back(m.getPosInt());
 					deleteArrows.emplace_back(a);
 					m.onHit(*a);
 				}

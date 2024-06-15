@@ -1,9 +1,13 @@
 #include "ItemObject.h"
 
+#include <random>
 #include <cmath>
 
 bool ItemObject::isImageLoaded;
 std::array<std::vector<MyImage>, 3> ItemObject::images;
+
+static std::random_device rd;
+static std::default_random_engine dre{ rd() };
 
 ItemObject::ItemObject(POINT iPos)
 {
@@ -20,23 +24,32 @@ ItemObject::ItemObject(POINT iPos)
 		for (int i = 0; i < 7; ++i) {
 			images[2][i].Load(L"./Resources/Images/Item/Gold/" + std::to_wstring(i + 1) + L".png");
 		}
+		isImageLoaded = true;
 	}
 
 	actionPerSecond = 2.125f;
 	nowFrameIdxF = 0.f;
 
 	itemType = ItemType::HP;
-	switch (rand() % 3)
+	std::uniform_int_distribution<int> uid{ 0, 9 };
+	switch (uid(dre))
 	{
 	case 0:
 		itemType = ItemType::HP;
 		setSize({ 50, 50 });
 		break;
 	case 1:
+	case 2:
+	case 3:
+	case 4:
+	case 5:
+	case 6:
 		itemType = ItemType::S_COIN;
 		setSize({ 35, 35 });
 		break;
-	case 2:
+	case 7:
+	case 8:
+	case 9:
 		itemType = ItemType::G_COIN;
 		setSize({ 35, 35 });
 		break;
