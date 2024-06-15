@@ -2,6 +2,8 @@
 
 #include "Define.h"
 
+int SceneBase::playerScore = 0;
+
 template <class T>
 static inline constexpr T my_clamp(T val, T min_val, T max_val)
 {
@@ -190,6 +192,10 @@ void SceneBase::draw(HDC hdc) const
 
 	for (const auto& arrow : arrows)
 		arrow.draw(hdc, windowLeft);
+
+	// 플레이어 점수 화면에 그려주기 (임시)
+	std::string str = "플레이어 Score : " + std::to_string(playerScore);
+	TextOutA(hdc, 1000, 60, str.c_str(), int(str.size()));
 
 }
 

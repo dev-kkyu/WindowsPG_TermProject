@@ -128,6 +128,7 @@ void Scene2::update(float elapsedTime)
 		for (auto a = player.arrows.begin(); a != player.arrows.end(); ++a) {
 			if (not m.getIsDead()) {
 				if (m.isCollide(*a)) {
+					playerScore += 100;				// 점수 추가
 					deleteArrows.emplace_back(a);
 					m.onHit(*a);
 				}

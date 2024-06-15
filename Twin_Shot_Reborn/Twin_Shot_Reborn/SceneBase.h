@@ -10,6 +10,9 @@
 class SceneBase
 {
 protected:
+	static int playerScore;
+
+protected:
 	MyImage background;
 	MyImage cloud;
 
