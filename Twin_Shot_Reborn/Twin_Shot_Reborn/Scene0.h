@@ -8,6 +8,8 @@ private:
 	bool isNext;
 	MyImage title;
 
+	HFONT titleFont;
+
 public:
 	Scene0();
 	virtual ~Scene0();
