@@ -3,6 +3,7 @@
 #include <string>
 #include <chrono>
 
+#include "Scene0.h"
 #include "Scene1.h"
 #include "Scene2.h"
 #include "Scene3.h"
@@ -65,6 +66,9 @@ void GameFramework::processWindowMessage(HWND hWnd, UINT message, WPARAM wParam,
 	case WM_CHAR:
 		switch (wParam)
 		{
+		case '0':
+			pScene = std::make_shared<Scene0>();
+			break;
 		case '1':
 			pScene = std::make_shared<Scene1>();
 			break;

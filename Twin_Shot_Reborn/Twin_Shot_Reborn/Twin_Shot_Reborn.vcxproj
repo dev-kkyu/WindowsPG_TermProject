@@ -134,6 +134,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="ItemObject.cpp" />
     <ClCompile Include="MonsterObject.cpp" />
+    <ClCompile Include="Scene0.cpp" />
     <ClCompile Include="Scene1.cpp" />
     <ClCompile Include="MyImage.cpp" />
     <ClCompile Include="PlayerObject.cpp" />
@@ -151,6 +152,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="ItemObject.h" />
     <ClInclude Include="MonsterObject.h" />
+    <ClInclude Include="Scene0.h" />
     <ClInclude Include="Scene1.h" />
     <ClInclude Include="Define.h" />
     <ClInclude Include="MyImage.h" />
