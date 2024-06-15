@@ -2,10 +2,13 @@
 
 #include <Windows.h>
 
+#include <string>
+
 #include "Resources/Library/inc/fmod.hpp"
 #pragma comment (lib, "Resources/Library/lib/x64/fmod_vc.lib")
 
 MySound::MySound()
+	: sounds{}
 {
 	// 지연된 로드 이후 라이브러리 사용 전 Dll Directory를 변경해준다.
 	SetDllDirectoryA("Resources/Library/lib/x64");
@@ -25,6 +28,8 @@ MySound::MySound()
 
 	backgroundChannel = nullptr;
 	effectChannel = nullptr;
+
+	loadSoundFiles();
 }
 
 MySound::~MySound()
@@ -32,8 +37,98 @@ MySound::~MySound()
 	ssystem->release();
 }
 
+void MySound::loadSoundFiles()
+{
+	std::string filename[]{ "bgm_lobby", "bgm_normal", "bgm_boss", "jump",
+		"shoot", "shoot_wall", "shoot_monster", "attacked", "item", "silver_coin", "gold_coin" };
+	for (int i = 0; i < 11; ++i) {
+		std::string name = "./Resources/Sounds/" + filename[i] + ".mp3";
+		if (i < 3)
+			ssystem->createSound(name.c_str(), FMOD_LOOP_NORMAL, nullptr, &sounds[i]);
+		else
+			ssystem->createSound(name.c_str(), FMOD_DEFAULT, nullptr, &sounds[i]);
+	}
+}
+
 MySound& MySound::getInstance()
 {
 	static MySound instance;
 	return instance;
+}
+
+void MySound::playLobbyBGM()
+{
+	if (backgroundChannel)
+		backgroundChannel->stop();
+	ssystem->playSound(sounds[0], nullptr, false, &backgroundChannel);
+}
+
+void MySound::playNormalBGM()
+{
+	if (backgroundChannel)
+		backgroundChannel->stop();
+	ssystem->playSound(sounds[1], nullptr, false, &backgroundChannel);
+}
+
+void MySound::playBossBGM()
+{
+	if (backgroundChannel)
+		backgroundChannel->stop();
+	ssystem->playSound(sounds[2], nullptr, false, &backgroundChannel);
+}
+
+void MySound::playJumpSound()
+{
+	if (effectChannel)
+		effectChannel->stop();
+	ssystem->playSound(sounds[3], nullptr, false, &effectChannel);
+}
+
+void MySound::playShootSound()
+{
+	if (effectChannel)
+		effectChannel->stop();
+	ssystem->playSound(sounds[4], nullptr, false, &effectChannel);
+}
+
+void MySound::playShootWallSound()
+{
+	if (effectChannel)
+		effectChannel->stop();
+	ssystem->playSound(sounds[5], nullptr, false, &effectChannel);
+}
+
+void MySound::playShootMonsterSound()
+{
+	if (effectChannel)
+		effectChannel->stop();
+	ssystem->playSound(sounds[6], nullptr, false, &effectChannel);
+}
+
+void MySound::playAttackedSound()
+{
+	if (effectChannel)
+		effectChannel->stop();
+	ssystem->playSound(sounds[7], nullptr, false, &effectChannel);
+}
+
+void MySound::playItemSound()
+{
+	if (effectChannel)
+		effectChannel->stop();
+	ssystem->playSound(sounds[8], nullptr, false, &effectChannel);
+}
+
+void MySound::playSilverCoinSound()
+{
+	if (effectChannel)
+		effectChannel->stop();
+	ssystem->playSound(sounds[9], nullptr, false, &effectChannel);
+}
+
+void MySound::playGoldCoinSound()
+{
+	if (effectChannel)
+		effectChannel->stop();
+	ssystem->playSound(sounds[10], nullptr, false, &effectChannel);
 }
