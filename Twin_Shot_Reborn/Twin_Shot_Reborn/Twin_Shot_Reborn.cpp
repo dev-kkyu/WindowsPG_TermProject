@@ -68,6 +68,8 @@ int APIENTRY WinMain(
 //
 ATOM MyRegisterClass(HINSTANCE hInstance)
 {
+	HICON hIcon = (HICON)LoadImageA(hInstance, "./Resources/Images/ICON.ico", IMAGE_ICON, 0, 0, LR_LOADFROMFILE);
+
 	WNDCLASSEX wcex;
 
 	wcex.cbSize = sizeof(wcex);
@@ -77,12 +79,12 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 	wcex.cbClsExtra = 0;
 	wcex.cbWndExtra = 0;
 	wcex.hInstance = hInstance;
-	wcex.hIcon = LoadIcon(nullptr, IDI_APPLICATION);		// Todo: ICON 변경
+	wcex.hIcon = hIcon;
 	wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
 	wcex.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
 	wcex.lpszMenuName = nullptr;							// Todo: MENU 추가
 	wcex.lpszClassName = lpszWindowClass;
-	wcex.hIconSm = LoadIcon(nullptr, IDI_APPLICATION);		// Todo: ICON 변경
+	wcex.hIconSm = hIcon;
 
 	return RegisterClassEx(&wcex);
 }
