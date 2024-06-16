@@ -4,14 +4,14 @@
 
 #include <string>
 
-#include "Resources/Library/inc/fmod.hpp"
-#pragma comment (lib, "Resources/Library/lib/x64/fmod_vc.lib")
+#include "Dependencies/FMOD/inc/fmod.hpp"
+#pragma comment (lib, "Dependencies/FMOD/lib/x64/fmod_vc.lib")
 
 MySound::MySound()
 	: sounds{}
 {
 	// 지연된 로드 이후 라이브러리 사용 전 Dll Directory를 변경해준다.
-	SetDllDirectoryA("Resources/Library/lib/x64");
+	SetDllDirectoryA("Resources/DLL");
 	// 라이브러리 체크
 	HMODULE hModule = LoadLibraryA("fmod.dll");
 	if (hModule) {
