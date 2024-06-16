@@ -89,6 +89,9 @@ void GameFramework::processWindowMessage(HWND hWnd, UINT message, WPARAM wParam,
 	case WM_KEYDOWN:
 		switch (wParam)
 		{
+		case VK_F4:
+			PlayerObject::changeCheatMode();
+			break;
 		case VK_F5:
 			GameObject::changeDebugMode();
 			break;

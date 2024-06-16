@@ -18,8 +18,17 @@ static inline constexpr T my_clamp(T val, T min_val, T max_val)
 	return val;
 }
 
+bool PlayerObject::cheatMode = false;
+bool PlayerObject::cheatImageLoaded = false;
+MyImage PlayerObject::cheatImage;
+
 PlayerObject::PlayerObject()
 {
+	if (not cheatImageLoaded) {
+		cheatImage.Load(L"./Resources/Images/Character/Cheat.png");
+		cheatImageLoaded = true;
+	}
+
 	pos = { 600, 450 };
 	size = { 100, 100 };
 	// 이미지 로드
@@ -205,6 +214,10 @@ void PlayerObject::draw(HDC hdc, int windowLeft) const
 	for (int i = 0; i < 3 - hp; ++i)
 		hpImages[1].MyDraw(hdc, RECT{ i * (54 + padding) + 1000, 784, i * (54 + padding) + 1000 + 54, 784 + 52 }); // 27,26
 
+	if (cheatMode) {
+		cheatImage.MyDraw(hdc, RECT{ 940, 785, 990, 835 });
+	}
+
 	drawDebug(hdc, windowLeft);
 }
 
@@ -304,20 +317,22 @@ void PlayerObject::onHpItem()
 
 void PlayerObject::onHit()
 {
-	if (not isDead) {
-		if (not isHit) {
-			if (hitTime + std::chrono::milliseconds(1500) <= std::chrono::steady_clock::now()) {
-				isHit = true;
-				hitTime = std::chrono::steady_clock::now();
-				animState = "Hit";
-				nowFrameIdxF = 0.f;
-				velocity.y = maxSpeed.y;
-				velocity.x = 0.f;
+	if (not cheatMode) {
+		if (not isDead) {
+			if (not isHit) {
+				if (hitTime + std::chrono::milliseconds(1500) <= std::chrono::steady_clock::now()) {
+					isHit = true;
+					hitTime = std::chrono::steady_clock::now();
+					animState = "Hit";
+					nowFrameIdxF = 0.f;
+					velocity.y = maxSpeed.y;
+					velocity.x = 0.f;
 
-				--hp;
-				if (hp <= 0) {
-					isDead = true;
-					deadTime = std::chrono::steady_clock::now();
+					--hp;
+					if (hp <= 0) {
+						isDead = true;
+						deadTime = std::chrono::steady_clock::now();
+					}
 				}
 			}
 		}
@@ -337,4 +352,9 @@ bool PlayerObject::getHit() const
 bool PlayerObject::getIsDead() const
 {
 	return isDead and (std::chrono::steady_clock::now() >= deadTime + std::chrono::seconds{ 1 });
+}
+
+void PlayerObject::changeCheatMode()
+{
+	cheatMode = not cheatMode;
 }
