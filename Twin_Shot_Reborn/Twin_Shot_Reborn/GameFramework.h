@@ -12,9 +12,12 @@ private:
 	HDC hDCFrameBuffer;
 	HBITMAP hBitmapFrameBuffer;
 
-	std::shared_ptr<SceneBase> pScene;
+	std::unique_ptr<SceneBase> pScene;
 
 public:
+	GameFramework();
+	~GameFramework();
+
 	void initialize(HWND hMainWnd);
 	void drawNextFrame();
 	void destroy();

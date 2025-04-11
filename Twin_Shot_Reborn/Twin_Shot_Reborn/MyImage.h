@@ -1,13 +1,18 @@
 #pragma once
 
-#include <atlimage.h>
 #include <string>
 #include <memory>
+#include <Windows.h>
+
+namespace ATL
+{
+	class CImage;
+}
 
 class MyImage
 {
 private:
-	std::unique_ptr<CImage> image;
+	std::unique_ptr<ATL::CImage> image;
 
 public:
 	MyImage();

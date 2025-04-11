@@ -11,6 +11,10 @@
 #include "Scene3.h"
 #include "Scene4.h"
 
+GameFramework::GameFramework() = default;
+
+GameFramework::~GameFramework() = default;
+
 void GameFramework::initialize(HWND hMainWnd)
 {
 	hWnd = hMainWnd;
@@ -23,7 +27,7 @@ void GameFramework::initialize(HWND hMainWnd)
 	SetBkMode(hDCFrameBuffer, TRANSPARENT);				// 백그라운드 투명
 	SetStretchBltMode(hDCFrameBuffer, HALFTONE);		// 비트맵 축소, 확대시 보간
 
-	pScene = std::make_shared<Scene0>();
+	pScene = std::make_unique<Scene0>();
 }
 
 void GameFramework::drawNextFrame()
@@ -70,19 +74,19 @@ void GameFramework::processWindowMessage(HWND hWnd, UINT message, WPARAM wParam,
 		switch (wParam)
 		{
 		case '0':
-			pScene = std::make_shared<Scene0>();
+			pScene = std::make_unique<Scene0>();
 			break;
 		case '1':
-			pScene = std::make_shared<Scene1>();
+			pScene = std::make_unique<Scene1>();
 			break;
 		case '2':
-			pScene = std::make_shared<Scene2>();
+			pScene = std::make_unique<Scene2>();
 			break;
 		case '3':
-			pScene = std::make_shared<Scene3>();
+			pScene = std::make_unique<Scene3>();
 			break;
 		case '4':
-			pScene = std::make_shared<Scene4>();
+			pScene = std::make_unique<Scene4>();
 			break;
 		}
 		break;
@@ -127,16 +131,16 @@ void GameFramework::updateFrameBuffer(float elapsedTime)
 			auto p3 = dynamic_cast<Scene3*>(pScene.get());
 			auto p4 = dynamic_cast<Scene4*>(pScene.get());
 			if (p0)
-				pScene = std::make_shared<Scene1>();
+				pScene = std::make_unique<Scene1>();
 			else if (p1)
-				pScene = std::make_shared<Scene2>();
+				pScene = std::make_unique<Scene2>();
 			else if (p2)
-				pScene = std::make_shared<Scene3>();
+				pScene = std::make_unique<Scene3>();
 			else if (p3)
-				pScene = std::make_shared<Scene4>();
+				pScene = std::make_unique<Scene4>();
 			else {	// 처음부터 시작
 				pScene->setPlayerScore(0);
-				pScene = std::make_shared<Scene0>();
+				pScene = std::make_unique<Scene0>();
 			}
 		}
 		else if (pScene->getPlayerDead()) {		// 플레이어 사망시 다시 시작
@@ -147,11 +151,11 @@ void GameFramework::updateFrameBuffer(float elapsedTime)
 			auto p2 = dynamic_cast<Scene2*>(pScene.get());
 			auto p3 = dynamic_cast<Scene3*>(pScene.get());
 			if (p1)
-				pScene = std::make_shared<Scene1>();
+				pScene = std::make_unique<Scene1>();
 			else if (p2)
-				pScene = std::make_shared<Scene2>();
+				pScene = std::make_unique<Scene2>();
 			else if (p3)
-				pScene = std::make_shared<Scene3>();
+				pScene = std::make_unique<Scene3>();
 		}
 	}
 

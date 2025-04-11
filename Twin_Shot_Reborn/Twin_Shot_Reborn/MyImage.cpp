@@ -1,5 +1,7 @@
 #include "MyImage.h"
 
+#include <atlimage.h>
+
 MyImage::MyImage()
 	: image{ std::make_unique<CImage>() }
 {
